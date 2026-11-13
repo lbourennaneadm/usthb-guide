@@ -1,0 +1,1096 @@
+ <!-- index-maj13-11-2026 -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>النظام البيئي للمؤسسات الناشئة - USTHB-TECHINNOV</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Cairo & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49',
+              primary: '#0e3a6c',
+              accent: '#2563eb',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes tickerRTL {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    @keyframes tickerLTR {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    html[dir="rtl"] .ticker-track {
+      display: inline-flex;
+      animation: tickerRTL 30s linear infinite;
+    }
+    html[dir="ltr"] .ticker-track {
+      display: inline-flex;
+      animation: tickerLTR 30s linear infinite;
+    }
+    .ticker-wrapper:hover .ticker-track {
+      animation-play-state: paused;
+      cursor: default;
+    }
+    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+    html[lang="fr"] body, html[lang="en"] body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: #f8fafc; }
+
+    .accordion-content {
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out;
+      overflow: hidden;
+    }
+    .accordion-content.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+    .accordion-content.expanded {
+      max-height: 1200px;
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- شريط الأخبار العاجلة والتحديثات (News Ticker Bar) -->
+  <div class="bg-gradient-to-r from-blue-900 via-brand-primary to-blue-950 text-white text-xs border-b border-blue-400/30 shadow-md relative z-40 overflow-hidden flex items-stretch h-9">
+    <div class="bg-red-600 hover:bg-red-700 text-white font-extrabold px-3.5 sm:px-4 flex items-center gap-1.5 shrink-0 z-10 shadow-md select-none tracking-wide text-[11px] sm:text-xs">
+      <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+      <i data-lucide="bell-ring" class="w-3.5 h-3.5"></i>
+      <span data-i18n="tickerBadge">آخر الأخبار</span>
+    </div>
+
+    <div class="ticker-wrapper flex-1 overflow-hidden relative flex items-center">
+      <div id="tickerContent" class="ticker-track flex items-center gap-12 whitespace-nowrap font-medium text-[11px] sm:text-xs text-blue-100"></div>
+    </div>
+  </div>
+
+  <div>
+    <!-- الشريط العلوي التنظيمي (Header) -->
+    <header class="bg-gradient-to-l from-brand-primary to-brand-800 text-white shadow-lg relative overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.25),transparent_50%)] pointer-events-none"></div>
+
+      <div class="max-w-6xl mx-auto px-4 py-8 sm:py-10 relative z-10">
+        <!-- هوية الحاضنة وأزرار اللغة وزر العودة للدليل -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-blue-400/20">
+          <div class="flex items-center gap-4 text-center md:text-start">
+            <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center shadow-inner shrink-0">
+              <i data-lucide="network" class="w-9 h-9 text-blue-200"></i>
+            </div>
+            <div>
+              <div class="flex items-center justify-center md:justify-start gap-2 text-blue-200 text-xs sm:text-sm font-semibold tracking-wide">
+                <span data-i18n="univName">جامعة العلوم والتكنولوجيا هواري بومدين</span>
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-blue-300"></span>
+                <span>USTHB</span>
+              </div>
+              <h1 data-i18n="headerTitle" class="text-base sm:text-lg md:text-xl font-black text-white tracking-wide leading-snug">
+                النظام البيئي للمؤسسات الناشئة (Écosystème Start-up) - USTHB-TECHINNOV
+              </h1>
+              <p data-i18n="headerSubtitle" class="text-xs sm:text-sm text-blue-100/90 mt-1">
+                دليل التعريف بهياكل المرافقة، القرار 1275/008، ومعايير الحصول على الوسم (Label)
+              </p>
+            </div>
+          </div>
+
+          <!-- أزرار اللغات، شارة الاستقبال وزر العودة -->
+          <div class="flex flex-col items-center md:items-end gap-2.5 w-full md:w-auto">
+            <!-- مبدل اللغات الثلاث -->
+            <div class="inline-flex items-center bg-white/10 p-1 rounded-xl border border-white/15 backdrop-blur-xs">
+              <button onclick="setLanguage('ar')" id="btn-ar" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors bg-white text-brand-primary cursor-pointer">العربية</button>
+              <button onclick="setLanguage('fr')" id="btn-fr" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10 cursor-pointer">FR</button>
+              <button onclick="setLanguage('en')" id="btn-en" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10 cursor-pointer">EN</button>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-2 text-start shadow-sm w-full md:w-auto">
+              <div class="flex items-center gap-2 text-blue-200 text-[11px] font-bold mb-0.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                <span data-i18n="receptionLabel">مواعيد الاستقبال الرسمية</span>
+              </div>
+              <div data-i18n="receptionHours" class="text-white font-bold text-xs">
+                الأحد إلى الأربعاء: 09:00 - 12:00
+              </div>
+            </div>
+<a href="index.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors border border-white/15 backdrop-blur-xs shadow-sm">
+  <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4 text-cyan-300"></i>
+  <span data-i18n="backHomeBtn">العودة إلى دليل حاضنة أعمال USTHB</span>
+</a>
+           
+<a href="services.html" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-colors shadow-sm w-full md:w-auto">
+  <i data-lucide="users" class="w-4 h-4"></i>
+  <span data-i18n="servicesBtn">ممثلو الكليات (9) والمصالح المرافقة</span>
+</a>
+          </div>
+        </div>
+
+        <!-- بطاقات منظومة المرافقة والابتكار الجامعية (5 بطاقات على سطر واحد) -->
+        <div id="ecosystemCardsRow" class="grid grid-cols-5 gap-2.5 sm:gap-3.5 mt-6 overflow-x-auto pb-2 scrollbar-none"></div>
+      </div>
+    </header>
+
+    <!-- المحتوى الرئيسي: أزرار التوسيع/الطي وفئات الأسئلة -->
+    <main class="max-w-5xl mx-auto px-4 py-8">
+
+      <!-- لوحة التحكم وأدوات البحث والتوسيع والطي -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 sm:p-5 mb-6">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+          
+          <!-- حقل البحث -->
+          <div class="relative w-full lg:flex-1">
+            <div id="searchIconWrap" class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="search" class="w-5 h-5"></i>
+            </div>
+            <input 
+              type="text" 
+              id="search-input" 
+              data-i18n-placeholder="searchPlaceholder"
+              placeholder="ابحث حول (1275، Label، Pitch Deck، CATI، CDE، NESDA...)"
+              class="w-full pr-11 pl-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent focus:bg-white transition-all text-slate-800 placeholder-slate-400"
+            />
+            <button id="clear-search-btn" onclick="clearSearch()" class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 hover:text-slate-600 hidden cursor-pointer">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- أزرار التحكم: توسيع الكل / طي الكل -->
+          <div class="flex items-center flex-wrap gap-2.5 w-full lg:w-auto justify-end">
+            <button onclick="expandAllGlobal()" class="px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 flex items-center gap-1.5 transition-colors shadow-2xs cursor-pointer">
+              <i data-lucide="chevrons-down" class="w-4 h-4 text-brand-600"></i>
+              <span data-i18n="expandAll">توسيع الكل</span>
+            </button>
+
+            <button onclick="collapseAllGlobal()" class="px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 flex items-center gap-1.5 transition-colors shadow-2xs cursor-pointer">
+              <i data-lucide="chevrons-up" class="w-4 h-4 text-slate-500"></i>
+              <span data-i18n="collapseAll">طي الكل</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- أزرار القفز السريع للفئات -->
+        <div class="flex items-center gap-2 overflow-x-auto pt-4 mt-4 border-t border-slate-100 scrollbar-none pb-1" id="category-quicklinks"></div>
+      </div>
+
+      <!-- حاوية الفئات التجميعية -->
+      <div id="faq-groups-container" class="space-y-6"></div>
+
+      <!-- حالة عدم وجود نتائج -->
+      <div id="empty-state" class="hidden bg-white rounded-2xl border border-dashed border-slate-300 p-10 text-center my-6">
+        <h3 data-i18n="noResultsTitle" class="font-bold text-slate-700 text-base mb-1">لم نعثر على نتائج مطابقة لبحثك</h3>
+        <button onclick="clearSearch()" data-i18n="showAllBtn" class="mt-3 px-4 py-2 bg-brand-primary text-white rounded-xl text-xs font-bold hover:bg-brand-700 transition cursor-pointer">عرض جميع الفئات</button>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- التذييل المؤسسي -->
+  <footer class="bg-slate-900 text-slate-400 text-xs mt-12 border-t border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-800 text-center sm:text-start">
+        <div>
+          <div data-i18n="footerTitle" class="text-white font-bold text-sm">حاضنة أعمال تكإنوف لجامعة العلوم والتكنولوجيا هواري بومدين</div>
+          <div data-i18n="footerAddress" class="text-slate-400 text-xs mt-0.5">باب الزوار، الجزائر العاصمة | Incubateur USTHB-TECHINNOV</div>
+        </div>
+        <a href="services.html" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-colors shadow-sm w-full md:w-auto">
+  <i data-lucide="users" class="w-4 h-4"></i>
+  <span data-i18n="servicesBtn">ممثلو الكليات (9) والمصالح المرافقة</span>
+</a>
+<a href="index.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors border border-white/15 backdrop-blur-xs shadow-sm">
+  <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4 text-cyan-300"></i>
+  <span data-i18n="backHomeBtn">العودة إلى دليل حاضنة أعمال USTHB</span>
+</a>
+      </div>
+
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-400 text-[11px]">
+        <div class="flex items-center gap-2">
+          <i data-lucide="code-2" class="w-4 h-4 text-cyan-400"></i>
+          <span>Conception & Design UI/UX : <strong class="text-white font-bold">Lynda Bourennane</strong></span>
+        </div>
+        <div data-i18n="footerRights">جميع الحقوق محفوظة © حاضنة أعمال جامعة هواري بومدين للعلوم والتكنولوجيا USTHB-TECHINNOV</div>
+      </div>
+    </div>
+  </footer>
+<script>
+    let currentLang = localStorage.getItem("usthb_lang") || "ar";
+    let searchQuery = "";
+    let openQuestionIds = new Set([101, 1]);
+    let collapsedCategoryIds = new Set();
+
+    // 1. قاموس الواجهة وشريط الأخبار باللغات الثلاث
+    const uiTranslations = {
+      ar: {
+        pageTitle: "النظام البيئي للمؤسسات الناشئة ودليل 1275 - USTHB-TECHINNOV",
+        tickerBadge: "آخر الأخبار",
+        tickerItems: [
+          "<strong>إعلان هام:</strong> التسجيل في مشاريع القرار الوزاري 1275 / 008 يبدأ عن قريب، يرجى تحضير أفكار المشاريع وفرق العمل.",
+          "انطلاق ورشات التكوين في نموذج العمل التجاري (BMC) على مستوى حاضنة أعمال USTHB.",
+          "مواعيد الاستقبال المكتبي للطلبة: من الأحد إلى الأربعاء (من 09:00 إلى 12:00).",
+          "جلسات إرشادية حول حماية الملكية الفكرية وبراءات الاختراع بالتنسيق مع مركز CATI."
+        ],
+        univName: "جامعة العلوم والتكنولوجيا هواري بومدين",
+        headerTitle: "النظام البيئي للمؤسسات الناشئة (Écosystème Start-up) - USTHB-TECHINNOV",
+        headerSubtitle: "دليل التعريف بهياكل المرافقة، القرار 1275/008، ومعايير الحصول على الوسم (Label)",
+        receptionLabel: "مواعيد الاستقبال الرسمية",
+        receptionHours: "الأحد إلى الأربعاء: 09:00 - 12:00",
+        backBtn: "العودة إلى الدليل الرئيسي",
+        servicesBtn: "ممثلو الكليات (9) والمصالح المرافقة",
+        searchPlaceholder: "ابحث حول (1275، Label، Pitch Deck، CATI، CDE، NESDA...)",
+        expandAll: "توسيع الكل",
+        collapseAll: "طي الكل",
+        expandCat: "توسيع الفئة",
+        collapseCat: "طي الفئة",
+        noResultsTitle: "لم نعثر على نتائج مطابقة لبحثك",
+        showAllBtn: "عرض جميع الفئات",
+        footerTitle: "حاضنة أعمال تكإنوف لجامعة العلوم والتكنولوجيا هواري بومدين",
+        footerAddress: "باب الزوار، الجزائر العاصمة | Incubateur USTHB-TECHINNOV",
+        footerRights: "جميع الحقوق محفوظة © حاضنة أعمال جامعة هواري بومدين للعلوم والتكنولوجيا USTHB-TECHINNOV"
+      },
+      fr: {
+        pageTitle: "Écosystème Start-up & Guide Arrêté 1275 - USTHB-TECHINNOV",
+        tickerBadge: "Actualités",
+        tickerItems: [
+          "<strong>Annonce importante :</strong> Les inscriptions aux projets de l'Arrêté 1275 / 008 débuteront prochainement, préparez vos idées et équipes.",
+          "Lancement des ateliers de formation sur le Business Model Canvas (BMC) à l'incubateur USTHB.",
+          "Horaires de réception des étudiants : du Dimanche au Mercredi (09h00 à 12h00).",
+          "Séances d'orientation sur la propriété intellectuelle et les brevets avec le centre CATI."
+        ],
+        univName: "Université des Sciences et de la Technologie Houari Boumediene",
+        headerTitle: "Écosystème Start-up & Guide Arrêté 1275 - USTHB-TECHINNOV",
+        headerSubtitle: "Structures d'accompagnement, Arrêté 1275/008, critères de Labellisation et Pitch Deck",
+        receptionLabel: "Horaires de réception officiels",
+        receptionHours: "Dimanche au Mercredi : 09h00 - 12h00",
+        backBtn: "Retour au guide principal",
+        servicesBtn: "Représentants des 9 Facultés & Services",
+        searchPlaceholder: "Rechercher (1275, Label, Pitch Deck, CATI, CDE, NESDA...)",
+        expandAll: "Tout développer",
+        collapseAll: "Tout réduire",
+        expandCat: "Développer",
+        collapseCat: "Réduire",
+        noResultsTitle: "Aucun résultat trouvé pour votre recherche",
+        showAllBtn: "Afficher toutes les catégories",
+        footerTitle: "Incubateur TechInnov de l'USTHB",
+        footerAddress: "Bab Ezzouar, Alger | Incubateur USTHB-TECHINNOV",
+        footerRights: "Tous droits réservés © Incubateur USTHB-TECHINNOV"
+      },
+      en: {
+        pageTitle: "Startup Ecosystem & Decree 1275 Guide - USTHB-TECHINNOV",
+        tickerBadge: "Latest News",
+        tickerItems: [
+          "<strong>Important Notice:</strong> Registration for Ministerial Decree 1275 / 008 projects starts soon; prepare your project ideas and teams.",
+          "Launch of Business Model Canvas (BMC) training workshops at USTHB Business Incubator.",
+          "Student reception hours: Sunday to Wednesday (09:00 AM to 12:00 PM).",
+          "Guidance sessions on intellectual property and patent filing in coordination with CATI."
+        ],
+        univName: "University of Sciences and Technology Houari Boumediene",
+        headerTitle: "Startup Ecosystem & Decree 1275 Guide - USTHB-TECHINNOV",
+        headerSubtitle: "Support structures, Decree 1275/008, Label criteria, and Pitch Deck structure",
+        receptionLabel: "Official Reception Hours",
+        receptionHours: "Sunday to Wednesday: 09:00 AM - 12:00 PM",
+        backBtn: "Back to Main Guide",
+        servicesBtn: "9 Faculties Representatives & Services",
+        searchPlaceholder: "Search (1275, Label, Pitch Deck, CATI, CDE, NESDA...)",
+        expandAll: "Expand All",
+        collapseAll: "Collapse All",
+        expandCat: "Expand",
+        collapseCat: "Collapse",
+        noResultsTitle: "No matching results found",
+        showAllBtn: "Show all categories",
+        footerTitle: "USTHB TechInnov Business Incubator",
+        footerAddress: "Bab Ezzouar, Algiers | Incubateur USTHB-TECHINNOV",
+        footerRights: "All rights reserved © USTHB-TECHINNOV Business Incubator"
+      }
+    };
+
+    // 2. بيانات البطاقات الخمس في الهيدر باللغات الثلاث
+    const ecosystemCardsData = [
+      {
+        url: "https://www.facebook.com/profile.php?id=61566893240679&locale=fr_FR",
+        img: "images/logo-incubateur.png",
+        icon: "rocket",
+        iconColor: "text-brand-primary",
+        ringColor: "group-hover:ring-blue-300",
+        borderColor: "hover:border-blue-400/50",
+        titleColor: "text-white",
+        title: { ar: "الحاضنة", fr: "Incubateur", en: "Incubator" },
+        sub: { ar: "USTHB-TECHINNOV", fr: "USTHB-TECHINNOV", en: "USTHB-TECHINNOV" },
+        tag: { ar: "مرافقة المشاريع", fr: "Accompagnement", en: "Project Incubation" }
+      },
+      {
+        url: "https://www.facebook.com/رابط_صفحة_cati_هنا",
+        img: "images/logo-cati.png",
+        icon: "shield-check",
+        iconColor: "text-cyan-700",
+        ringColor: "group-hover:ring-cyan-300",
+        borderColor: "hover:border-blue-400/50",
+        titleColor: "text-cyan-200",
+        title: { ar: "CATI-USTHB", fr: "CATI-USTHB", en: "CATI-USTHB" },
+        sub: { ar: "مركز الدعم التكنولوجي والابتكار", fr: "Centre d'Appui à la Technologie", en: "Tech & Innovation Support" },
+        tag: { ar: "الملكية الفكرية", fr: "Propriété Intellectuelle", en: "Intellectual Property" }
+      },
+      {
+        url: "https://www.facebook.com/cde.usthb?locale=fr_FR",
+        img: "images/logo-cde.png",
+        icon: "briefcase",
+        iconColor: "text-amber-600",
+        ringColor: "group-hover:ring-amber-300",
+        borderColor: "hover:border-amber-400/50",
+        titleColor: "text-amber-300",
+        title: { ar: "CDE-USTHB", fr: "CDE-USTHB", en: "CDE-USTHB" },
+        sub: { ar: "مركز تطوير المقاولاتية", fr: "Centre de Développement Entrepreneuriat", en: "Entrepreneurship Center" },
+        tag: { ar: "التكوين الريادي", fr: "Formation Entrepreneuriale", en: "Startup Training" }
+      },
+      {
+        url: "https://www.facebook.com/StartupsHall/directory_links?locale=fr_FR",
+        img: "images/logo-guichet.png",
+        icon: "door-open",
+        iconColor: "text-emerald-700",
+        ringColor: "group-hover:ring-emerald-300",
+        borderColor: "hover:border-emerald-400/50",
+        titleColor: "text-emerald-300",
+        title: { ar: "الشباك الموحد", fr: "Guichet Unique", en: "One-Stop Shop" },
+        sub: { ar: "Guichet Unique-USTHB", fr: "Guichet Unique-USTHB", en: "Guichet Unique-USTHB" },
+        tag: { ar: "تسهيل الإجراءات", fr: "Facilitation Administrative", en: "Admin Facilitation" }
+      },
+      {
+        url: "https://www.facebook.com/profile.php?id=61586479551137&locale=fr_FR",
+        img: "images/logo-nesda.png",
+        icon: "landmark",
+        iconColor: "text-purple-700",
+        ringColor: "group-hover:ring-purple-300",
+        borderColor: "hover:border-purple-400/50",
+        titleColor: "text-purple-200",
+        title: { ar: "NESDA", fr: "NESDA", en: "NESDA" },
+        sub: { ar: "الوكالة الوطنية لدعم وتنمية المقاولاتية", fr: "Agence Nationale d'Appui (ex-ANADE)", en: "Entrepreneurship Agency" },
+        tag: { ar: "التمويل والمرافقة", fr: "Financement & Appui", en: "Funding & Support" }
+      }
+    ];
+
+    // 3. مصفوفة الفئات والأسئلة باللغات الثلاث (شاملة القرار 1275/008، الوسم Label، startup.dz، Pitch Deck، والبطاقات الخمس)
+    const ecosystemCategories = [
+      {
+        id: "decree-1275-008",
+        icon: "file-text",
+        headerColor: "from-amber-900/90 to-amber-800/80",
+        shortLabel: { ar: "قرار 1275 / 008 والوسم", fr: "Arrêté 1275/008 & Label", en: "Decree 1275/008 & Label" },
+        title: {
+          ar: "الدليل الشامل: القرار الوزاري 1275 / 008، معايير الوسم (Label) وملف Pitch Deck",
+          fr: "Guide Complet : Arrêté 1275 / 008, Critères du Label & Structure Pitch Deck",
+          en: "Comprehensive Guide: Decree 1275 / 008, Label Criteria & Pitch Deck Structure"
+        },
+        subtitle: {
+          ar: "الإطار القانوني، معايير اللجنة الوطنية، البوابة الرسمية startup.dz، وهيكلة العرض التقديمي",
+          fr: "Cadre juridique, critères du comité national, portail startup.dz et structure du Pitch Deck",
+          en: "Legal framework, national committee criteria, startup.dz portal, and Pitch Deck outline"
+        },
+        questions: [
+          {
+            id: 1,
+            question: {
+              ar: "ما هو القرار الوزاري 1275 المعدّل والمتمّم بالقرار 008 لسنة 2025؟",
+              fr: "Qu'est-ce que l'arrêté ministériel 1275 modifié et complété par l'arrêté 008/2025 ?",
+              en: "What is Ministerial Decree 1275 as amended and supplemented by Decree 008/2025?"
+            },
+            answer: {
+              ar: "هو آلية تنظيمية أطلقتها وزارة التعليم العالي والبحث العلمي لتمكين طلبة التعليم العالي (ليسانس، ماستر، مهندس، دكتوراه) من إعداد مذكرة تخرج مبتكرة تتوج بالحصول على <strong>شهادة جامعية - مؤسسة ناشئة</strong>، <strong>شهادة جامعية - مؤسسة مصغرة</strong>، أو <strong>شهادة جامعية - براءة اختراع</strong>، بدلاً من المذكرة الأكاديمية التقليدية.",
+              fr: "C'est un dispositif réglementaire lancé par le MESRS permettant aux étudiants (Licence, Master, Ingénieur, Doctorat) de préparer un mémoire de fin d'études innovant sanctionné par un <strong>Diplôme - Startup</strong>, un <strong>Diplôme - Micro-entreprise</strong> ou un <strong>Diplôme - Brevet d'invention</strong>.",
+              en: "It is a regulatory mechanism launched by the Ministry of Higher Education enabling university students (Bachelor's, Master's, Engineering, PhD) to prepare an innovative graduation thesis leading to a <strong>Degree - Startup</strong>, <strong>Degree - Micro-enterprise</strong>, or <strong>Degree - Patent</strong>."
+            }
+          },
+          {
+            id: 2,
+            question: {
+              ar: "ما الجديد الذي جاء به التعديل رقم 008 المؤرخ في 23 فيفري 2025؟",
+              fr: "Quelles sont les nouveautés apportées par l'amendement n° 008 du 23 février 2025 ?",
+              en: "What is new in Amendment No. 008 dated February 23, 2025?"
+            },
+            answer: {
+              ar: "جاء القرار 008 لتبسيط إجراءات التطبيق، وتحديد مسارات المرافقة بوضوح بين <strong>حاضنة الأعمال الجامعية (USTHB-TECHINNOV)</strong> للمشاريع الابتكارية والمؤسسات الناشئة، و<strong>مركز تطوير المقاولاتية (CDE)</strong> للمؤسسات المصغرة، مع تسهيل تشكيل فرق العمل متعددة التخصصات وتحيين معايير التقييم والمناقشة.",
+              fr: "L'arrêté 008 simplifie les procédures d'application et clarifie les parcours d'accompagnement entre l'<strong>Incubateur Universitaire</strong> (projets innovants et startups) et le <strong>Centre de Développement de l'Entrepreneuriat (CDE)</strong> (micro-entreprises), tout en facilitant les équipes pluridisciplinaires.",
+              en: "Decree 008 simplifies implementation procedures and clarifies mentoring tracks between the <strong>University Incubator</strong> (innovative projects and startups) and the <strong>Entrepreneurship Development Center (CDE)</strong> (micro-enterprises), while facilitating multidisciplinary teams."
+            }
+          },
+          {
+            id: 3,
+            question: {
+              ar: "ما هي المسارات الثلاثة المتاحة للطالب في إطار هذا القرار؟",
+              fr: "Quels sont les trois parcours disponibles pour l'étudiant dans ce cadre ?",
+              en: "What are the three graduation tracks available to students under this decree?"
+            },
+            answer: {
+              ar: `• <strong>شهادة جامعية – مؤسسة ناشئة (Startup):</strong> للمشاريع الابتكارية والتكنولوجية ذات القابلية العالية للنمو والتوسع.<br>
+                   • <strong>شهادة جامعية – مؤسسة مصغرة (Micro-entreprise):</strong> للمشاريع المقاولاتية الكلاسيكية، الخدماتية، أو الحرفية.<br>
+                   • <strong>شهادة جامعية – براءة اختراع (Brevet d'invention):</strong> للأعمال البحثية والتقنية التي تفضي إلى اختراع قابل للحماية لدى معهد INAPI.`,
+              fr: `• <strong>Diplôme – Startup :</strong> Pour les projets innovants et technologiques à fort potentiel de croissance.<br>
+                   • <strong>Diplôme – Micro-entreprise :</strong> Pour les projets entrepreneuriaux classiques, de services ou artisanaux.<br>
+                   • <strong>Diplôme – Brevet d'invention :</strong> Pour les travaux de recherche aboutissant à une invention brevetable auprès de l'INAPI.`,
+              en: `• <strong>Degree – Startup:</strong> For innovative, tech-driven projects with high growth and scalability potential.<br>
+                   • <strong>Degree – Micro-enterprise:</strong> For classic, service-based, or craft entrepreneurial projects.<br>
+                   • <strong>Degree – Patent:</strong> For research work resulting in a patentable invention registered with INAPI.`
+            }
+          },
+          {
+            id: 4,
+            question: {
+              ar: "كم يبلغ عدد أعضاء الفريق؟ وهل يمكن الجمع بين تخصصات وكليات مختلفة؟",
+              fr: "Quelle est la taille de l'équipe et peut-on réunir différentes spécialités et facultés ?",
+              en: "How many members can form a team, and can students from different faculties join together?"
+            },
+            answer: {
+              ar: "يتكون الفريق من <strong>طالب واحد إلى 6 طلبة</strong> كحد أقصى في المشروع الواحد. ويُشجَّع بشدة تشكيل فرق متعددة التخصصات من كليات مختلفة بجامعة USTHB (مثلاً: تقني، معلوماتي، وتسيير) لتحقيق التكامل في بناء المشروع.",
+              fr: "L'équipe est composée de <strong>1 à 6 étudiants</strong> maximum par projet. La constitution d'équipes pluridisciplinaires issues de différentes facultés de l'USTHB est vivement encouragée pour assurer la complémentarité des compétences.",
+              en: "A team consists of <strong>1 to 6 students</strong> maximum per project. Forming multidisciplinary teams across different USTHB faculties is strongly encouraged to combine technical, IT, and management skills."
+            }
+          },
+          {
+            id: 5,
+            question: {
+              ar: "كيف يتم الإشراف على المشروع ومناقشته في نهاية السنة الجامعية؟",
+              fr: "Comment se déroulent l'encadrement et la soutenance du projet en fin d'année ?",
+              en: "How are project supervision and thesis defense conducted at the end of the year?"
+            },
+            answer: {
+              ar: "يستفيد الفريق من تأطير مزدوج يجمع بين <strong>مشرف أكاديمي (أستاذ جامعي)</strong> لمتابعة الجانب العلمي، و<strong>مرافق من الحاضنة أو مركز CDE</strong> لمتابعة الجانب المقاولاتي. وتُناقش المذكرة أمام لجنة تضم أساتذة وممثلين عن الحاضنة والقطاع الاقتصادي بناءً على التقرير، العرض التقديمي (Pitch)، النموذج الأولي، ونموذج العمل (BMC).",
+              fr: "L'équipe bénéficie d'un double encadrement : un <strong>encadrant académique</strong> pour le volet scientifique et un <strong>accompagnateur de l'incubateur ou du CDE</strong> pour le volet entrepreneurial. La soutenance s'évalue sur le mémoire, le Pitch, le prototype et le BMC.",
+              en: "The team receives dual supervision: an <strong>academic supervisor</strong> for the scientific aspect and an <strong>incubator or CDE mentor</strong> for the business aspect. The defense is evaluated based on the thesis report, Pitch, prototype, and BMC."
+            }
+          },
+          {
+            id: 6,
+            question: {
+              ar: "ما الفرق بين وسم «مشروع مبتكر» (Label Projet Innovant) ووسم «مؤسسة ناشئة» (Label Startup)؟",
+              fr: "Quelle est la différence entre le Label « Projet Innovant » et le Label « Startup » ?",
+              en: "What is the difference between the 'Innovative Project' Label and the 'Startup' Label?"
+            },
+            answer: {
+              ar: `• <strong>وسم «مشروع مبتكر» (Label Projet Innovant):</strong> يُمنح للطلبة أو حاملي المشاريع (أشخاص طبيعيين) <strong>قبل تأسيس الشركة قانونياً</strong>، لإثبات الطابع الابتكاري للفكرة ونموذجها الأولي وتسهيل الحصول على التمويل التأسيسي.<br><br>
+                   • <strong>وسم «مؤسسة ناشئة» (Label Startup):</strong> يُمنح للمؤسسات <strong>المنشأة قانونياً</strong> (تحوز على سجل تجاري) والتي لا يتعدى عمرها 8 سنوات، وتتميز بطابعها الابتكاري وقابليتها للنمو السريع.`,
+              fr: `• <strong>Label « Projet Innovant » :</strong> Accordé aux étudiants ou porteurs de projets (personnes physiques) <strong>avant la création juridique de l'entreprise</strong>, afin de valider l'innovation et faciliter le financement d'amorçage.<br><br>
+                   • <strong>Label « Startup » :</strong> Accordé aux sociétés <strong>déjà constituées juridiquement</strong> (registre de commerce) de moins de 8 ans, présentant un fort potentiel d'innovation et de scalabilité.`,
+              en: `• <strong>'Innovative Project' Label:</strong> Granted to students or project holders (individuals) <strong>prior to legal company incorporation</strong>, validating the innovation and facilitating seed funding.<br><br>
+                   • <strong>'Startup' Label:</strong> Granted to <strong>legally incorporated companies</strong> under 8 years old with strong innovation and high scalability potential.`
+            }
+          },
+          {
+            id: 7,
+            question: {
+              ar: "ما هي المعايير التفصيلية التي تعتمدها اللجنة الوطنية لمنح علامة (Label)؟",
+              fr: "Quels sont les critères détaillés évalués par le comité national pour octroyer le Label ?",
+              en: "What are the detailed criteria evaluated by the national committee to grant the Label?"
+            },
+            answer: {
+              ar: `تعتمد اللجنة الوطنية على 5 معايير رئيسية في التقييم:<br><br>
+                   1. <strong>درجة الابتكار:</strong> تقديم حل تقني أو منتج أو خدمة جديدة أو محسّنة بشكل ملموس (أو وجود براءة اختراع).<br>
+                   2. <strong>قابلية التوسع (Scalability):</strong> قدرة المشروع على النمو السريع وتغطية أسواق واسعة بتكاليف تشغيلية متحكم فيها.<br>
+                   3. <strong>نضج النموذج الأولي (Prototype / MVP):</strong> وجود نموذج أولي وظيفي قابل للاختبار وليس مجرد تصور نظري.<br>
+                   4. <strong>جدوى نموذج العمل (Business Model):</strong> وضوح السوق المستهدفة، القيمة المقترحة، ومصادر الإيرادات.<br>
+                   5. <strong>كفاءة الفريق:</strong> تكامل المؤهلات العلمية والتقنية والتسييرية لأعضاء الفريق المؤسس.`,
+              fr: `Le comité national évalue les dossiers selon 5 critères essentiels :<br><br>
+                   1. <strong>Degré d'innovation :</strong> Offrir un produit, service ou procédé nouveau ou technologiquement amélioré (ou breveté).<br>
+                   2. <strong>Potentiel de croissance (Scalabilité) :</strong> Capacité d'expansion rapide sur le marché.<br>
+                   3. <strong>Maturité du prototype (MVP) :</strong> Présentation d'un prototype fonctionnel ou d'une preuve de concept.<br>
+                   4. <strong>Viabilité du Business Model :</strong> Clarté du marché cible, de la proposition de valeur et des revenus.<br>
+                   5. <strong>Compétence de l'équipe :</strong> Complémentarité des profils techniques et managériaux des fondateurs.`,
+              en: `The national committee evaluates applications based on 5 key criteria:<br><br>
+                   1. <strong>Degree of Innovation:</strong> Offering a new or significantly improved product, service, or process (or registered patent).<br>
+                   2. <strong>Scalability:</strong> Strong potential for rapid growth and wide market reach.<br>
+                   3. <strong>Prototype Maturity (MVP):</strong> Having a functional prototype or validated Proof of Concept rather than just an idea.<br>
+                   4. <strong>Business Model Viability:</strong> Clear target market, value proposition, and revenue streams.<br>
+                   5. <strong>Team Competence:</strong> Complementary technical, scientific, and business skills among founders.`
+            }
+          },
+          {
+            id: 8,
+            question: {
+              ar: "كيف أُودع ملف طلب العلامة (Label) عبر البوابة الوطنية الرسمية، وما هي الامتيازات الممنوحة؟",
+              fr: "Comment déposer une demande de Label sur le portail national officiel et quels en sont les avantages ?",
+              en: "How do I apply for the Label on the official national portal, and what are its benefits?"
+            },
+            answer: {
+              ar: `يتم إيداع الملف رقمياً بالكامل عبر البوابة الوطنية للمؤسسات الناشئة <strong>(startup.dz)</strong> بعد مراجعته لدى حاضنة USTHB.<br><br>
+                   <strong>أبرز الامتيازات الممنوحة:</strong><br>
+                   • الأولوية في الحصول على التمويل العمومي (مثل الصندوق الجزائري لتمويل المؤسسات الناشئة ASF).<br>
+                   • الإعفاءات الضريبية وشبه الجبائية (TAP و IBS/IRG لمدة تصل إلى 4 سنوات).<br>
+                   • التوطين والمرافقة المجانية أو بتكلفة رمزية داخل الحاضنات والمسرّعات.<br><br>
+                   <a href="https://startup.dz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                     <span>زيارة البوابة الوطنية الرسمية (startup.dz)</span>
+                     <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                   </a>`,
+              fr: `Le dépôt s'effectue entièrement en ligne sur le portail national officiel <strong>(startup.dz)</strong> après validation par l'incubateur USTHB.<br><br>
+                   <strong>Principaux avantages :</strong><br>
+                   • Accès prioritaire aux financements publics (Algerian Startup Fund - ASF).<br>
+                   • Exonérations fiscales et parafiscales (TAP, IBS/IRG jusqu'à 4 ans).<br>
+                   • Hébergement et accélération au sein des incubateurs.<br><br>
+                   <a href="https://startup.dz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                     <span>Accéder au portail national (startup.dz)</span>
+                     <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                   </a>`,
+              en: `Applications are submitted online via the official national startup portal <strong>(startup.dz)</strong> after review by USTHB Incubator.<br><br>
+                   <strong>Key Benefits:</strong><br>
+                   • Priority access to public funding (Algerian Startup Fund - ASF).<br>
+                   • Tax and parafiscal exemptions (up to 4 years).<br>
+                   • Hosting and acceleration support within certified incubators.<br><br>
+                   <a href="https://startup.dz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                     <span>Visit Official National Portal (startup.dz)</span>
+                     <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                   </a>`
+            }
+          },
+          {
+            id: 9,
+            question: {
+              ar: "ما هي الهيكلة النموذجية المعتمدة لإعداد ملف العرض التقديمي (Pitch Deck)؟",
+              fr: "Quelle est la structure type recommandée pour préparer un Pitch Deck ?",
+              en: "What is the recommended standard structure for preparing a Pitch Deck?"
+            },
+            answer: {
+              ar: `لإقناع لجنة التقييم أو لجنة منح العلامة (Label)، يُنصح بهيكلة العرض التقديمي في <strong>10 إلى 12 شريحة</strong> واضحة ومختصرة:<br><br>
+                   1. <strong>عنوان المشروع والشعار (Titre & Tagline):</strong> اسم المشروع ووصفه في جملة واحدة.<br>
+                   2. <strong>المشكلة (Problème):</strong> تحديد المشكلة الحقيقية التي يعاني منها الزبائن مدعومة بأرقام.<br>
+                   3. <strong>الحل المقترح والقيمة المضافة (Solution & Valeur):</strong> كيف يحل منتجك أو خدمتك هذه المشكلة بفعالية.<br>
+                   4. <strong>النموذج الأولي (Prototype / MVP):</strong> صور حقيقية أو لقطات شاشة توضح عمل المنتج.<br>
+                   5. <strong>حجم السوق (Taille du marché - TAM/SAM/SOM):</strong> الفئات المستهدفة وحجم الطلب.<br>
+                   6. <strong>نموذج العمل التجاري (Business Model):</strong> كيف سيحقق المشروع الأرباح (اشتراكات، بيع مباشر، عمولات...).<br>
+                   7. <strong>الميزة التنافسية (Concurrence & Avantage):</strong> مقارنة مع المنافسين وإبراز التفوق التقني.<br>
+                   8. <strong>استراتيجية التسويق والنمو (Go-to-Market):</strong> خطة الوصول للزبائن الأوائل.<br>
+                   9. <strong>التوقعات المالية (Prévisions financières):</strong> تقدير التكاليف والإيرادات لـ 3 سنوات.<br>
+                   10. <strong>فريق العمل والاحتياجات (Équipe & Besoins):</strong> كفاءات المؤسسين والتمويل أو المرافقة المطلوبة.`,
+              fr: `Pour convaincre le jury ou le comité de labellisation, structurez votre Pitch Deck en <strong>10 à 12 diapositives</strong> percutantes :<br><br>
+                   1. <strong>Titre & Accroche :</strong> Nom du projet et proposition de valeur en une phrase.<br>
+                   2. <strong>Problème :</strong> Le besoin réel du marché appuyé par des chiffres.<br>
+                   3. <strong>Solution & Valeur ajoutée :</strong> Comment votre innovation résout le problème.<br>
+                   4. <strong>Prototype / MVP :</strong> Visuels ou démonstration du produit fonctionnel.<br>
+                   5. <strong>Marché cible (TAM/SAM/SOM) :</strong> Segmentation et potentiel de croissance.<br>
+                   6. <strong>Modèle économique (Business Model) :</strong> Sources de revenus et tarification.<br>
+                   7. <strong>Avantage concurrentiel :</strong> Positionnement face aux concurrents.<br>
+                   8. <strong>Stratégie commerciale :</strong> Plan d'acquisition des premiers clients.<br>
+                   9. <strong>Prévisions financières :</strong> Projections sur 3 ans.<br>
+                   10. <strong>Équipe & Besoins :</strong> Compétences des fondateurs et ressources recherchées.`,
+              en: `To convince the evaluation jury or Label committee, structure your Pitch Deck into <strong>10 to 12 concise slides</strong>:<br><br>
+                   1. <strong>Title & Tagline:</strong> Project name and one-sentence value proposition.<br>
+                   2. <strong>Problem:</strong> The real market pain point backed by data.<br>
+                   3. <strong>Solution & Value Proposition:</strong> How your innovation effectively solves the problem.<br>
+                   4. <strong>Prototype / MVP:</strong> Real photos or screenshots of your working prototype.<br>
+                   5. <strong>Market Size (TAM/SAM/SOM):</strong> Target segments and growth potential.<br>
+                   6. <strong>Business Model:</strong> How the project generates revenue.<br>
+                   7. <strong>Competitive Advantage:</strong> Comparison with competitors and unique tech edge.<br>
+                   8. <strong>Go-to-Market Strategy:</strong> Plan to acquire early adopters.<br>
+                   9. <strong>Financial Projections:</strong> 3-year revenue and cost estimates.<br>
+                   10. <strong>Team & Ask:</strong> Founders' expertise and funding/mentoring needs.`
+            }
+          },
+          {
+            id: 10,
+            question: {
+              ar: "ما هي النصائح لتفادي رفض ملف طلب العلامة (Label)؟",
+              fr: "Quels conseils suivre pour éviter le rejet de la demande de Label ?",
+              en: "What tips help avoid rejection of a Label application?"
+            },
+            answer: {
+              ar: `• <strong>إبراز القيمة الابتكارية بوضوح:</strong> تجنب المشاريع التجارية الكلاسيكية ما لم تتضمن تقنية جديدة أو ميزة تنافسية فريدة.<br>
+                   • <strong>إرفاق فيديو توضيحي للنموذج الأولي:</strong> تصوير فيديو قصير (1-2 دقيقة) يبرهن على عمل النموذج الأولي فعلياً.<br>
+                   • <strong>مراجعة العرض التقديمي لدى الحاضنة:</strong> الاستفادة من خدمة تصحيح <strong>BMC & Pitch</strong> في حاضنة USTHB قبل الإيداع الرسمي على البوابة الوطنية.`,
+              fr: `• <strong>Mettre en avant l'innovation :</strong> Éviter les projets purement commerciaux classiques sans valeur ajoutée technologique.<br>
+                   • <strong>Joindre une vidéo démonstrative :</strong> Fournir une courte vidéo (1 à 2 min) montrant le prototype fonctionnel.<br>
+                   • <strong>Faire relire le dossier à l'incubateur :</strong> Profiter du service de correction <strong>BMC & Pitch</strong> à l'incubateur USTHB avant le dépôt officiel.`,
+              en: `• <strong>Highlight Core Innovation:</strong> Avoid purely traditional commercial models without clear technological differentiation.<br>
+                   • <strong>Include a Demo Video:</strong> Attach a short video (1–2 mins) showing the working prototype in action.<br>
+                   • <strong>Review with the Incubator:</strong> Use the <strong>BMC & Pitch</strong> review service at USTHB Incubator before official submission.`
+            }
+          }
+        ]
+      },
+      {
+        id: "cat-incubateur",
+        icon: "rocket",
+        headerColor: "from-blue-900/90 to-blue-800/80",
+        shortLabel: { ar: "الحاضنة TECHINNOV", fr: "Incubateur TECHINNOV", en: "TECHINNOV Incubator" },
+        title: {
+          ar: "حاضنة الأعمال الجامعية (USTHB-TECHINNOV)",
+          fr: "Incubateur Universitaire (USTHB-TECHINNOV)",
+          en: "University Business Incubator (USTHB-TECHINNOV)"
+        },
+        subtitle: {
+          ar: "مرافقة المشاريع المبتكرة والمؤسسات الناشئة في إطار القرار 1275 / 008",
+          fr: "Accompagnement des projets innovants et startups sous l'Arrêté 1275 / 008",
+          en: "Mentoring innovative projects and startups under Decree 1275 / 008"
+        },
+        questions: [
+          {
+            id: 1,
+            question: {
+              ar: "ما هو دور حاضنة أعمال USTHB-TECHINNOV في النظام البيئي للجامعة؟",
+              fr: "Quel est le rôle de l'incubateur USTHB-TECHINNOV dans l'écosystème universitaire ?",
+              en: "What is the role of USTHB-TECHINNOV Incubator in the university ecosystem?"
+            },
+            answer: {
+              ar: "تُعد حاضنة الأعمال القلب النابض للابتكار داخل الجامعة، حيث تتكفل باستقبال الطلبة حاملي الأفكار الابتكارية ومرافقتهم تقنياً وتدريبياً من مرحلة الفكرة وحتى إعداد نموذج العمل التجاري (BMC) والـ Pitch Deck للحصول على علامة مشروع مبتكر أو مؤسسة ناشئة.",
+              fr: "L'incubateur est le cœur de l'innovation au sein de l'université. Il accueille les étudiants porteurs d'idées innovantes et les accompagne techniquement et pédagogiquement jusqu'à l'élaboration du BMC et du Pitch Deck pour obtenir le Label.",
+              en: "The incubator is the core hub of innovation at USTHB, welcoming students with innovative ideas and providing technical and business mentoring through BMC and Pitch Deck preparation to obtain the national Label."
+            }
+          },
+          {
+            id: 2,
+            question: {
+              ar: "ما الفرق بين التوجيه نحو الحاضنة والتوجيه نحو مركز تطوير المقاولاتية (CDE)؟",
+              fr: "Quelle différence entre l'orientation vers l'Incubateur et vers le CDE ?",
+              en: "What is the difference between being directed to the Incubator vs. CDE?"
+            },
+            answer: {
+              ar: "تُعنى <strong>الحاضنة (USTHB-TECHINNOV)</strong> بالمشاريع ذات الطابع الابتكاري والتكنولوجي القابلة للتوسع السريع (Start-ups)، بينما يتكفل <strong>مركز تطوير المقاولاتية (CDE)</strong> بالمشاريع الكلاسيكية والحرفية والخدماتية الموجهة لإنشاء مؤسسات مصغرة.",
+              fr: "L'<strong>Incubateur (USTHB-TECHINNOV)</strong> prend en charge les projets innovants et technologiques à forte croissance (Startups), tandis que le <strong>CDE</strong> accompagne les projets classiques, artisanaux ou de services (Micro-entreprises).",
+              en: "The <strong>Incubator (USTHB-TECHINNOV)</strong> handles innovative, tech-driven, scalable projects (Startups), whereas the <strong>CDE</strong> supports classic, craft, and service projects (Micro-enterprises)."
+            }
+          }
+        ]
+      },
+      {
+        id: "cat-cati",
+        icon: "shield-check",
+        headerColor: "from-cyan-900/90 to-cyan-800/80",
+        shortLabel: { ar: "مركز CATI", fr: "Centre CATI", en: "CATI Center" },
+        title: {
+          ar: "مركز الدعم التكنولوجي والابتكار (CATI-USTHB)",
+          fr: "Centre d'Appui à la Technologie et à l'Innovation (CATI-USTHB)",
+          en: "Technology and Innovation Support Center (CATI-USTHB)"
+        },
+        subtitle: {
+          ar: "حماية الملكية الفكرية وبراءات الاختراع والبحث في قواعد البيانات التقنية",
+          fr: "Protection de la propriété intellectuelle, brevets et recherche documentaire",
+          en: "Intellectual property protection, patent filing, and technical database search"
+        },
+        questions: [
+          {
+            id: 3,
+            question: {
+              ar: "ما هي مهام مركز الدعم التكنولوجي والابتكار (CATI)؟",
+              fr: "Quelles sont les missions du centre CATI ?",
+              en: "What are the missions of the CATI center?"
+            },
+            answer: {
+              ar: "يعمل مركز CATI بالتنسيق المباشر مع المعهد الوطني الجزائري للملكية الصناعية (INAPI) لمساعدة الطلبة والباحثين على حماية إبداعاتهم الفكرية، وفحص جِدّة الاختراعات، وصياغة وإيداع ملفات براءات الاختراع والعلامات التجارية والرسوم الصناعية.",
+              fr: "Le centre CATI collabore avec l'INAPI pour aider les étudiants et chercheurs à protéger leurs créations, vérifier la nouveauté des inventions, et rédiger/déposer les demandes de brevets d'invention et marques.",
+              en: "CATI works in direct coordination with INAPI to help students and researchers protect their intellectual creations, check invention novelty, and draft/file patent and trademark applications."
+            }
+          },
+          {
+            id: 4,
+            question: {
+              ar: "متى يجب على الطالب حامل المشروع التوجه إلى مركز CATI؟",
+              fr: "Quand l'étudiant porteur de projet doit-il se rapprocher du centre CATI ?",
+              en: "When should a project holder contact the CATI center?"
+            },
+            answer: {
+              ar: "يُنصح بالتوجه إلى مركز CATI في المراحل الأولى لتطوير النموذج الأولي وقبل نشر تفاصيل الاختراع أو عرضه للعموم، وذلك لضمان سرية الفكرة وإجراء البحث في حالة التقنية السابقة (Prior Art Search).",
+              fr: "Il est recommandé de contacter le CATI dès les premières phases du prototype et avant toute divulgation publique de l'invention, afin de garantir la confidentialité et effectuer une recherche d'antériorité.",
+              en: "It is recommended to contact CATI during the early stages of prototype development and before any public disclosure to ensure confidentiality and conduct a Prior Art Search."
+            }
+          }
+        ]
+      },
+      {
+        id: "cat-cde",
+        icon: "briefcase",
+        headerColor: "from-orange-900/90 to-amber-800/80",
+        shortLabel: { ar: "مركز CDE", fr: "Centre CDE", en: "CDE Center" },
+        title: {
+          ar: "مركز تطوير المقاولاتية (CDE-USTHB)",
+          fr: "Centre de Développement de l'Entrepreneuriat (CDE-USTHB)",
+          en: "Entrepreneurship Development Center (CDE-USTHB)"
+        },
+        subtitle: {
+          ar: "نشر الثقافة المقاولاتية والتكوين في إنشاء وتسيير المؤسسات المصغرة",
+          fr: "Culture entrepreneuriale et formation à la création de micro-entreprises",
+          en: "Entrepreneurial culture and training for micro-enterprise creation"
+        },
+        questions: [
+          {
+            id: 5,
+            question: {
+              ar: "ما هي الخدمات التي يقدمها مركز تطوير المقاولاتية (CDE) للطلبة؟",
+              fr: "Quels services offre le Centre de Développement de l'Entrepreneuriat (CDE) ?",
+              en: "What services does the Entrepreneurship Development Center (CDE) offer?"
+            },
+            answer: {
+              ar: "يقدم المركز دورات تكوينية مكثفة وتطبيقية في مجال المقاولاتية، إعداد مخطط الأعمال (Business Plan)، التسيير المالي والمحاسبي، ودراسة الجدوى، كما يمنح شهادة التأهيل المقاولاتي التي تفتح المجال أمام طلب التمويل لإنشاء مؤسسة مصغرة.",
+              fr: "Le CDE dispense des formations pratiques en entrepreneuriat, élaboration de Business Plan, gestion financière et étude de faisabilité, et délivre l'attestation de qualification entrepreneuriale nécessaire au financement.",
+              en: "CDE provides intensive practical training in entrepreneurship, Business Plan drafting, financial management, and feasibility studies, issuing the entrepreneurial qualification certificate required for funding."
+            }
+          },
+          {
+            id: 6,
+            question: {
+              ar: "هل يمكن لطلبة القرار 1275 الاستفادة من تكوينات مركز CDE؟",
+              fr: "Les étudiants de l'Arrêté 1275 peuvent-ils bénéficier des formations du CDE ?",
+              en: "Can Decree 1275 students benefit from CDE training sessions?"
+            },
+            answer: {
+              ar: "نعم، ينسق مركز CDE بشكل وثيق مع حاضنة الأعمال لتزويد الطلبة بالمهارات الإدارية والمالية اللازمة لتسيير مشاريعهم بعد التخرج.",
+              fr: "Oui, le CDE travaille en étroite synergie avec l'incubateur pour doter les étudiants des compétences administratives et financières indispensables à la gestion de leur future entreprise.",
+              en: "Yes, CDE works in close synergy with the incubator to equip students with the administrative and financial management skills needed after graduation."
+            }
+          }
+        ]
+      },
+      {
+        id: "cat-guichet",
+        icon: "door-open",
+        headerColor: "from-emerald-900/90 to-emerald-800/80",
+        shortLabel: { ar: "الشباك الموحد", fr: "Guichet Unique", en: "One-Stop Shop" },
+        title: {
+          ar: "الشباك الموحد (Guichet Unique - USTHB)",
+          fr: "Guichet Unique (USTHB)",
+          en: "One-Stop Shop (Guichet Unique - USTHB)"
+        },
+        subtitle: {
+          ar: "نقطة الاتصال الموحدة لتسهيل الإجراءات الإدارية والتوجيه",
+          fr: "Point de contact unifié pour faciliter les démarches administratives",
+          en: "Unified contact point for simplifying administrative procedures"
+        },
+        questions: [
+          {
+            id: 7,
+            question: {
+              ar: "ما هو دور الشباك الموحد (Guichet Unique) داخل الجامعة؟",
+              fr: "Quel est le rôle du Guichet Unique au sein de l'université ?",
+              en: "What is the role of the One-Stop Shop within the university?"
+            },
+            answer: {
+              ar: "يمثل الشباك الموحد همزة وصل مباشرة بين الطالب ومختلف الهيئات الإدارية والاقتصادية، حيث يختصر على الطالب عناء التنقل بين المصالح من خلال استقبال ملفاته، توجيهه نحو الجهة المناسبة لمشروعه، وتسهيل الإجراءات القانونية والإدارية.",
+              fr: "Le Guichet Unique fait le lien direct entre l'étudiant et les organismes administratifs et économiques, en centralisant l'accueil des dossiers, l'orientation et la facilitation des formalités juridiques.",
+              en: "The One-Stop Shop acts as a direct bridge between students and administrative/economic bodies, centralizing file reception, project orientation, and legal formalities."
+            }
+          },
+          {
+            id: 8,
+            question: {
+              ar: "ما هي الوثائق والإجراءات التي يسهلها الشباك الموحد؟",
+              fr: "Quelles démarches le Guichet Unique facilite-t-il ?",
+              en: "What procedures does the One-Stop Shop facilitate?"
+            },
+            answer: {
+              ar: "يساعد الشباك الموحد في الاستعلام حول شروط الحصول على صفة المقاول الذاتي، إجراءات السجل التجاري، التوطين، وربط حاملي المشاريع بممثلي الصناديق والوكالات العمومية المرافقة.",
+              fr: "Il renseigne sur le statut d'auto-entrepreneur, les formalités du registre de commerce, la domiciliation et met en relation les porteurs de projets avec les fonds et agences publiques.",
+              en: "It assists with information on self-entrepreneur status, commercial registry procedures, hosting, and connecting project holders with public funding agencies."
+            }
+          }
+        ]
+      },
+      {
+        id: "cat-nesda",
+        icon: "landmark",
+        headerColor: "from-purple-900/90 to-purple-800/80",
+        shortLabel: { ar: "وكالة NESDA", fr: "Agence NESDA", en: "NESDA Agency" },
+        title: {
+          ar: "الوكالة الوطنية لدعم وتنمية المقاولاتية (NESDA)",
+          fr: "Agence Nationale d'Appui et de Développement de l'Entrepreneuriat (NESDA)",
+          en: "National Agency for Entrepreneurship Support and Development (NESDA)"
+        },
+        subtitle: {
+          ar: "آليات التمويل والمرافقة المالية والتقنية لإنشاء المؤسسات المصغرة",
+          fr: "Mécanismes de financement et d'accompagnement pour micro-entreprises",
+          en: "Funding mechanisms and technical support for micro-enterprises"
+        },
+        questions: [
+          {
+            id: 9,
+            question: {
+              ar: "ما هي وكالة NESDA وما علاقتها بالطلبة الجامعيين؟",
+              fr: "Qu'est-ce que l'agence NESDA et quel est son lien avec les étudiants ?",
+              en: "What is NESDA and how does it support university students?"
+            },
+            answer: {
+              ar: "وكالة NESDA (سابقاً ANADE) هي الجهاز العمومي المكلف بدعم وتمويل الشباب حاملي المشاريع لإنشاء مؤسساتهم المصغرة. وتتواجد ممثليتها بالتنسيق مع الشباك الموحد ومركز تطوير المقاولاتية لمرافقة الطلبة المتخرجين في تمويل مشاريعهم.",
+              fr: "NESDA (ex-ANADE) est l'organisme public chargé de financer et d'accompagner les jeunes porteurs de projets dans la création de micro-entreprises, en coordination avec le Guichet Unique et le CDE.",
+              en: "NESDA (formerly ANADE) is the public agency responsible for financing and supporting young project holders in establishing micro-enterprises, working alongside the One-Stop Shop and CDE."
+            }
+          },
+          {
+            id: 10,
+            question: {
+              ar: "كيف يمكن للطالب الاستفادة من تمويل NESDA بعد التخرج؟",
+              fr: "Comment bénéficier d'un financement NESDA après l'obtention du diplôme ?",
+              en: "How can a graduate apply for NESDA funding?"
+            },
+            answer: {
+              ar: "بعد إتمام التكوين المقاولاتي والحصول على شهادة التأهيل من مركز CDE، يقوم الطالب بإيداع مخطط أعماله (Business Plan) لدى مصالح NESDA لدراسة الجدوى والمصادقة على التمويل والاستفادة من الامتيازات الجبائية المقررة.",
+              fr: "Après la formation entrepreneuriale et l'obtention de l'attestation du CDE, l'étudiant dépose son Business Plan auprès de NESDA pour l'étude de faisabilité, l'accord de financement et les avantages fiscaux.",
+              en: "After completing entrepreneurial training and obtaining the CDE certificate, the graduate submits their Business Plan to NESDA for feasibility evaluation, funding approval, and tax incentives."
+            }
+          }
+        ]
+      }
+    ];
+
+    // 4. دوال التبديل بين اللغات والعرض
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("usthb_lang", lang);
+
+      const isAr = lang === "ar";
+      document.documentElement.lang = lang;
+      document.documentElement.dir = isAr ? "rtl" : "ltr";
+      document.title = uiTranslations[lang].pageTitle;
+
+      // تحديث أزرار اللغات
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.classList.remove("bg-white", "text-brand-primary");
+        btn.classList.add("text-white");
+      });
+      const activeBtn = document.getElementById(`btn-${lang}`);
+      if (activeBtn) {
+        activeBtn.classList.add("bg-white", "text-brand-primary");
+        activeBtn.classList.remove("text-white");
+      }
+
+      // ضبط اتجاه أيقونة البحث والعودة
+      const searchIconWrap = document.getElementById("searchIconWrap");
+      const searchInput = document.getElementById("search-input");
+      const clearBtn = document.getElementById("clear-search-btn");
+      const backIcon = document.getElementById("backIcon");
+
+      if (isAr) {
+        searchIconWrap.className = "absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400";
+        clearBtn.className = `absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer ${searchQuery ? '' : 'hidden'}`;
+        searchInput.className = "w-full pr-11 pl-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent focus:bg-white transition-all text-slate-800 placeholder-slate-400";
+        backIcon.setAttribute("data-lucide", "arrow-right");
+      } else {
+        searchIconWrap.className = "absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400";
+        clearBtn.className = `absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer ${searchQuery ? '' : 'hidden'}`;
+        searchInput.className = "w-full pl-11 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent focus:bg-white transition-all text-slate-800 placeholder-slate-400";
+        backIcon.setAttribute("data-lucide", "arrow-left");
+      }
+
+      // ترجمة عناصر الواجهة الثابتة
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (uiTranslations[lang][key]) el.textContent = uiTranslations[lang][key];
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (uiTranslations[lang][key]) el.placeholder = uiTranslations[lang][key];
+      });
+
+      renderTicker();
+      renderHeaderCards();
+      renderQuickLinks();
+      renderAccordion();
+    }
+
+    function renderTicker() {
+      const tickerEl = document.getElementById("tickerContent");
+      const items = uiTranslations[currentLang].tickerItems;
+      const dots = ["bg-amber-400 animate-pulse", "bg-cyan-400", "bg-emerald-400", "bg-purple-400"];
+      tickerEl.innerHTML = items.map((text, idx) => `
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full ${dots[idx % dots.length]}"></span>
+          <span>${text}</span>
+        </span>
+      `).join("");
+    }
+
+    function renderHeaderCards() {
+      const container = document.getElementById("ecosystemCardsRow");
+      container.innerHTML = ecosystemCardsData.map(card => `
+        <a 
+          href="${card.url}" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="group min-w-[135px] sm:min-w-0 bg-white/5 border border-white/10 rounded-xl p-2.5 sm:p-3 text-center hover:bg-white/10 ${card.borderColor} hover:scale-[1.02] transition-all flex flex-col items-center justify-between cursor-pointer shadow-xs"
+        >
+          <div class="w-10 h-10 sm:w-11 sm:h-11 mb-1.5 rounded-xl bg-white p-1 shadow-sm flex items-center justify-center overflow-hidden group-hover:ring-2 ${card.ringColor} transition-all shrink-0">
+            <img src="${card.img}" alt="${card.title[currentLang]}" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
+            <i data-lucide="${card.icon}" class="w-6 h-6 ${card.iconColor} hidden"></i>
+          </div>
+          <div class="flex items-center gap-1 justify-center">
+            <span class="text-xs sm:text-sm font-black ${card.titleColor}">${card.title[currentLang]}</span>
+            <i data-lucide="external-link" class="w-3 h-3 text-blue-300 opacity-60 group-hover:opacity-100 transition-opacity"></i>
+          </div>
+          <div class="text-[11px] text-blue-100 font-medium leading-tight mt-0.5">${card.sub[currentLang]}</div>
+          <div class="text-[9px] text-blue-200/70 mt-0.5 leading-tight">${card.tag[currentLang]}</div>
+        </a>
+      `).join("");
+    }
+
+    function renderQuickLinks() {
+      const container = document.getElementById('category-quicklinks');
+      container.innerHTML = ecosystemCategories.map(cat => `
+        <button onclick="scrollToCategory('${cat.id}')" class="whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-primary border border-slate-200 transition shrink-0 flex items-center gap-1.5 cursor-pointer">
+          <i data-lucide="${cat.icon}" class="w-3.5 h-3.5 text-brand-600"></i>
+          <span>${cat.shortLabel[currentLang]}</span>
+        </button>
+      `).join('');
+    }
+
+    function scrollToCategory(catId) {
+      collapsedCategoryIds.delete(catId);
+      renderAccordion();
+      const el = document.getElementById(`cat-group-${catId}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function renderAccordion() {
+      const container = document.getElementById('faq-groups-container');
+      const emptyState = document.getElementById('empty-state');
+      let totalMatched = 0;
+      let html = "";
+
+      ecosystemCategories.forEach((category) => {
+        const matched = category.questions.filter(q => {
+          if (!searchQuery) return true;
+          return q.question.ar.toLowerCase().includes(searchQuery) ||
+                 q.question.fr.toLowerCase().includes(searchQuery) ||
+                 q.question.en.toLowerCase().includes(searchQuery) ||
+                 q.answer[currentLang].toLowerCase().includes(searchQuery) ||
+                 category.title[currentLang].toLowerCase().includes(searchQuery);
+        });
+
+        if (matched.length === 0) return;
+        totalMatched += matched.length;
+        const isCatCollapsed = collapsedCategoryIds.has(category.id);
+
+        html += `
+          <div id="cat-group-${category.id}" class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-300">
+            <div class="p-4 sm:p-5 bg-gradient-to-r ${category.headerColor} text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded-2xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center shrink-0">
+                  <i data-lucide="${category.icon}" class="w-5 h-5 text-blue-200"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-sm sm:text-base text-white">${category.title[currentLang]}</h3>
+                  <p class="text-[11px] text-blue-100/80 mt-0.5">${category.subtitle[currentLang]}</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                <button onclick="toggleCategoryQuestions('${category.id}', true)" class="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[11px] font-semibold flex items-center gap-1 transition cursor-pointer">
+                  <i data-lucide="unfold-vertical" class="w-3.5 h-3.5"></i>
+                  <span>${uiTranslations[currentLang].expandCat}</span>
+                </button>
+                <button onclick="toggleCategoryQuestions('${category.id}', false)" class="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[11px] font-semibold flex items-center gap-1 transition cursor-pointer">
+                  <i data-lucide="fold-vertical" class="w-3.5 h-3.5"></i>
+                  <span>${uiTranslations[currentLang].collapseCat}</span>
+                </button>
+                <button onclick="toggleCategoryVisibility('${category.id}')" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer">
+                  <i data-lucide="${isCatCollapsed ? 'chevron-down' : 'chevron-up'}" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="${isCatCollapsed ? 'hidden' : 'block'} p-3.5 sm:p-5 bg-slate-50/50 space-y-3">
+              ${matched.map(q => {
+                const isOpen = openQuestionIds.has(q.id);
+                return `
+                  <div class="bg-white rounded-2xl border ${isOpen ? 'border-brand-500 ring-2 ring-brand-500/10 shadow-sm' : 'border-slate-200/90 shadow-2xs'} transition-all overflow-hidden">
+                    <button onclick="toggleQuestion(${q.id})" class="w-full text-start p-3.5 sm:p-4 flex items-center justify-between gap-3 cursor-pointer">
+                      <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-xl ${isOpen ? 'bg-brand-primary text-white' : 'bg-slate-100 text-slate-600'} flex items-center justify-center text-xs font-bold shrink-0">${q.id}</span>
+                        <h4 class="font-bold text-slate-800 text-xs sm:text-sm">${q.question[currentLang]}</h4>
+                      </div>
+                      <div class="w-7 h-7 rounded-lg ${isOpen ? 'bg-blue-50 text-brand-accent rotate-180' : 'bg-slate-50 text-slate-400'} flex items-center justify-center shrink-0 transition-transform">
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                      </div>
+                    </button>
+                    <div class="accordion-content ${isOpen ? 'expanded' : 'collapsed'}">
+                      <div class="px-4 pb-4 pt-1 border-t border-slate-100 bg-slate-50/60">
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                          ${q.answer[currentLang]}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      if (totalMatched === 0) {
+        container.innerHTML = "";
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+        container.innerHTML = html;
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function toggleQuestion(id) {
+      if (openQuestionIds.has(id)) openQuestionIds.delete(id);
+      else openQuestionIds.add(id);
+      renderAccordion();
+    }
+
+    function toggleCategoryQuestions(catId, expand) {
+      const cat = ecosystemCategories.find(c => c.id === catId);
+      if (!cat) return;
+      collapsedCategoryIds.delete(catId);
+      cat.questions.forEach(q => expand ? openQuestionIds.add(q.id) : openQuestionIds.delete(q.id));
+      renderAccordion();
+    }
+
+    function toggleCategoryVisibility(catId) {
+      if (collapsedCategoryIds.has(catId)) collapsedCategoryIds.delete(catId);
+      else collapsedCategoryIds.add(catId);
+      renderAccordion();
+    }
+
+    function expandAllGlobal() {
+      collapsedCategoryIds.clear();
+      ecosystemCategories.forEach(c => c.questions.forEach(q => openQuestionIds.add(q.id)));
+      renderAccordion();
+    }
+
+    function collapseAllGlobal() {
+      openQuestionIds.clear();
+      renderAccordion();
+    }
+
+    function clearSearch() {
+      document.getElementById('search-input').value = "";
+      searchQuery = "";
+      document.getElementById('clear-search-btn').classList.add('hidden');
+      renderAccordion();
+    }
+
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      document.getElementById('clear-search-btn').classList.toggle('hidden', !searchQuery);
+      if (searchQuery) expandAllGlobal();
+      else renderAccordion();
+    });
+
+    // تهيئة اللغة المحفوظة عند تحميل الصفحة
+    setLanguage(currentLang);
+  </script>
+</body>
+</html>

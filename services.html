@@ -1,0 +1,658 @@
+<!-- services-maj-13-11-2026 -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المصالح المرافقة وممثلو الكليات (1275) - جامعة USTHB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    html[lang="ar"] body {
+      font-family: 'Cairo', sans-serif;
+    }
+    html[lang="fr"] body,
+    html[lang="en"] body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    body {
+      background-color: #f8fafc;
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- الشريط العلوي -->
+  <header class="bg-gradient-to-l from-cyan-900 via-cyan-800 to-slate-900 text-white shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3 text-center sm:text-start">
+        <div class="p-3 bg-white/10 rounded-2xl backdrop-blur-xs shrink-0">
+          <i data-lucide="network" class="w-7 h-7 text-cyan-300"></i>
+        </div>
+        <div>
+          <h1 data-i18n="headerTitle" class="text-xl sm:text-2xl font-extrabold tracking-tight">المصالح المرافقة وممثلو الكليات (1275)</h1>
+          <p data-i18n="headerSubtitle" class="text-xs sm:text-sm text-cyan-100 mt-0.5">جامعة هواري بومدين للعلوم والتكنولوجيا (USTHB)</p>
+        </div>
+      </div>
+
+      <!-- أزرار اللغات وزر العودة -->
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <div class="inline-flex items-center bg-white/10 p-1 rounded-xl border border-white/15 backdrop-blur-xs">
+          <button onclick="setLanguage('ar')" id="btn-ar" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors bg-white text-cyan-900">
+            العربية
+          </button>
+          <button onclick="setLanguage('fr')" id="btn-fr" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10">
+            FR
+          </button>
+          <button onclick="setLanguage('en')" id="btn-en" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10">
+            EN
+          </button>
+        </div>
+
+        <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors border border-white/15 backdrop-blur-xs">
+  <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4 text-cyan-300"></i>
+  <span data-i18n="backHomeBtn">العودة إلى الصفحة الرئيسية</span>
+</a>
+<a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-cyan-900 hover:bg-cyan-50 text-xs sm:text-sm font-bold transition-colors shadow-xs">
+          <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4"></i>
+          <span data-i18n="backBtn">العودة إلى دليل الحاضنة (FAQ)</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
+
+    <!-- شريط البحث السريع -->
+    <div class="mb-8 max-w-2xl mx-auto">
+      <div class="relative">
+        <i id="searchIcon" data-lucide="search" class="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2"></i>
+        <input
+          type="text"
+          id="searchInput"
+          data-i18n-placeholder="searchPlaceholder"
+          placeholder="ابحث عن مصلحة (CATI, CDE, NESDA...) أو اسم كلية..."
+          class="w-full pr-12 pl-4 py-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs focus:outline-none focus:ring-2 focus:ring-cyan-600 text-sm"
+        />
+      </div>
+    </div>
+
+    <!-- القسم الأول: المصالح والهيئات المرافقة -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2.5 mb-5">
+        <span class="w-2 h-7 bg-cyan-700 rounded-full"></span>
+        <h2 data-i18n="servicesSectionTitle" class="text-lg sm:text-xl font-extrabold text-slate-900">الهيئات والمصالح المرافقة داخل الجامعة</h2>
+      </div>
+
+      <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+
+    <!-- القسم الثاني: ممثلو لجنة 1275 على مستوى الكليات التسع -->
+    <section>
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-5">
+        <div class="flex items-center gap-2.5">
+          <span class="w-2 h-7 bg-emerald-600 rounded-full"></span>
+          <h2 data-i18n="facultiesSectionTitle" class="text-lg sm:text-xl font-extrabold text-slate-900">ممثلو لجنة القرار 1275 عبر الكليات (9 كليات)</h2>
+        </div>
+        <span data-i18n="facultiesBadge" class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+          نقاط الاتصال البيداغوجية والإدارية
+        </span>
+      </div>
+
+      <div id="facultiesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+
+  </main>
+
+  <!-- التذييل -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p data-i18n="footerCopy">© 2026 حاضنة أعمال جامعة هواري بومدين للعلوم والتكنولوجيا (TechInnov - USTHB)</p>
+      <a href="index.html" data-i18n="footerLink" class="text-cyan-400 hover:underline">الرجوع إلى الصفحة الرئيسية</a>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem("usthb_lang") || "ar";
+
+    // 1. قاموس الواجهة الثابتة
+    const uiTranslations = {
+      ar: {
+        pageTitle: "المصالح المرافقة وممثلو الكليات (1275) - جامعة USTHB",
+        headerTitle: "المصالح المرافقة وممثلو الكليات (1275)",
+        headerSubtitle: "جامعة هواري بومدين للعلوم والتكنولوجيا (USTHB)",
+        backBtn: "العودة إلى دليل الحاضنة (FAQ)",
+        searchPlaceholder: "ابحث عن مصلحة (CATI, CDE, NESDA...) أو اسم كلية...",
+        servicesSectionTitle: "الهيئات والمصالح المرافقة داخل الجامعة",
+        facultiesSectionTitle: "ممثلو لجنة القرار 1275 عبر الكليات (9 كليات)",
+        facultiesBadge: "نقاط الاتصال البيداغوجية والإدارية",
+        committeeTag: "لجنة 1275",
+        footerCopy: "© 2026 حاضنة أعمال جامعة هواري بومدين للعلوم والتكنولوجيا (TechInnov - USTHB)",
+        footerLink: "الرجوع إلى الصفحة الرئيسية"
+      },
+      fr: {
+        pageTitle: "Services d'accompagnement & Représentants des Facultés (1275) - USTHB",
+        headerTitle: "Services d'accompagnement & Facultés (1275)",
+        headerSubtitle: "Université des Sciences et de la Technologie Houari Boumediene (USTHB)",
+        backBtn: "Retour au guide FAQ",
+        searchPlaceholder: "Rechercher un service (CATI, CDE, NESDA...) ou une faculté...",
+        servicesSectionTitle: "Structures et services d'accompagnement au sein de l'université",
+        facultiesSectionTitle: "Représentants de la commission 1275 par faculté (9 Facultés)",
+        facultiesBadge: "Points de contact pédagogiques et administratifs",
+        committeeTag: "Commission 1275",
+        footerCopy: "© 2026 Incubateur de l'USTHB (TechInnov - USTHB)",
+        footerLink: "Retour à l'accueil"
+      },
+      en: {
+        pageTitle: "Support Services & Faculty Representatives (Decree 1275) - USTHB",
+        headerTitle: "Support Services & Faculties (1275)",
+        headerSubtitle: "University of Sciences and Technology Houari Boumediene (USTHB)",
+        backBtn: "Back to FAQ Guide",
+        searchPlaceholder: "Search for a service (CATI, CDE, NESDA...) or faculty...",
+        servicesSectionTitle: "Support Bodies & Services within the University",
+        facultiesSectionTitle: "Decree 1275 Committee Representatives (9 Faculties)",
+        facultiesBadge: "Pedagogical & Administrative Contact Points",
+        committeeTag: "Committee 1275",
+        footerCopy: "© 2026 USTHB Business Incubator (TechInnov - USTHB)",
+        footerLink: "Back to Home Page"
+      }
+    };
+
+    // 2. بيانات المصالح والهيئات المرافقة (3 لغات)
+    const supportServices = [
+      {
+        id: "guichet-unique",
+        acronym: "Guichet Unique",
+        icon: "door-open",
+        title: {
+          ar: "الشباك الوحيد (Guichet Unique)",
+          fr: "Guichet Unique",
+          en: "One-Stop Shop (Guichet Unique)"
+        },
+        role: {
+          ar: "توجيه واستقبال الطلبة، تبسيط الإجراءات الإدارية، وتسهيل الربط بين الطالب ومختلف هيئات المرافقة والتمويل داخل الجامعة وخارجها.",
+          fr: "Accueil et orientation des étudiants, simplification des démarches administratives et mise en relation avec les organismes d'accompagnement et de financement.",
+          en: "Welcoming and guiding students, simplifying administrative procedures, and connecting them with internal and external support and funding bodies."
+        },
+        services: {
+          ar: [
+            "الاستقبال والتوجيه الأولي لحاملي الأفكار والمشاريع.",
+            "تسهيل الإجراءات الإدارية والوثائق الخاصة بالمؤسسات الناشئة والمصغرة.",
+            "التنسيق المباشر مع الهيئات الوزارية والولائية المرافقة."
+          ],
+          fr: [
+            "Accueil et orientation initiale des porteurs d'idées et de projets.",
+            "Facilitation des procédures administratives pour startups et micro-entreprises.",
+            "Coordination directe avec les organismes ministériels et locaux."
+          ],
+          en: [
+            "Initial reception and guidance for project and idea holders.",
+            "Facilitating administrative paperwork for startups and micro-enterprises.",
+            "Direct coordination with ministerial and regional support agencies."
+          ]
+        },
+        location: {
+          ar: "مقر حاضنة الأعمال / دار المقاولاتية - USTHB",
+          fr: "Siège de l'Incubateur / Maison de l'Entrepreneuriat - USTHB",
+          en: "Incubator Headquarters / Entrepreneurship House - USTHB"
+        },
+        contact: {
+          ar: "متاح خلال أوقات الاستقبال الرسمية",
+          fr: "Disponible durant les horaires officiels de réception",
+          en: "Available during official reception hours"
+        }
+      },
+      {
+        id: "cati",
+        acronym: "CATI",
+        icon: "shield-check",
+        title: {
+          ar: "مركز الدعم التكنولوجي والابتكار (CATI)",
+          fr: "Centre d'Appui à la Technologie et à l'Innovation (CATI)",
+          en: "Technology and Innovation Support Center (CATI)"
+        },
+        role: {
+          ar: "مرافقة الباحثين والطلبة في حماية الملكية الصناعية والفكرية بالتنسيق مع المعهد الوطني الجزائري للملكية الصناعية (INAPI).",
+          fr: "Accompagnement des chercheurs et étudiants dans la protection de la propriété industrielle et intellectuelle en coordination avec l'INAPI.",
+          en: "Supporting researchers and students in protecting industrial and intellectual property in coordination with INAPI."
+        },
+        services: {
+          ar: [
+            "البحث في قواعد بيانات براءات الاختراع العالمية (حالة التقنية السابقة).",
+            "المساعدة في صياغة وإيداع طلبات براءات الاختراع.",
+            "تسجيل العلامات التجارية، الرسوم، والنماذج الصناعية للمشاريع."
+          ],
+          fr: [
+            "Recherche d'antériorité dans les bases de données mondiales de brevets.",
+            "Aide à la rédaction et au dépôt des demandes de brevets d'invention.",
+            "Enregistrement des marques, dessins et modèles industriels."
+          ],
+          en: [
+            "Prior art searches in global patent databases.",
+            "Assistance in drafting and filing patent applications.",
+            "Registration of trademarks, industrial designs, and models."
+          ]
+        },
+        location: {
+          ar: "جامعة USTHB (بالتنسيق مع الحاضنة والمخابر)",
+          fr: "USTHB (En coordination avec l'incubateur et les laboratoires)",
+          en: "USTHB (In coordination with the incubator and laboratories)"
+        },
+        contact: {
+          ar: "cati@usthb.dz",
+          fr: "cati@usthb.dz",
+          en: "cati@usthb.dz"
+        }
+      },
+      {
+        id: "cde",
+        acronym: "CDE",
+        icon: "briefcase",
+        title: {
+          ar: "مركز تطوير المقاولاتية (CDE)",
+          fr: "Centre de Développement de l'Entrepreneuriat (CDE)",
+          en: "Entrepreneurship Development Center (CDE)"
+        },
+        role: {
+          ar: "نشر الثقافة المقاولاتية وتكوين الطلبة الراغبين في إنشاء مؤسسات مصغرة كلاسيكية أو حرفية أو خدماتية خارج إطار المشاريع الابتكارية.",
+          fr: "Diffusion de la culture entrepreneuriale et formation des étudiants souhaitant créer des micro-entreprises classiques, artisanales ou de services.",
+          en: "Promoting entrepreneurial culture and training students aiming to establish classic, craft, or service-based micro-enterprises."
+        },
+        services: {
+          ar: [
+            "دورات تدريبية مكثفة في التسيير المقاولاتي وإعداد مخطط الأعمال (Business Plan).",
+            "التحضير للحصول على شهادة التأهيل المقاولاتي.",
+            "مرافقة ملفات التمويل الموجهة لإنشاء المؤسسات المصغرة."
+          ],
+          fr: [
+            "Formations intensives en gestion entrepreneuriale et élaboration de Business Plan.",
+            "Préparation à l'obtention de l'attestation de qualification entrepreneuriale.",
+            "Accompagnement des dossiers de financement pour micro-entreprises."
+          ],
+          en: [
+            "Intensive training in entrepreneurial management and Business Plan drafting.",
+            "Preparation for obtaining the entrepreneurial qualification certificate.",
+            "Supporting funding applications for micro-enterprise creation."
+          ]
+        },
+        location: {
+          ar: "مركز تطوير المقاولاتية - جامعة USTHB",
+          fr: "Centre de Développement de l'Entrepreneuriat - USTHB",
+          en: "Entrepreneurship Development Center - USTHB"
+        },
+        contact: {
+          ar: "cde@usthb.dz",
+          fr: "cde@usthb.dz",
+          en: "cde@usthb.dz"
+        }
+      },
+      {
+        id: "nesda",
+        acronym: "NESDA",
+        icon: "landmark",
+        title: {
+          ar: "الوكالة الوطنية لدعم وتنمية المقاولاتية (NESDA)",
+          fr: "Agence Nationale d'Appui et de Développement de l'Entrepreneuriat (NESDA)",
+          en: "National Agency for Entrepreneurship Support and Development (NESDA)"
+        },
+        role: {
+          ar: "الجهاز العمومي المكلف بتمويل ومرافقة الشباب حاملي المشاريع لإنشاء وتوسيع المؤسسات المصغرة (سابقاً ANADE).",
+          fr: "Dispositif public chargé du financement et de l'accompagnement des jeunes porteurs de projets pour la création de micro-entreprises (ex-ANADE).",
+          en: "Public agency responsible for financing and supporting young project holders in creating and expanding micro-enterprises (formerly ANADE)."
+        },
+        services: {
+          ar: [
+            "تمويل إنشاء المؤسسات المصغرة بصيغ تمويل ميسرة.",
+            "المرافقة التقنية والمالية قبل وبعد إنشاء المؤسسة.",
+            "تقديم امتيازات جبائية وشبه جبائية للمؤسسات الناشئة والمصغرة."
+          ],
+          fr: [
+            "Financement de la création de micro-entreprises avec des formules avantageuses.",
+            "Accompagnement technique et financier avant et après la création.",
+            "Octroi d'avantages fiscaux et parafiscaux."
+          ],
+          en: [
+            "Financing micro-enterprise creation with facilitated funding schemes.",
+            "Technical and financial mentoring before and after company launch.",
+            "Granting tax and parafiscal incentives."
+          ]
+        },
+        location: {
+          ar: "الملحقة/الشباك الممثل لدى جامعة USTHB",
+          fr: "Guichet représentant auprès de l'USTHB",
+          en: "Representative Desk at USTHB"
+        },
+        contact: {
+          ar: "عبر الشباك الوحيد أو مركز تطوير المقاولاتية (CDE)",
+          fr: "Via le Guichet Unique ou le CDE",
+          en: "Via the One-Stop Shop or CDE"
+        }
+      }
+    ];
+
+    // 3. بيانات ممثلي لجنة 1275 في الكليات التسع (3 لغات)
+    const faculties1275 = [
+      {
+        code: "FGC",
+        name: {
+          ar: "كلية الهندسة المدنية",
+          fr: "Faculté de Génie Civil",
+          en: "Faculty of Civil Engineering"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-fgc@usthb.dz"
+      },
+      {
+        code: "FGMGP",
+        name: {
+          ar: "كلية الهندسة الميكانيكية وهندسة الطرائق",
+          fr: "Faculté de Génie Mécanique et Génie des Procédés",
+          en: "Faculty of Mechanical and Process Engineering"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-fgmgp@usthb.dz"
+      },
+      {
+        code: "FEI",
+        name: {
+          ar: "كلية الهندسة الكهربائية",
+          fr: "Faculté de Génie Électrique",
+          en: "Faculty of Electrical Engineering"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-fge@usthb.dz"
+      },
+      {
+        code: "FINFO",
+        name: {
+          ar: "كلية الإعلام الآلي",
+          fr: "Faculté d'Informatique",
+          en: "Faculty of Computer Science"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-finfo@usthb.dz"
+      },
+      {
+        code: "FMATH",
+        name: {
+          ar: "كلية الرياضيات",
+          fr: "Faculté de Mathématiques",
+          en: "Faculty of Mathematics"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-fmath@usthb.dz"
+      },
+      {
+        code: "FPHY",
+        name: {
+          ar: "كلية الفيزياء",
+          fr: "Faculté de Physique",
+          en: "Faculty of Physics"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-fphy@usthb.dz"
+      },
+      {
+        code: "FCHIM",
+        name: {
+          ar: "كلية الكيمياء",
+          fr: "Faculté de Chimie",
+          en: "Faculty of Chemistry"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-fchim@usthb.dz"
+      },
+      {
+        code: "FSB",
+        name: {
+          ar: "كلية العلوم البيولوجية",
+          fr: "Faculté des Sciences Biologiques",
+          en: "Faculty of Biological Sciences"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-fsb@usthb.dz"
+      },
+      {
+        code: "FSTGAT",
+        name: {
+          ar: "كلية علوم الأرض والجغرافيا والتهيئة العمرانية",
+          fr: "Faculté des Sciences de la Terre, de la Géographie et de l'Aménagement du Territoire",
+          en: "Faculty of Earth Sciences, Geography and Spatial Planning"
+        },
+        repName: {
+          ar: "يُضاف اسم ممثل الكلية هنا",
+          fr: "Nom du représentant de la faculté",
+          en: "Faculty Representative Name"
+        },
+        office: {
+          ar: "أمانة الكلية / مصلحة التدرج",
+          fr: "Secrétariat de la Faculté / Service de la Graduation",
+          en: "Faculty Secretariat / Undergraduate Office"
+        },
+        email: "rep-fstgat@usthb.dz"
+      }
+    ];
+
+    const servicesGrid = document.getElementById("servicesGrid");
+    const facultiesGrid = document.getElementById("facultiesGrid");
+    const searchInput = document.getElementById("searchInput");
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("usthb_lang", lang);
+
+      const isAr = lang === "ar";
+      document.documentElement.lang = lang;
+      document.documentElement.dir = isAr ? "rtl" : "ltr";
+      document.title = uiTranslations[lang].pageTitle;
+
+      // تحديث أزرار اللغات
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.classList.remove("bg-white", "text-cyan-900");
+        btn.classList.add("text-white");
+      });
+      const activeBtn = document.getElementById(`btn-${lang}`);
+      if (activeBtn) {
+        activeBtn.classList.add("bg-white", "text-cyan-900");
+        activeBtn.classList.remove("text-white");
+      }
+
+      // ضبط اتجاه أيقونة البحث والعودة حسب اللغة
+      const searchIcon = document.getElementById("searchIcon");
+      const backIcon = document.getElementById("backIcon");
+      if (isAr) {
+        searchIcon.classList.remove("left-4");
+        searchIcon.classList.add("right-4");
+        searchInput.classList.remove("pl-12", "pr-4");
+        searchInput.classList.add("pr-12", "pl-4");
+        backIcon.setAttribute("data-lucide", "arrow-right");
+      } else {
+        searchIcon.classList.remove("right-4");
+        searchIcon.classList.add("left-4");
+        searchInput.classList.remove("pr-12", "pl-4");
+        searchInput.classList.add("pl-12", "pr-4");
+        backIcon.setAttribute("data-lucide", "arrow-left");
+      }
+
+      // ترجمة عناصر الواجهة الثابتة
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (uiTranslations[lang][key]) {
+          el.textContent = uiTranslations[lang][key];
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (uiTranslations[lang][key]) {
+          el.placeholder = uiTranslations[lang][key];
+        }
+      });
+
+      renderContent(searchInput.value);
+    }
+
+    function renderContent(filterText = "") {
+      const q = filterText.trim().toLowerCase();
+
+      // عرض المصالح
+      const filteredServices = supportServices.filter(s =>
+        s.title[currentLang].toLowerCase().includes(q) ||
+        s.acronym.toLowerCase().includes(q) ||
+        s.role[currentLang].toLowerCase().includes(q)
+      );
+
+      servicesGrid.innerHTML = filteredServices.map(s => `
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div class="flex items-center gap-3">
+                <div class="p-2.5 rounded-xl bg-cyan-50 text-cyan-700 shrink-0">
+                  <i data-lucide="${s.icon}" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700">${s.acronym}</span>
+                  <h3 class="text-base font-extrabold text-slate-900 leading-snug">${s.title[currentLang]}</h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">${s.role[currentLang]}</p>
+            <ul class="space-y-1.5 mb-4">
+              ${s.services[currentLang].map(item => `
+                <li class="flex items-start gap-2 text-xs text-slate-700">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-600 shrink-0 mt-0.5"></i>
+                  <span>${item}</span>
+                </li>
+              `).join("")}
+            </ul>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex flex-col gap-1 text-[11px] text-slate-500">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+              <span>${s.location[currentLang]}</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+              <span>${s.contact[currentLang]}</span>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      // عرض الكليات التسع
+      const filteredFaculties = faculties1275.filter(f =>
+        f.name.ar.toLowerCase().includes(q) ||
+        f.name.fr.toLowerCase().includes(q) ||
+        f.name.en.toLowerCase().includes(q) ||
+        f.code.toLowerCase().includes(q) ||
+        f.repName[currentLang].toLowerCase().includes(q)
+      );
+
+      facultiesGrid.innerHTML = filteredFaculties.map(f => `
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-xs hover:border-emerald-300 transition-colors flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-extrabold">${f.code}</span>
+              <span class="text-[11px] text-slate-400 font-medium">${uiTranslations[currentLang].committeeTag}</span>
+            </div>
+            <h3 class="text-sm font-extrabold text-slate-900 mb-2 leading-snug">${f.name[currentLang]}</h3>
+          </div>
+          <div class="pt-3 border-t border-slate-100 space-y-1.5 text-xs">
+            <div class="flex items-center gap-2 text-slate-800 font-bold">
+              <i data-lucide="user-check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+              <span>${f.repName[currentLang]}</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-600 text-[11px]">
+              <i data-lucide="building-2" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+              <span>${f.office[currentLang]}</span>
+            </div>
+            <div class="flex items-center gap-2 text-cyan-700 text-[11px]">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i>
+              <a href="mailto:${f.email}" class="hover:underline">${f.email}</a>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    searchInput.addEventListener("input", (e) => renderContent(e.target.value));
+    setLanguage(currentLang);
+  </script>
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!-- guide-incubateur-maj-13-11-2026 -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دليل حاضنة أعمال جامعة USTHB (قرار 1275/008)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+    html[lang="fr"] body, html[lang="en"] body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: #f8fafc; }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- الشريط العلوي -->
+  <header class="bg-gradient-to-l from-cyan-900 via-cyan-800 to-slate-900 text-white shadow-md">
+    <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5 text-center sm:text-start">
+        <div class="p-3 bg-white/10 rounded-2xl backdrop-blur-xs shrink-0">
+          <i data-lucide="rocket" class="w-7 h-7 text-cyan-300"></i>
+        </div>
+        <div>
+          <h1 data-i18n="headerTitle" class="text-xl sm:text-2xl font-extrabold tracking-tight">دليل حاضنة أعمال جامعة USTHB</h1>
+          <p data-i18n="headerSubtitle" class="text-xs sm:text-sm text-cyan-100 mt-0.5">البوابة الرقمية للخدمات، الاستمارات والأسئلة الشائعة (قرار 1275 / 008)</p>
+        </div>
+      </div>
+
+      <!-- أزرار اللغات وزر المصالح -->
+      <div class="flex flex-wrap items-center justify-center gap-2.5">
+        <div class="inline-flex items-center bg-white/10 p-1 rounded-xl border border-white/15 backdrop-blur-xs">
+          <button onclick="setLanguage('ar')" id="btn-ar" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors bg-white text-cyan-900">العربية</button>
+          <button onclick="setLanguage('fr')" id="btn-fr" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10">FR</button>
+          <button onclick="setLanguage('en')" id="btn-en" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10">EN</button>
+        </div>
+
+<a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors border border-white/15 backdrop-blur-xs">
+  <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4 text-cyan-300"></i>
+  <span data-i18n="backHomeBtn">العودة إلى الصفحة الرئيسية</span>
+</a>
+<a href="services.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-colors shadow-xs">
+          <i data-lucide="network" class="w-4 h-4"></i>
+          <span data-i18n="servicesBtn">المصالح المرافقة والكليات (9)</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8">
+
+    <!-- شريط البحث -->
+    <div class="mb-6 max-w-2xl mx-auto">
+      <div class="relative">
+        <i id="searchIcon" data-lucide="search" class="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="ابحث عن خدمة، استمارة (BMC, Label, Prototypage...) أو سؤال..." class="w-full pr-12 pl-4 py-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs focus:outline-none focus:ring-2 focus:ring-cyan-600 text-sm" />
+      </div>
+    </div>
+
+    <!-- أزرار تصفية الفئات -->
+    <div id="categoryTabs" class="flex flex-wrap items-center justify-center gap-2 mb-8"></div>
+
+    <!-- حاوية الأسئلة والأجوبة -->
+    <div id="faqContainer" class="space-y-8"></div>
+
+    <!-- قسم إرسال استفسار جديد عبر Netlify Forms -->
+    <section class="mt-14 bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="p-2.5 rounded-xl bg-cyan-50 text-cyan-700">
+          <i data-lucide="message-square-plus" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h2 data-i18n="formTitle" class="text-lg font-extrabold text-slate-900">لم تجد إجابة لسؤالك؟ أرسل استفسارك للحاضنة</h2>
+          <p data-i18n="formSubtitle" class="text-xs text-slate-500">سيتم استقبال استفسارك مباشرة من طرف فريق حاضنة أعمال USTHB.</p>
+        </div>
+      </div>
+
+      <form name="student-questions" method="POST" data-netlify="true" id="questionForm" class="space-y-4">
+        <input type="hidden" name="form-name" value="student-questions" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label data-i18n="labelName" class="block text-xs font-bold text-slate-700 mb-1">الاسم الكامل والكلية</label>
+            <input type="text" name="name" required data-i18n-placeholder="phName" placeholder="مثال: أحمد بن علي - كلية الإعلام الآلي" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-cyan-600" />
+          </div>
+          <div>
+            <label data-i18n="labelEmail" class="block text-xs font-bold text-slate-700 mb-1">البريد الإلكتروني</label>
+            <input type="email" name="email" required placeholder="student@usthb.dz" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-cyan-600" />
+          </div>
+        </div>
+        <div>
+          <label data-i18n="labelQuestion" class="block text-xs font-bold text-slate-700 mb-1">نص السؤال أو الاستفسار</label>
+          <textarea name="question" rows="3" required data-i18n-placeholder="phQuestion" placeholder="اكتب استفسارك بوضوح هنا..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-cyan-600"></textarea>
+        </div>
+        <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span data-i18n="submitBtn">إرسال الاستفسار</span>
+        </button>
+        <p id="formSuccess" data-i18n="formSuccess" class="hidden text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
+          تم إرسال استفسارك بنجاح! شكراً لتواصلك مع حاضنة أعمال USTHB.
+        </p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- التذييل مع رمز الاستجابة السريعة QR Code -->
+  <footer class="bg-slate-900 text-slate-300 text-xs py-8 mt-12 border-t border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="text-center md:text-start space-y-2">
+        <p class="font-bold text-white text-sm" data-i18n="footerTitle">حاضنة أعمال جامعة هواري بومدين للعلوم والتكنولوجيا (TechInnov - USTHB)</p>
+        <p class="text-slate-400" data-i18n="footerHours">أوقات الاستقبال: من الأحد إلى الأربعاء (09:00 - 12:00)</p>
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-1">
+          <a href="https://linktr.ee/Techinnovincubator" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">Linktree</a>
+          <span>•</span>
+          <a href="https://www.digitalagencey.com/techinnov" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">TechInnov Portal</a>
+          <span>•</span>
+          <a href="services.html" data-i18n="servicesBtn" class="text-emerald-400 hover:underline">المصالح المرافقة والكليات (9)</a>
+        </div>
+      </div>
+
+      <!-- بطاقة QR Code -->
+      <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-3 rounded-2xl">
+        <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://guide-incubateur-usthb-techinnov-1275.netlify.app/" alt="QR Code" class="w-16 h-16 rounded-lg bg-white p-1" />
+        <div class="space-y-1.5">
+          <p data-i18n="qrLabel" class="font-bold text-white text-[11px]">شارك الدليل عبر QR Code</p>
+          <button onclick="downloadQR()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-[11px] font-bold transition-colors">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span data-i18n="qrDownload">تحميل PNG</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+<script>
+    let currentLang = localStorage.getItem("usthb_lang") || "ar";
+    let activeCategory = "all";
+
+    const uiTranslations = {
+      ar: {
+        pageTitle: "دليل حاضنة أعمال جامعة USTHB (قرار 1275/008)",
+        headerTitle: "دليل حاضنة أعمال جامعة USTHB",
+        headerSubtitle: "البوابة الرقمية للخدمات، الاستمارات والأسئلة الشائعة (قرار 1275 / 008)",
+        servicesBtn: "المصالح المرافقة والكليات (9)",
+        searchPlaceholder: "ابحث عن خدمة، استمارة (BMC, Label, Prototypage...) أو سؤال...",
+        allCategories: "جميع الفئات",
+        formTitle: "لم تجد إجابة لسؤالك؟ أرسل استفسارك للحاضنة",
+        formSubtitle: "سيتم استقبال استفسارك مباشرة من طرف فريق حاضنة أعمال USTHB.",
+        labelName: "الاسم الكامل والكلية",
+        phName: "مثال: أحمد بن علي - كلية الإعلام الآلي",
+        labelEmail: "البريد الإلكتروني",
+        labelQuestion: "نص السؤال أو الاستفسار",
+        phQuestion: "اكتب استفسارك بوضوح هنا...",
+        submitBtn: "إرسال الاستفسار",
+        formSuccess: "تم إرسال استفسارك بنجاح! شكراً لتواصلك مع حاضنة أعمال USTHB.",
+        footerTitle: "حاضنة أعمال جامعة هواري بومدين للعلوم والتكنولوجيا (TechInnov - USTHB)",
+        footerHours: "أوقات الاستقبال: من الأحد إلى الأربعاء (09:00 - 12:00)",
+        qrLabel: "شارك الدليل عبر QR Code",
+        qrDownload: "تحميل PNG",
+        noResults: "لا توجد نتائج مطابقة لبحثك."
+      },
+      fr: {
+        pageTitle: "Guide de l'Incubateur USTHB (Arrêté 1275/008)",
+        headerTitle: "Guide de l'Incubateur USTHB",
+        headerSubtitle: "Portail numérique des services, formulaires et FAQ (Arrêté 1275 / 008)",
+        servicesBtn: "Services & Facultés (9)",
+        searchPlaceholder: "Rechercher un service, formulaire (BMC, Label, Prototypage...) ou question...",
+        allCategories: "Toutes les catégories",
+        formTitle: "Vous n'avez pas trouvé de réponse ? Posez votre question",
+        formSubtitle: "Votre demande sera transmise directement à l'équipe de l'incubateur USTHB.",
+        labelName: "Nom complet et Faculté",
+        phName: "Ex: Ahmed Benali - Faculté d'Informatique",
+        labelEmail: "Adresse e-mail",
+        labelQuestion: "Votre question",
+        phQuestion: "Rédigez votre question clairement ici...",
+        submitBtn: "Envoyer la question",
+        formSuccess: "Votre question a été envoyée avec succès ! Merci de contacter l'incubateur USTHB.",
+        footerTitle: "Incubateur de l'Université des Sciences et de la Technologie Houari Boumediene (TechInnov - USTHB)",
+        footerHours: "Horaires de réception : Dimanche au Mercredi (09h00 - 12h00)",
+        qrLabel: "Partager le guide via QR Code",
+        qrDownload: "Télécharger PNG",
+        noResults: "Aucun résultat trouvé pour votre recherche."
+      },
+      en: {
+        pageTitle: "USTHB Business Incubator Guide (Decree 1275/008)",
+        headerTitle: "USTHB Business Incubator Guide",
+        headerSubtitle: "Digital Portal for Services, Forms & FAQ (Decree 1275 / 008)",
+        servicesBtn: "Support Services & Faculties (9)",
+        searchPlaceholder: "Search for a service, form (BMC, Label, Prototypage...) or question...",
+        allCategories: "All Categories",
+        formTitle: "Didn't find your answer? Submit your question",
+        formSubtitle: "Your inquiry will be sent directly to the USTHB Incubator team.",
+        labelName: "Full Name & Faculty",
+        phName: "Ex: Ahmed Benali - Faculty of Computer Science",
+        labelEmail: "Email Address",
+        labelQuestion: "Your Question",
+        phQuestion: "Write your question clearly here...",
+        submitBtn: "Submit Question",
+        formSuccess: "Your question has been sent successfully! Thank you for contacting USTHB Incubator.",
+        footerTitle: "USTHB Business Incubator (TechInnov - USTHB)",
+        footerHours: "Reception Hours: Sunday to Wednesday (09:00 AM - 12:00 PM)",
+        qrLabel: "Share Guide via QR Code",
+        qrDownload: "Download PNG",
+        noResults: "No matching results found."
+      }
+    };
+
+    const faqCategories = [
+      {
+        id: "candidatures-dossier",
+        icon: "folder-check",
+        title: {
+          ar: "الترشح وإيداع الملفات (Candidatures & Dépôt)",
+          fr: "Candidatures & Dépôt de Dossier",
+          en: "Applications & File Submission"
+        },
+        questions: [
+          {
+            id: 201,
+            question: {
+              ar: "1. كيف أُسجّل مشروعي المبتكر لأول مرة لدى حاضنة أعمال جامعة USTHB؟",
+              fr: "1. Comment inscrire mon projet innovant pour la première fois à l'incubateur USTHB ?",
+              en: "1. How do I register my innovative project for the first time at the USTHB Incubator?"
+            },
+            answer: {
+              ar: `تبدأ رحلتك بالتسجيل الرسمي عبر البوابة الرقمية المخصصة للمشاريع المبتكرة (TechInnov - USTHB Incubateur) وإيداع بطاقة الفكرة الأولية:<br><br>
+              <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
+                <strong>⚠️ ملاحظة هامة قبل التسجيل:</strong><br>
+                • يرجى كتابة <strong>الاسم واللقب باللغة العربية</strong> لجميع أعضاء المشروع مع الأساتذة المؤطرين (مثال: علام صارة، موسى إسلام...).<br>
+                • يرجى ذكر <strong>اسم المشروع</strong> (بأي لغة) وليس وصفه، لذا يُرجى اختيار اسم محدد لمشروعكم مسبقاً.
+              </div>
+              <a href="https://inscription-techinnov.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>منصة تسجيل المشاريع المبتكرة (Inscription TechInnov)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              fr: `Votre parcours commence par l'inscription officielle sur la plateforme numérique dédiée aux projets innovants (TechInnov - USTHB Incubateur) :<br><br>
+              <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
+                <strong>⚠️ Note importante avant l'inscription :</strong><br>
+                • Veuillez écrire les <strong>noms et prénoms en langue arabe</strong> de tous les membres du projet ainsi que des encadrants.<br>
+                • Veuillez indiquer le <strong>nom du projet</strong> (peu importe la langue) et non sa description.
+              </div>
+              <a href="https://inscription-techinnov.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Plateforme d'inscription (Inscription TechInnov)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              en: `Your journey starts with official registration on the digital platform dedicated to innovative projects (TechInnov - USTHB Incubator):<br><br>
+              <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
+                <strong>⚠️ Important Note before registering:</strong><br>
+                • Please write the <strong>full names in Arabic</strong> for all project members and academic supervisors.<br>
+                • Please provide the <strong>project name</strong> (in any language) rather than a description.
+              </div>
+              <a href="https://inscription-techinnov.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Project Registration Platform (Inscription TechInnov)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`
+            }
+          },
+          {
+            id: 202,
+            question: {
+              ar: "2. كيف أطلب مراجعة وتصحيح نموذج العمل التجاري والعرض التقديمي (BMC & Pitch 2026)؟",
+              fr: "2. Comment demander la correction du Business Model Canvas et du Pitch (BMC & Pitch 2026) ?",
+              en: "2. How do I request a review and correction of my BMC & Pitch Deck (2026)?"
+            },
+            answer: {
+              ar: `توفر حاضنة الأعمال خدمة مرافقة وتصحيح نموذج العمل التجاري (Business Model Canvas) والعرض التقديمي (Pitch Deck) لموسم 2026 عبر الاستمارة الرقمية التالية:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScwQBHKP7jMfPQH4JmjkwlZlZiUNgqttw_LKX3SN6Rzrr-J2Q/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>طلب تصحيح نموذج العمل والعرض (BMC & Pitch 2026)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              fr: `L'incubateur propose un service d'accompagnement et de correction du Business Model Canvas (BMC) et du Pitch Deck pour 2026 via le formulaire suivant :<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScwQBHKP7jMfPQH4JmjkwlZlZiUNgqttw_LKX3SN6Rzrr-J2Q/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Demander une correction BMC & Pitch 2026</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              en: `The incubator provides mentoring and review services for your Business Model Canvas (BMC) and Pitch Deck for 2026 via the following form:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScwQBHKP7jMfPQH4JmjkwlZlZiUNgqttw_LKX3SN6Rzrr-J2Q/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Request BMC & Pitch 2026 Review</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`
+            }
+          },
+          {
+            id: 204,
+            question: {
+              ar: "3. كيف أطلب شهادة الاحتضان الرسمية (Demande d'attestation d'incubation)؟",
+              fr: "3. Comment demander une attestation d'incubation officielle ?",
+              en: "3. How do I request an official Incubation Certificate (Attestation d'incubation)?"
+            },
+            answer: {
+              ar: `يمكن للطلبة المسجلين والمرافقين لدى حاضنة أعمال جامعة USTHB تقديم طلب الحصول على شهادة الاحتضان الرسمية عبر ملء الاستمارة الرقمية التالية:<br><br>
+              <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
+                <strong>⚠️ ملاحظة هامة لتفادي رفض الطلب:</strong><br>
+                • يرجى كتابة <strong>الاسم واللقب باللغة العربية</strong> لجميع أعضاء المشروع مع الأساتذة المؤطرين (مثال: علام صارة، موسى إسلام...).<br>
+                • يرجى ذكر <strong>اسم المشروع</strong> فقط (بأي لغة) وليس وصفه.
+              </div>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSekGUEoX8mH0RzPc-rMcmHRAp-2TwQpeEW7iRu_233ulalCpw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>طلب شهادة الاحتضان (Attestation d'incubation)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              fr: `Les étudiants inscrits et accompagnés par l'incubateur USTHB peuvent demander leur attestation d'incubation officielle via le formulaire suivant :<br><br>
+              <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
+                <strong>⚠️ Note importante :</strong><br>
+                • Veuillez écrire les <strong>noms et prénoms en arabe</strong> de tous les membres et encadrants.<br>
+                • Veuillez mentionner uniquement le <strong>nom du projet</strong> et non sa description.
+              </div>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSekGUEoX8mH0RzPc-rMcmHRAp-2TwQpeEW7iRu_233ulalCpw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Demande d'attestation d'incubation</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              en: `Students registered and mentored at the USTHB Incubator can apply for their official incubation certificate via the following form:<br><br>
+              <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
+                <strong>⚠️ Important Note:</strong><br>
+                • Please write the <strong>full names in Arabic</strong> for all team members and supervisors.<br>
+                • Please provide only the <strong>project name</strong> rather than its description.
+              </div>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSekGUEoX8mH0RzPc-rMcmHRAp-2TwQpeEW7iRu_233ulalCpw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Request Incubation Certificate</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`
+            }
+          }
+        ]
+      },
+      {
+        id: "espace-startups-suivi",
+        icon: "cpu",
+        title: {
+          ar: "فضاء المشاريع الناشئة والمتابعة التقنية (Espace Start-ups & Suivi)",
+          fr: "Espace Start-ups & Suivi Technique",
+          en: "Start-ups Space & Technical Follow-up"
+        },
+        questions: [
+          {
+            id: 301,
+            question: {
+              ar: "1. كيف أتابع وضعية ملف طلب الحصول على العلامة (Suivi des demandes de label)؟",
+              fr: "1. Comment suivre l'état de ma demande de label (Suivi des demandes de label) ?",
+              en: "1. How do I track my Label application status (Projet Innovant / Startup)?"
+            },
+            answer: {
+              ar: `يمكن للطلبة المودِعين لملفات طلب علامة "مشروع مبتكر" أو "مؤسسة ناشئة" متابعة وضعية ملفاتهم وتحديث بياناتها لدى الحاضنة عبر الاستمارة الرقمية التالية:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHNW_zeCjFK6kfHupXJQ_lXji7AciPNWeee9TtQMKhK1EKwg/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>متابعة طلبات العلامة (Suivi des demandes de label)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              fr: `Les porteurs de projets ayant déposé un dossier de label « Projet Innovant » ou « Startup » peuvent suivre l'avancement de leur demande via le formulaire suivant :<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHNW_zeCjFK6kfHupXJQ_lXji7AciPNWeee9TtQMKhK1EKwg/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Suivi des demandes de label</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              en: `Project holders who applied for the "Innovative Project" or "Startup" label can track their application status via the following form:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHNW_zeCjFK6kfHupXJQ_lXji7AciPNWeee9TtQMKhK1EKwg/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Track Label Applications</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`
+            }
+          },
+          {
+            id: 302,
+            question: {
+              ar: "2. كيف أطلب تصريح الدخول إلى Start-up's Hall خلال العطل وأيام السبت أو المساء (إلى غاية 22:00)؟",
+              fr: "2. Comment demander l'accès au Start-up's Hall pendant les vacances, les samedis et jusqu'à 22h ?",
+              en: "2. How do I request access to the Start-up's Hall during holidays, Saturdays, or until 10:00 PM?"
+            },
+            answer: {
+              ar: `تتيح حاضنة الأعمال للطلبة حاملي المشاريع إمكانية الولوج الاستثنائي والعمل داخل فضاء Start-up's Hall خلال فترات العطل وأيام السبت، وكذا في الفترة المسائية إلى غاية الساعة 22:00 عبر الاستمارة الرسمية:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScPmVbHDdRwhZa7tYPNk7w-U1qJs1Or_foJBzQ412mY5s1i5A/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>طلب تصريح الدخول إلى Start-up's Hall</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              fr: `L'incubateur permet aux étudiants porteurs de projets d'accéder au Start-up's Hall durant les vacances, les samedis et en soirée jusqu'à 22h00 via ce formulaire :<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScPmVbHDdRwhZa7tYPNk7w-U1qJs1Or_foJBzQ412mY5s1i5A/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Formulaire d'accès au Start-up's Hall</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              en: `The incubator grants project holders special access to work inside the Start-up's Hall during holidays, Saturdays, and evenings until 10:00 PM via this form:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScPmVbHDdRwhZa7tYPNk7w-U1qJs1Or_foJBzQ412mY5s1i5A/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Request Start-up's Hall Access</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`
+            }
+          },
+          {
+            id: 303,
+            question: {
+              ar: "3. كيف يمكنني التصريح بمدى تقدم مشروعي المحتضن (Recensement de l'état d'avancement)؟",
+              fr: "3. Comment déclarer l'état d'avancement de mon projet incubé (Recensement) ?",
+              en: "3. How do I report the progress status of my incubated project?"
+            },
+            answer: {
+              ar: `تدعو حاضنة الأعمال الطلبة حاملي المشاريع المحتضنة إلى تحديث بيانات مشاريعهم والتصريح بنسبة التقدم المحرزة بصفة دورية عبر الرابط الرقمي التالي:<br><br>
+              <a href="https://gemini.google.com/app/2119827088aa462e?hl=fr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>التصريح بمدى تقدم المشروع المحتضن</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              fr: `L'incubateur invite les porteurs de projets incubés à mettre à jour leurs données et déclarer l'état d'avancement de leurs travaux via le lien suivant :<br><br>
+              <a href="https://gemini.google.com/app/2119827088aa462e?hl=fr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Recensement de l'état d'avancement</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              en: `The incubator invites incubated project holders to update their project data and report their progress periodically via the following link:<br><br>
+              <a href="https://gemini.google.com/app/2119827088aa462e?hl=fr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Report Project Progress Status</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`
+            }
+          },
+          {
+            id: 304,
+            question: {
+              ar: "4. كيف أستفيد من خدمات التحليل والأرضية التقنية (Ibtikar / Plateau technique)؟",
+              fr: "4. Comment bénéficier des analyses et du plateau technique (Ibtikar) ?",
+              en: "4. How do I request lab analysis and Technical Platform access (Ibtikar)?"
+            },
+            answer: {
+              ar: `توفر الحاضنة إمكانية طلب التحاليل المخبرية والولوج إلى الأرضية التقنية (Ibtikar / Plateau technique) لتطوير النماذج الأولية عبر الاستمارة الإلكترونية التالية:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSf1WQo3XodSaPeH66oMCtBDfRXSQXFsX8uz4wXm3XONvuUQmA/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>تقديم طلب تحليل / الأرضية التقنية (Ibtikar)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              fr: `L'incubateur offre l'accès aux analyses de laboratoire et au plateau technique (Ibtikar) pour le développement de prototypes via ce formulaire :<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSf1WQo3XodSaPeH66oMCtBDfRXSQXFsX8uz4wXm3XONvuUQmA/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Demande d'analyse / Plateau technique (Ibtikar)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              en: `The incubator provides access to laboratory analyses and the technical platform (Ibtikar) for prototype development via this form:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSf1WQo3XodSaPeH66oMCtBDfRXSQXFsX8uz4wXm3XONvuUQmA/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Request Lab Analysis / Ibtikar Platform</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`
+            }
+          },
+          {
+            id: 305,
+            question: {
+              ar: "5. كيف يمكنني تقديم طلب للحصول على مستلزمات أو خدمات النمذجة الأولية (Besoins Prototypage 2026)؟",
+              fr: "5. Comment soumettre mes besoins en prototypage (Besoins Prototypage 2026) ?",
+              en: "5. How do I submit my prototyping requirements (Besoins Prototypage 2026)?"
+            },
+            answer: {
+              ar: `تتيح حاضنة الأعمال للطلبة حاملي المشاريع المبتكرة التعبير عن احتياجاتهم التقنية والمادية الخاصة بتطوير النموذج الأولي (Prototype) لموسم 2026 عبر ملء الاستمارة الرقمية:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSewafYxuqmWMCnjCsBMjljFWqQYeTyhCYaSV7A2KrQ72HZHaw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>تقديم احتياجات النمذجة الأولية (Prototypage 2026)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              fr: `L'incubateur permet aux porteurs de projets innovants d'exprimer leurs besoins techniques et matériels pour la réalisation de leur prototype 2026 via ce formulaire :<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSewafYxuqmWMCnjCsBMjljFWqQYeTyhCYaSV7A2KrQ72HZHaw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Soumettre les besoins de prototypage 2026</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`,
+              en: `The incubator enables innovative project holders to submit their technical and material requirements for prototype development in 2026 via this form:<br><br>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSewafYxuqmWMCnjCsBMjljFWqQYeTyhCYaSV7A2KrQ72HZHaw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span>Submit Prototyping Needs 2026</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>`
+            }
+          }
+        ]
+      },
+      {
+        id: "general-info",
+        icon: "info",
+        title: {
+          ar: "معلومات عامة، مهام الحاضنة والتواصل",
+          fr: "Informations Générales, Missions & Contact",
+          en: "General Information, Missions & Contact"
+        },
+        questions: [
+          {
+            id: 1,
+            question: {
+              ar: "ما هو القرار الوزاري 1275 (المعدل بالقرار 008) شهادة - مؤسسة ناشئة / براءة اختراع؟",
+              fr: "Qu'est-ce que l'arrêté ministériel 1275 (modifié par l'arrêté 008) Diplôme - Startup / Brevet ?",
+              en: "What is Ministerial Decree 1275 (amended by Decree 008) Degree - Startup / Patent?"
+            },
+            answer: {
+              ar: "هو آلية وزارية تتيح لطلبة الليسانس والماستر والدكتوراه إعداد مذكرة تخرج في شكل مشروع مؤسسة ناشئة (Startup)، مؤسسة مصغرة، أو براءة اختراع تحت إشراف أساتذة مؤطرين ومرافقة حاضنة الأعمال الجامعية.",
+              fr: "C'est un dispositif ministériel permettant aux étudiants en Licence, Master et Doctorat de préparer un mémoire de fin d'études sous forme de projet Startup, micro-entreprise ou brevet d'invention avec l'accompagnement de l'incubateur universitaire.",
+              en: "It is a ministerial framework enabling Bachelor's, Master's, and PhD students to prepare their graduation thesis as a Startup project, micro-enterprise, or patent under academic supervision and university incubator mentoring."
+            }
+          },
+          {
+            id: 2,
+            question: {
+              ar: "ما هي مهام حاضنة أعمال جامعة USTHB والخدمات التي تقدمها؟",
+              fr: "Quelles sont les missions et services de l'incubateur de l'USTHB ?",
+              en: "What are the missions and services offered by the USTHB Incubator?"
+            },
+            answer: {
+              ar: `تتولى حاضنة الأعمال مرافقة الطلبة حاملي المشاريع المبتكرة من مرحلة الفكرة إلى غاية إنشاء المؤسسة، وتشمل أبرز مهامها:<br><br>
+              • <strong>التوطين الإداري والمكتبي:</strong> توفير فضاءات عمل مجهزة (Start-up's Hall) ومقر اجتماعي للمشروع.<br>
+              • <strong>التدريب والتكوين المتخصص:</strong> ورشات في إعداد نموذج العمل التجاري (BMC)، التسويق، وفن العرض (Pitching).<br>
+              • <strong>المرافقة التقنية والنمذجة الأولية:</strong> ربط الطلبة بالمخابر والأرضيات التقنية (Ibtikar) لتطوير النماذج الأولية.<br>
+              • <strong>حماية الملكية الفكرية:</strong> التنسيق مع مركز دعم التكنولوجيا والابتكار (CATI) لتسجيل براءات الاختراع.<br>
+              • <strong>الوساطة والتمويل:</strong> التحضير للحصول على علامة "مشروع مبتكر" أو "مؤسسة ناشئة" والتواصل مع هيئات التمويل (NESDA، ASF).`,
+              fr: `L'incubateur accompagne les étudiants porteurs de projets innovants de l'idée jusqu'à la création de l'entreprise :<br><br>
+              • <strong>Domiciliation et espaces :</strong> Mise à disposition d'espaces équipés (Start-up's Hall).<br>
+              • <strong>Formation spécialisée :</strong> Ateliers sur le Business Model Canvas (BMC), marketing et Pitching.<br>
+              • <strong>Accompagnement technique :</strong> Accès aux laboratoires et plateaux techniques (Ibtikar) pour le prototypage.<br>
+              • <strong>Propriété intellectuelle :</strong> Coordination avec le centre CATI pour le dépôt de brevets.<br>
+              • <strong>Labellisation et financement :</strong> Préparation aux labels « Projet Innovant » / « Startup » et mise en relation avec NESDA et ASF.`,
+              en: `The incubator mentors students with innovative projects from the idea stage to company launch:<br><br>
+              • <strong>Workspace & Hosting:</strong> Providing equipped co-working spaces (Start-up's Hall).<br>
+              • <strong>Specialized Training:</strong> Workshops on Business Model Canvas (BMC), marketing, and Pitching.<br>
+              • <strong>Technical Mentoring:</strong> Connecting students with labs and technical platforms (Ibtikar) for prototyping.<br>
+              • <strong>Intellectual Property:</strong> Coordinating with CATI to file patents and trademarks.<br>
+              • <strong>Labeling & Funding:</strong> Preparing applications for "Innovative Project" / "Startup" labels and connecting with NESDA and ASF.`
+            }
+          },
+          {
+            id: 4,
+            question: {
+              ar: "كيف أتواصل مع الحاضنة، وأين أجد جميع روابط ومنصات وحسابات التواصل الاجتماعي؟",
+              fr: "Comment contacter l'incubateur et où trouver tous les liens et réseaux sociaux ?",
+              en: "How do I contact the incubator and where can I find all official links and social media?"
+            },
+            answer: {
+              ar: `يمكنكم التوجه مباشرة إلى مقر الحاضنة بجامعة USTHB خلال أوقات الاستقبال المعتمدة (من الأحد إلى الأربعاء من 09:00 إلى 12:00)، أو الوصول إلى كافة المنصات الرقمية وحسابات التواصل الاجتماعي الرسمية عبر الروابط التالية:<br><br>
+              <div class="flex flex-wrap gap-2">
+                <a href="https://linktr.ee/Techinnovincubator" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                  <span>جميع روابط وحسابات الحاضنة (Linktree)</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <a href="https://www.digitalagencey.com/techinnov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold transition-colors shadow-xs">
+                  <span>بوابة TechInnov الرسمية</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>`,
+              fr: `Vous pouvez vous présenter au siège de l'incubateur à l'USTHB durant les horaires de réception (Dimanche au Mercredi de 09h00 à 12h00), ou accéder à toutes nos plateformes et réseaux sociaux via les liens suivants :<br><br>
+              <div class="flex flex-wrap gap-2">
+                <a href="https://linktr.ee/Techinnovincubator" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                  <span>Tous les liens & réseaux (Linktree)</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <a href="https://www.digitalagencey.com/techinnov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold transition-colors shadow-xs">
+                  <span>Portail Officiel TechInnov</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>`,
+              en: `You can visit the incubator headquarters at USTHB during reception hours (Sunday to Wednesday, 09:00 AM - 12:00 PM), or access all official platforms and social media via the following links:<br><br>
+              <div class="flex flex-wrap gap-2">
+                <a href="https://linktr.ee/Techinnovincubator" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+                  <span>All Incubator Links & Socials (Linktree)</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <a href="https://www.digitalagencey.com/techinnov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold transition-colors shadow-xs">
+                  <span>Official TechInnov Portal</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>`
+            }
+          }
+        ]
+      }
+    ];
+
+    const categoryTabs = document.getElementById("categoryTabs");
+    const faqContainer = document.getElementById("faqContainer");
+    const searchInput = document.getElementById("searchInput");
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("usthb_lang", lang);
+
+      const isAr = lang === "ar";
+      document.documentElement.lang = lang;
+      document.documentElement.dir = isAr ? "rtl" : "ltr";
+      document.title = uiTranslations[lang].pageTitle;
+
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.classList.remove("bg-white", "text-cyan-900");
+        btn.classList.add("text-white");
+      });
+      const activeBtn = document.getElementById(`btn-${lang}`);
+      if (activeBtn) {
+        activeBtn.classList.add("bg-white", "text-cyan-900");
+        activeBtn.classList.remove("text-white");
+      }
+
+      const searchIcon = document.getElementById("searchIcon");
+      if (isAr) {
+        searchIcon.classList.remove("left-4");
+        searchIcon.classList.add("right-4");
+        searchInput.classList.remove("pl-12", "pr-4");
+        searchInput.classList.add("pr-12", "pl-4");
+      } else {
+        searchIcon.classList.remove("right-4");
+        searchIcon.classList.add("left-4");
+        searchInput.classList.remove("pr-12", "pl-4");
+        searchInput.classList.add("pl-12", "pr-4");
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (uiTranslations[lang][key]) el.textContent = uiTranslations[lang][key];
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (uiTranslations[lang][key]) el.placeholder = uiTranslations[lang][key];
+      });
+
+      renderTabs();
+      renderFAQ(searchInput.value);
+    }
+
+    function renderTabs() {
+      const tabsHTML = [
+        `<button onclick="selectCategory('all')" class="px-4 py-2 rounded-xl text-xs font-bold transition-colors ${activeCategory === 'all' ? 'bg-cyan-700 text-white shadow-xs' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'}">
+          ${uiTranslations[currentLang].allCategories}
+        </button>`,
+        ...faqCategories.map(cat => `
+          <button onclick="selectCategory('${cat.id}')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${activeCategory === cat.id ? 'bg-cyan-700 text-white shadow-xs' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'}">
+            <i data-lucide="${cat.icon}" class="w-3.5 h-3.5"></i>
+            <span>${cat.title[currentLang]}</span>
+          </button>
+        `)
+      ].join("");
+      categoryTabs.innerHTML = tabsHTML;
+    }
+
+    function selectCategory(catId) {
+      activeCategory = catId;
+      renderTabs();
+      renderFAQ(searchInput.value);
+    }
+
+    function toggleAccordion(id) {
+      const content = document.getElementById(`ans-${id}`);
+      const icon = document.getElementById(`icon-${id}`);
+      if (!content) return;
+      content.classList.toggle("hidden");
+      icon.classList.toggle("rotate-180");
+    }
+
+    function renderFAQ(filterText = "") {
+      const q = filterText.trim().toLowerCase();
+      let hasResults = false;
+
+      const html = faqCategories
+        .filter(cat => activeCategory === "all" || cat.id === activeCategory)
+        .map(cat => {
+          const filteredQuestions = cat.questions.filter(item =>
+            item.question[currentLang].toLowerCase().includes(q) ||
+            item.answer[currentLang].toLowerCase().includes(q)
+          );
+
+          if (filteredQuestions.length === 0) return "";
+          hasResults = true;
+
+          return `
+            <section class="space-y-3">
+              <div class="flex items-center gap-2.5">
+                <div class="p-2 rounded-xl bg-cyan-100 text-cyan-800">
+                  <i data-lucide="${cat.icon}" class="w-4 h-4"></i>
+                </div>
+                <h2 class="text-base sm:text-lg font-extrabold text-slate-900">${cat.title[currentLang]}</h2>
+              </div>
+
+              <div class="space-y-2.5">
+                ${filteredQuestions.map(item => `
+                  <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+                    <button onclick="toggleAccordion(${item.id})" class="w-full px-5 py-4 text-start flex items-center justify-between gap-4 hover:bg-slate-50/80 transition-colors">
+                      <span class="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed">${item.question[currentLang]}</span>
+                      <i id="icon-${item.id}" data-lucide="chevron-down" class="w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200"></i>
+                    </button>
+                    <div id="ans-${item.id}" class="${q ? '' : 'hidden'} px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/40">
+                      ${item.answer[currentLang]}
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </section>
+          `;
+        }).join("");
+
+      faqContainer.innerHTML = hasResults
+        ? html
+        : `<div class="text-center py-12 bg-white rounded-2xl border border-slate-200 text-sm text-slate-500">${uiTranslations[currentLang].noResults}</div>`;
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    document.getElementById("questionForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString()
+      })
+        .then(() => {
+          form.reset();
+          document.getElementById("formSuccess").classList.remove("hidden");
+        })
+        .catch(() => alert("Error submitting form"));
+    });
+
+    async function downloadQR() {
+      const qrUrl = document.getElementById("qrImage").src;
+      const response = await fetch(qrUrl);
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "QR_Guide_Incubateur_USTHB.png";
+      link.click();
+    }
+
+    searchInput.addEventListener("input", (e) => renderFAQ(e.target.value));
+    setLanguage(currentLang);
+  </script>
+</body>
+</html>
