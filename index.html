@@ -397,6 +397,7 @@
     const ecosystemCategories = [
       {
         id: "decree-1275-008",
+		img: "images/logo-usthb.png",
         icon: "file-text",
         headerColor: "from-amber-900/90 to-amber-800/80",
         shortLabel: { ar: "قرار 1275 / 008 والوسم", fr: "Arrêté 1275/008 & Label", en: "Decree 1275/008 & Label" },
@@ -629,6 +630,7 @@
       },
       {
         id: "cat-incubateur",
+		img: "images/logo-incubateur.png",
         icon: "rocket",
         headerColor: "from-blue-900/90 to-blue-800/80",
         shortLabel: { ar: "الحاضنة TECHINNOV", fr: "Incubateur TECHINNOV", en: "TECHINNOV Incubator" },
@@ -673,6 +675,7 @@
       },
       {
         id: "cat-cati",
+		img: "images/logo-cati.png",
         icon: "shield-check",
         headerColor: "from-cyan-900/90 to-cyan-800/80",
         shortLabel: { ar: "مركز CATI", fr: "Centre CATI", en: "CATI Center" },
@@ -717,6 +720,7 @@
       },
       {
         id: "cat-cde",
+		img: "images/logo-cde.png",
         icon: "briefcase",
         headerColor: "from-orange-900/90 to-amber-800/80",
         shortLabel: { ar: "مركز CDE", fr: "Centre CDE", en: "CDE Center" },
@@ -761,6 +765,7 @@
       },
       {
         id: "cat-guichet",
+		img: "images/logo-guichet.png",
         icon: "door-open",
         headerColor: "from-emerald-900/90 to-emerald-800/80",
         shortLabel: { ar: "الشباك الموحد", fr: "Guichet Unique", en: "One-Stop Shop" },
@@ -805,6 +810,7 @@
       },
       {
         id: "cat-nesda",
+		img: "images/logo-nesda.png",
         icon: "landmark",
         headerColor: "from-purple-900/90 to-purple-800/80",
         shortLabel: { ar: "وكالة NESDA", fr: "Agence NESDA", en: "NESDA Agency" },
@@ -981,9 +987,12 @@
           <div id="cat-group-${category.id}" class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-300">
             <div class="p-4 sm:p-5 bg-gradient-to-r ${category.headerColor} text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div class="flex items-center gap-3.5">
-                <div class="w-11 h-11 rounded-2xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center shrink-0">
-                  <i data-lucide="${category.icon}" class="w-5 h-5 text-blue-200"></i>
+             
+			 <!------------------logo-categories------------------------->
+			   <div class="w-12 h-12 rounded-2xl bg-white p-1.5 shadow-sm flex items-center justify-center overflow-hidden shrink-0 border border-white/20">
+                  <img src="${category.img}" alt="Logo" class="w-full h-full object-contain" />
                 </div>
+				
                 <div>
                   <h3 class="font-bold text-sm sm:text-base text-white">${category.title[currentLang]}</h3>
                   <p class="text-[11px] text-blue-100/80 mt-0.5">${category.subtitle[currentLang]}</p>
