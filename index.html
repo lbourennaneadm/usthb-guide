@@ -1128,11 +1128,10 @@
     fetch("https://api.counterapi.dev/v1/usthb-techinnov-faq/visits/up")
       .then(res => res.json())
       .then(data => {
-        animateCounter(countEl, 0, data.count || 125, 1500);
+        animateCounter(countEl, 0, data.count || 1, 1500);
       })
       .catch(() => {
-        // رقم احتياطي في حال انقطاع الاتصال
-        animateCounter(countEl, 0, 148, 1500);
+        animateCounter(countEl, 0, 1, 1500);
       });
 
     // دالة حركة العدّ التصاعدي السلس
