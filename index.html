@@ -1103,5 +1103,55 @@
     // تهيئة اللغة المحفوظة عند تحميل الصفحة
     setLanguage(currentLang);
   </script>
+  
+  <!-- عداد زيارات متحرك في أسفل الصفحة -->
+<div id="floating-visitor-widget" class="fixed bottom-4 left-4 z-50 flex items-center gap-2.5 bg-slate-900/95 backdrop-blur-md text-white px-4 py-2.5 rounded-2xl shadow-xl border border-slate-700/80 transition-all duration-500 translate-y-10 opacity-0">
+  <span class="relative flex h-2.5 w-2.5">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+  </span>
+  <span class="text-xs font-medium text-slate-300">عدد الزيارات:</span>
+  <span id="animated-visit-count" class="text-sm font-extrabold text-amber-400 tracking-wider font-mono">0</span>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const widget = document.getElementById("floating-visitor-widget");
+    const countEl = document.getElementById("animated-visit-count");
+    
+    // إظهار الصندوق بحركة انسيابية للأعلى عند فتح الصفحة
+    setTimeout(() => {
+      widget.classList.remove("translate-y-10", "opacity-0");
+    }, 300);
+
+    // جلب وزيادة عدد الزيارات الحقيقي تلقائياً
+    fetch("https://api.counterapi.dev/v1/usthb-techinnov-faq/visits/up")
+      .then(res => res.json())
+      .then(data => {
+        animateCounter(countEl, 0, data.count || 125, 1500);
+      })
+      .catch(() => {
+        // رقم احتياطي في حال انقطاع الاتصال
+        animateCounter(countEl, 0, 148, 1500);
+      });
+
+    // دالة حركة العدّ التصاعدي السلس
+    function animateCounter(element, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        // تأثير تباطؤ طبيعي في نهاية العد
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        element.textContent = Math.floor(easeOut * (end - start) + start).toLocaleString();
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+  });
+</script>
+  
 </body>
 </html>
