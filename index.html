@@ -1,4 +1,4 @@
- <!-- index-maj13-11-2026 -->
+ <!-- index-maj-20-11-2026 -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -82,6 +82,8 @@
 
 <body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
+
+
   <!-- شريط الأخبار العاجلة والتحديثات (News Ticker Bar) -->
   <div class="bg-gradient-to-r from-blue-900 via-brand-primary to-blue-950 text-white text-xs border-b border-blue-400/30 shadow-md relative z-40 overflow-hidden flex items-stretch h-9">
     <div class="bg-red-600 hover:bg-red-700 text-white font-extrabold px-3.5 sm:px-4 flex items-center gap-1.5 shrink-0 z-10 shadow-md select-none tracking-wide text-[11px] sm:text-xs">
@@ -94,6 +96,8 @@
       <div id="tickerContent" class="ticker-track flex items-center gap-12 whitespace-nowrap font-medium text-[11px] sm:text-xs text-blue-100"></div>
     </div>
   </div>
+
+<div id="shared-navbar"></div>
 
   <div>
     <!-- الشريط العلوي التنظيمي (Header) -->
@@ -152,8 +156,8 @@
           </div>
         </div>
 
-        <!-- بطاقات منظومة المرافقة والابتكار الجامعية (5 بطاقات على سطر واحد) -->
-        <div id="ecosystemCardsRow" class="grid grid-cols-5 gap-2.5 sm:gap-3.5 mt-6 overflow-x-auto pb-2 scrollbar-none"></div>
+        <!-- بطاقات منظومة المرافقة والابتكار الجامعية (عمودان على الهاتف و5 على الحاسوب) -->
+        <div id="ecosystemCardsRow" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5 mt-6 pb-2"></div>
       </div>
     </header>
 
@@ -161,7 +165,7 @@
     <main class="max-w-5xl mx-auto px-4 py-8">
 
       <!-- لوحة التحكم وأدوات البحث والتوسيع والطي -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 sm:p-5 mb-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 sm:p-5 mb-8">
         <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
           
           <!-- حقل البحث -->
@@ -196,8 +200,9 @@
         </div>
 
         <!-- أزرار القفز السريع للفئات -->
-        <div class="flex items-center gap-2 overflow-x-auto pt-4 mt-4 border-t border-slate-100 scrollbar-none pb-1" id="category-quicklinks"></div>
-      </div>
+<!-- زرّان في السطر على الهاتف + 6 أزرار في سطر واحد على الحاسوب -->
+<!-- أزرار القفز السريع للفئات مع فراغ إضافي بالأسفل -->
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 pt-4 mt-4 border-t border-slate-100 pb-4" id="category-quicklinks"></div>
 
       <!-- حاوية الفئات التجميعية -->
       <div id="faq-groups-container" class="space-y-6"></div>
@@ -237,17 +242,136 @@
         <div data-i18n="footerRights">جميع الحقوق محفوظة © حاضنة أعمال جامعة هواري بومدين للعلوم والتكنولوجيا USTHB-TECHINNOV</div>
       </div>
     </div>
-  </footer>
+</footer>
+
+<!-- كود شريط التنقل الموحد مع حفظ اللغة عند الانتقال -->
 <script>
-    let currentLang = localStorage.getItem("usthb_lang") || "ar";
+  function initSharedNavbar() {
+    const navContainer = document.getElementById("shared-navbar");
+    if (!navContainer) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const savedLang = urlParams.get("lang") || localStorage.getItem("usthb_lang") || "ar";
+    localStorage.setItem("usthb_lang", savedLang);
+
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+    const navTexts = {
+      ar: {
+        navTitle: "روابط الرقمية لحاضنة USTHB-TECHINNOV",
+        menuLabel: "القائمة",
+        navHome: "الرئيسية (FAQ)",
+        navServices: "المرافق والهيئات",
+        navGuide: "دليل الحاضنة 1275"
+      },
+      fr: {
+        navTitle: "Liens numériques de l'incubateur USTHB-TECHINNOV",
+        menuLabel: "Menu",
+        navHome: "Accueil (FAQ)",
+        navServices: "Services & Dispositifs",
+        navGuide: "Guide Incubateur 1275"
+      },
+      en: {
+        navTitle: "Digital Links of USTHB-TECHINNOV Incubator",
+        menuLabel: "Menu",
+        navHome: "Home (FAQ)",
+        navServices: "Services & Entities",
+        navGuide: "Incubator Guide 1275"
+      }
+    };
+
+    const t = navTexts[savedLang] || navTexts.ar;
+
+    const getLinkClass = (pageName) => {
+      const isActive = currentPage === pageName;
+      return isActive
+        ? "block px-3.5 py-2.5 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/30 font-bold"
+        : "block px-3.5 py-2.5 rounded-xl hover:bg-white/10 transition-colors";
+    };
+
+    const buildUrl = (page) => `${page}?lang=${localStorage.getItem("usthb_lang") || savedLang}`;
+
+    navContainer.innerHTML = `
+      <nav class="relative bg-slate-900 border-b border-white/15 text-white z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+          <button id="mobile-menu-btn" aria-label="Menu" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors cursor-pointer focus:outline-none">
+            <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span data-i18n="menuLabel">${t.menuLabel}</span>
+          </button>
+
+          <a href="https://www.digitalagencey.com/techinnov" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 font-bold text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition-colors">
+            <i data-lucide="globe" class="w-4 h-4 shrink-0"></i>
+            <span data-i18n="navTitle">${t.navTitle}</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-80 shrink-0"></i>
+          </a>
+        </div>
+
+        <div id="mobile-menu-dropdown" class="hidden absolute top-full inset-x-0 md:inset-x-auto md:start-4 md:w-72 md:mt-2 md:rounded-2xl bg-slate-900 border border-slate-700 px-3 py-3 space-y-1.5 text-xs font-semibold shadow-2xl z-50">
+          <a href="${buildUrl('index.html')}" data-nav-page="index.html" data-i18n="navHome" class="${getLinkClass('index.html')}">${t.navHome}</a>
+          <a href="${buildUrl('services.html')}" data-nav-page="services.html" data-i18n="navServices" class="${getLinkClass('services.html')}">${t.navServices}</a>
+          <a href="${buildUrl('guide.html')}" data-nav-page="guide.html" data-i18n="navGuide" class="${getLinkClass('guide.html')}">${t.navGuide}</a>
+        </div>
+      </nav>
+    `;
+
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    navContainer.querySelectorAll("a[data-nav-page]").forEach(link => {
+      link.addEventListener("click", () => {
+        const latestLang = localStorage.getItem("usthb_lang") || "ar";
+        link.href = `${link.getAttribute("data-nav-page")}?lang=${latestLang}`;
+      });
+    });
+
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu-dropdown");
+    const iconOpen = document.getElementById("menu-icon-open");
+    const iconClose = document.getElementById("menu-icon-close");
+
+    const toggleMenu = () => {
+      menu.classList.toggle("hidden");
+      iconOpen.classList.toggle("hidden");
+      iconClose.classList.toggle("hidden");
+    };
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !btn.contains(e.target) && !menu.classList.contains("hidden")) {
+        toggleMenu();
+      }
+    });
+  }
+
+  initSharedNavbar();
+</script>
+
+<!-- سكريبت البيانات والترجمة الرئيسي للصفحة -->
+<script>
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    let currentLang = urlLang || localStorage.getItem("usthb_lang") || "ar";
     let searchQuery = "";
     let openQuestionIds = new Set([101, 1]);
     let collapsedCategoryIds = new Set();
 
-    // 1. قاموس الواجهة وشريط الأخبار باللغات الثلاث
     const uiTranslations = {
       ar: {
         pageTitle: "النظام البيئي للمؤسسات الناشئة ودليل 1275 - USTHB-TECHINNOV",
+        navTitle: "روابط الرقمية لحاضنة USTHB-TECHINNOV",
+        menuLabel: "القائمة",
+        navHome: "الرئيسية (FAQ)",
+        navServices: "المرافق والهيئات",
+        navGuide: "دليل الحاضنة 1275",
         tickerBadge: "آخر الأخبار",
         tickerItems: [
           "<strong>إعلان هام:</strong> التسجيل في مشاريع القرار الوزاري 1275 / 008 يبدأ عن قريب، يرجى تحضير أفكار المشاريع وفرق العمل.",
@@ -260,7 +384,7 @@
         headerSubtitle: "دليل التعريف بهياكل المرافقة، القرار 1275/008، ومعايير الحصول على الوسم (Label)",
         receptionLabel: "مواعيد الاستقبال الرسمية",
         receptionHours: "الأحد إلى الأربعاء: 09:00 - 12:00",
-        backBtn: "العودة إلى الدليل الرئيسي",
+        backHomeBtn: "العودة إلى دليل حاضنة أعمال USTHB",
         servicesBtn: "ممثلو الكليات (9) والمصالح المرافقة",
         searchPlaceholder: "ابحث حول (1275، Label، Pitch Deck، CATI، CDE، NESDA...)",
         expandAll: "توسيع الكل",
@@ -275,6 +399,11 @@
       },
       fr: {
         pageTitle: "Écosystème Start-up & Guide Arrêté 1275 - USTHB-TECHINNOV",
+        navTitle: "Liens numériques de l'incubateur USTHB-TECHINNOV",
+        menuLabel: "Menu",
+        navHome: "Accueil (FAQ)",
+        navServices: "Services & Dispositifs",
+        navGuide: "Guide Incubateur 1275",
         tickerBadge: "Actualités",
         tickerItems: [
           "<strong>Annonce importante :</strong> Les inscriptions aux projets de l'Arrêté 1275 / 008 débuteront prochainement, préparez vos idées et équipes.",
@@ -287,7 +416,7 @@
         headerSubtitle: "Structures d'accompagnement, Arrêté 1275/008, critères de Labellisation et Pitch Deck",
         receptionLabel: "Horaires de réception officiels",
         receptionHours: "Dimanche au Mercredi : 09h00 - 12h00",
-        backBtn: "Retour au guide principal",
+        backHomeBtn: "Retour au guide de l'incubateur USTHB",
         servicesBtn: "Représentants des 9 Facultés & Services",
         searchPlaceholder: "Rechercher (1275, Label, Pitch Deck, CATI, CDE, NESDA...)",
         expandAll: "Tout développer",
@@ -302,6 +431,11 @@
       },
       en: {
         pageTitle: "Startup Ecosystem & Decree 1275 Guide - USTHB-TECHINNOV",
+        navTitle: "Digital Links of USTHB-TECHINNOV Incubator",
+        menuLabel: "Menu",
+        navHome: "Home (FAQ)",
+        navServices: "Services & Entities",
+        navGuide: "Incubator Guide 1275",
         tickerBadge: "Latest News",
         tickerItems: [
           "<strong>Important Notice:</strong> Registration for Ministerial Decree 1275 / 008 projects starts soon; prepare your project ideas and teams.",
@@ -314,7 +448,7 @@
         headerSubtitle: "Support structures, Decree 1275/008, Label criteria, and Pitch Deck structure",
         receptionLabel: "Official Reception Hours",
         receptionHours: "Sunday to Wednesday: 09:00 AM - 12:00 PM",
-        backBtn: "Back to Main Guide",
+        backHomeBtn: "Back to USTHB Incubator Guide",
         servicesBtn: "9 Faculties Representatives & Services",
         searchPlaceholder: "Search (1275, Label, Pitch Deck, CATI, CDE, NESDA...)",
         expandAll: "Expand All",
@@ -329,7 +463,6 @@
       }
     };
 
-    // 2. بيانات البطاقات الخمس في الهيدر باللغات الثلاث
     const ecosystemCardsData = [
       {
         url: "https://www.facebook.com/profile.php?id=61566893240679&locale=fr_FR",
@@ -393,11 +526,10 @@
       }
     ];
 
-    // 3. مصفوفة الفئات والأسئلة باللغات الثلاث (شاملة القرار 1275/008، الوسم Label، startup.dz، Pitch Deck، والبطاقات الخمس)
     const ecosystemCategories = [
       {
         id: "decree-1275-008",
-		img: "images/logo-usthb.png",
+        img: "images/logo-usthb.png",
         icon: "file-text",
         headerColor: "from-amber-900/90 to-amber-800/80",
         shortLabel: { ar: "قرار 1275 / 008 والوسم", fr: "Arrêté 1275/008 & Label", en: "Decree 1275/008 & Label" },
@@ -447,14 +579,14 @@
             },
             answer: {
               ar: `• <strong>شهادة جامعية – مؤسسة ناشئة (Startup):</strong> للمشاريع الابتكارية والتكنولوجية ذات القابلية العالية للنمو والتوسع.<br>
-                   • <strong>شهادة جامعية – مؤسسة مصغرة (Micro-entreprise):</strong> للمشاريع المقاولاتية الكلاسيكية، الخدماتية، أو الحرفية.<br>
-                   • <strong>شهادة جامعية – براءة اختراع (Brevet d'invention):</strong> للأعمال البحثية والتقنية التي تفضي إلى اختراع قابل للحماية لدى معهد INAPI.`,
+- <strong>شهادة جامعية – مؤسسة مصغرة (Micro-entreprise):</strong> للمشاريع المقاولاتية الكلاسيكية، الخدماتية، أو الحرفية.<br>
+- <strong>شهادة جامعية – براءة اختراع (Brevet d'invention):</strong> للأعمال البحثية والتقنية التي تفضي إلى اختراع قابل للحماية لدى معهد INAPI.`,
               fr: `• <strong>Diplôme – Startup :</strong> Pour les projets innovants et technologiques à fort potentiel de croissance.<br>
-                   • <strong>Diplôme – Micro-entreprise :</strong> Pour les projets entrepreneuriaux classiques, de services ou artisanaux.<br>
-                   • <strong>Diplôme – Brevet d'invention :</strong> Pour les travaux de recherche aboutissant à une invention brevetable auprès de l'INAPI.`,
+- <strong>Diplôme – Micro-entreprise :</strong> Pour les projets entrepreneuriaux classiques, de services ou artisanaux.<br>
+- <strong>Diplôme – Brevet d'invention :</strong> Pour les travaux de recherche aboutissant à une invention brevetable auprès de l'INAPI.`,
               en: `• <strong>Degree – Startup:</strong> For innovative, tech-driven projects with high growth and scalability potential.<br>
-                   • <strong>Degree – Micro-enterprise:</strong> For classic, service-based, or craft entrepreneurial projects.<br>
-                   • <strong>Degree – Patent:</strong> For research work resulting in a patentable invention registered with INAPI.`
+- <strong>Degree – Micro-enterprise:</strong> For classic, service-based, or craft entrepreneurial projects.<br>
+- <strong>Degree – Patent:</strong> For research work resulting in a patentable invention registered with INAPI.`
             }
           },
           {
@@ -465,7 +597,7 @@
               en: "How many members can form a team, and can students from different faculties join together?"
             },
             answer: {
-              ar: "يتكون الفريق من <strong>طالب واحد إلى 6 طلبة</strong> كحد أقصى في المشروع الواحد. ويُشجَّع بشدة تشكيل فرق متعددة التخصصات من كليات مختلفة بجامعة USTHB (مثلاً: تقني، معلوماتي، وتسيير) لتحقيق التكامل في بناء المشروع.",
+              ar: "يتكون الفريق من <strong>طالب واحد إلى 6 طلبة</strong> كحد أقصى في المشروع الواحد. ويُشجَّع بشدة تشكيل فرق متعددة التخصصات من كليات مختلفة بجامعة USTHB (مثلاً: تقني، معلوماتي، وتسيير) لتحقيق التكامل في بناء المشروع.",
               fr: "L'équipe est composée de <strong>1 à 6 étudiants</strong> maximum par projet. La constitution d'équipes pluridisciplinaires issues de différentes facultés de l'USTHB est vivement encouragée pour assurer la complémentarité des compétences.",
               en: "A team consists of <strong>1 to 6 students</strong> maximum per project. Forming multidisciplinary teams across different USTHB faculties is strongly encouraged to combine technical, IT, and management skills."
             }
@@ -492,11 +624,11 @@
             },
             answer: {
               ar: `• <strong>وسم «مشروع مبتكر» (Label Projet Innovant):</strong> يُمنح للطلبة أو حاملي المشاريع (أشخاص طبيعيين) <strong>قبل تأسيس الشركة قانونياً</strong>، لإثبات الطابع الابتكاري للفكرة ونموذجها الأولي وتسهيل الحصول على التمويل التأسيسي.<br><br>
-                   • <strong>وسم «مؤسسة ناشئة» (Label Startup):</strong> يُمنح للمؤسسات <strong>المنشأة قانونياً</strong> (تحوز على سجل تجاري) والتي لا يتعدى عمرها 8 سنوات، وتتميز بطابعها الابتكاري وقابليتها للنمو السريع.`,
+- <strong>وسم «مؤسسة ناشئة» (Label Startup):</strong> يُمنح للمؤسسات <strong>المنشأة قانونياً</strong> (تحوز على سجل تجاري) والتي لا يتعدى عمرها 8 سنوات، وتتميز بطابعها الابتكاري وقابليتها للنمو السريع.`,
               fr: `• <strong>Label « Projet Innovant » :</strong> Accordé aux étudiants ou porteurs de projets (personnes physiques) <strong>avant la création juridique de l'entreprise</strong>, afin de valider l'innovation et faciliter le financement d'amorçage.<br><br>
-                   • <strong>Label « Startup » :</strong> Accordé aux sociétés <strong>déjà constituées juridiquement</strong> (registre de commerce) de moins de 8 ans, présentant un fort potentiel d'innovation et de scalabilité.`,
+- <strong>Label « Startup » :</strong> Accordé aux sociétés <strong>déjà constituées juridiquement</strong> (registre de commerce) de moins de 8 ans, présentant un fort potentiel d'innovation et de scalabilité.`,
               en: `• <strong>'Innovative Project' Label:</strong> Granted to students or project holders (individuals) <strong>prior to legal company incorporation</strong>, validating the innovation and facilitating seed funding.<br><br>
-                   • <strong>'Startup' Label:</strong> Granted to <strong>legally incorporated companies</strong> under 8 years old with strong innovation and high scalability potential.`
+- <strong>'Startup' Label:</strong> Granted to <strong>legally incorporated companies</strong> under 8 years old with strong innovation and high scalability potential.`
             }
           },
           {
@@ -508,23 +640,23 @@
             },
             answer: {
               ar: `تعتمد اللجنة الوطنية على 5 معايير رئيسية في التقييم:<br><br>
-                   1. <strong>درجة الابتكار:</strong> تقديم حل تقني أو منتج أو خدمة جديدة أو محسّنة بشكل ملموس (أو وجود براءة اختراع).<br>
-                   2. <strong>قابلية التوسع (Scalability):</strong> قدرة المشروع على النمو السريع وتغطية أسواق واسعة بتكاليف تشغيلية متحكم فيها.<br>
-                   3. <strong>نضج النموذج الأولي (Prototype / MVP):</strong> وجود نموذج أولي وظيفي قابل للاختبار وليس مجرد تصور نظري.<br>
-                   4. <strong>جدوى نموذج العمل (Business Model):</strong> وضوح السوق المستهدفة، القيمة المقترحة، ومصادر الإيرادات.<br>
-                   5. <strong>كفاءة الفريق:</strong> تكامل المؤهلات العلمية والتقنية والتسييرية لأعضاء الفريق المؤسس.`,
+1. <strong>درجة الابتكار:</strong> تقديم حل تقني أو منتج أو خدمة جديدة أو محسّنة بشكل ملموس (أو وجود براءة اختراع).<br>
+2. <strong>قابلية التوسع (Scalability):</strong> قدرة المشروع على النمو السريع وتغطية أسواق واسعة بتكاليف تشغيلية متحكم فيها.<br>
+3. <strong>نضج النموذج الأولي (Prototype / MVP):</strong> وجود نموذج أولي وظيفي قابل للاختبار وليس مجرد تصور نظري.<br>
+4. <strong>جدوى نموذج العمل (Business Model):</strong> وضوح السوق المستهدفة، القيمة المقترحة، ومصادر الإيرادات.<br>
+5. <strong>كفاءة الفريق:</strong> تكامل المؤهلات العلمية والتقنية والتسييرية لأعضاء الفريق المؤسس.`,
               fr: `Le comité national évalue les dossiers selon 5 critères essentiels :<br><br>
-                   1. <strong>Degré d'innovation :</strong> Offrir un produit, service ou procédé nouveau ou technologiquement amélioré (ou breveté).<br>
-                   2. <strong>Potentiel de croissance (Scalabilité) :</strong> Capacité d'expansion rapide sur le marché.<br>
-                   3. <strong>Maturité du prototype (MVP) :</strong> Présentation d'un prototype fonctionnel ou d'une preuve de concept.<br>
-                   4. <strong>Viabilité du Business Model :</strong> Clarté du marché cible, de la proposition de valeur et des revenus.<br>
-                   5. <strong>Compétence de l'équipe :</strong> Complémentarité des profils techniques et managériaux des fondateurs.`,
+1. <strong>Degré d'innovation :</strong> Offrir un produit, service ou procédé nouveau ou technologiquement amélioré (ou breveté).<br>
+2. <strong>Potentiel de croissance (Scalabilité) :</strong> Capacité d'expansion rapide sur le marché.<br>
+3. <strong>Maturité du prototype (MVP) :</strong> Présentation d'un prototype fonctionnel ou d'une preuve de concept.<br>
+4. <strong>Viabilité du Business Model :</strong> Clarté du marché cible, de la proposition de valeur et des revenus.<br>
+5. <strong>Compétence de l'équipe :</strong> Complémentarité des profils techniques et managériaux des fondateurs.`,
               en: `The national committee evaluates applications based on 5 key criteria:<br><br>
-                   1. <strong>Degree of Innovation:</strong> Offering a new or significantly improved product, service, or process (or registered patent).<br>
-                   2. <strong>Scalability:</strong> Strong potential for rapid growth and wide market reach.<br>
-                   3. <strong>Prototype Maturity (MVP):</strong> Having a functional prototype or validated Proof of Concept rather than just an idea.<br>
-                   4. <strong>Business Model Viability:</strong> Clear target market, value proposition, and revenue streams.<br>
-                   5. <strong>Team Competence:</strong> Complementary technical, scientific, and business skills among founders.`
+1. <strong>Degree of Innovation:</strong> Offering a new or significantly improved product, service, or process (or registered patent).<br>
+2. <strong>Scalability:</strong> Strong potential for rapid growth and wide market reach.<br>
+3. <strong>Prototype Maturity (MVP):</strong> Having a functional prototype or validated Proof of Concept rather than just an idea.<br>
+4. <strong>Business Model Viability:</strong> Clear target market, value proposition, and revenue streams.<br>
+5. <strong>Team Competence:</strong> Complementary technical, scientific, and business skills among founders.`
             }
           },
           {
@@ -537,27 +669,27 @@
             answer: {
               ar: `يتم إيداع الملف رقمياً بالكامل عبر البوابة الوطنية للمؤسسات الناشئة <strong>(startup.dz)</strong> بعد مراجعته لدى حاضنة USTHB.<br><br>
                    <strong>أبرز الامتيازات الممنوحة:</strong><br>
-                   • الأولوية في الحصول على التمويل العمومي (مثل الصندوق الجزائري لتمويل المؤسسات الناشئة ASF).<br>
-                   • الإعفاءات الضريبية وشبه الجبائية (TAP و IBS/IRG لمدة تصل إلى 4 سنوات).<br>
-                   • التوطين والمرافقة المجانية أو بتكلفة رمزية داخل الحاضنات والمسرّعات.<br><br>
+- الأولوية في الحصول على التمويل العمومي (مثل الصندوق الجزائري لتمويل المؤسسات الناشئة ASF).<br>
+- الإعفاءات الضريبية وشبه الجبائية (TAP و IBS/IRG لمدة تصل إلى 4 سنوات).<br>
+- التوطين والمرافقة المجانية أو بتكلفة رمزية داخل الحاضنات والمسرّعات.<br><br>
                    <a href="https://startup.dz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                      <span>زيارة البوابة الوطنية الرسمية (startup.dz)</span>
                      <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                    </a>`,
               fr: `Le dépôt s'effectue entièrement en ligne sur le portail national officiel <strong>(startup.dz)</strong> après validation par l'incubateur USTHB.<br><br>
                    <strong>Principaux avantages :</strong><br>
-                   • Accès prioritaire aux financements publics (Algerian Startup Fund - ASF).<br>
-                   • Exonérations fiscales et parafiscales (TAP, IBS/IRG jusqu'à 4 ans).<br>
-                   • Hébergement et accélération au sein des incubateurs.<br><br>
+- Accès prioritaire aux financements publics (Algerian Startup Fund - ASF).<br>
+- Exonérations fiscales et parafiscales (TAP, IBS/IRG jusqu'à 4 ans).<br>
+- Hébergement et accélération au sein des incubateurs.<br><br>
                    <a href="https://startup.dz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                      <span>Accéder au portail national (startup.dz)</span>
                      <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                    </a>`,
               en: `Applications are submitted online via the official national startup portal <strong>(startup.dz)</strong> after review by USTHB Incubator.<br><br>
                    <strong>Key Benefits:</strong><br>
-                   • Priority access to public funding (Algerian Startup Fund - ASF).<br>
-                   • Tax and parafiscal exemptions (up to 4 years).<br>
-                   • Hosting and acceleration support within certified incubators.<br><br>
+- Priority access to public funding (Algerian Startup Fund - ASF).<br>
+- Tax and parafiscal exemptions (up to 4 years).<br>
+- Hosting and acceleration support within certified incubators.<br><br>
                    <a href="https://startup.dz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                      <span>Visit Official National Portal (startup.dz)</span>
                      <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
@@ -573,38 +705,38 @@
             },
             answer: {
               ar: `لإقناع لجنة التقييم أو لجنة منح العلامة (Label)، يُنصح بهيكلة العرض التقديمي في <strong>10 إلى 12 شريحة</strong> واضحة ومختصرة:<br><br>
-                   1. <strong>عنوان المشروع والشعار (Titre & Tagline):</strong> اسم المشروع ووصفه في جملة واحدة.<br>
-                   2. <strong>المشكلة (Problème):</strong> تحديد المشكلة الحقيقية التي يعاني منها الزبائن مدعومة بأرقام.<br>
-                   3. <strong>الحل المقترح والقيمة المضافة (Solution & Valeur):</strong> كيف يحل منتجك أو خدمتك هذه المشكلة بفعالية.<br>
-                   4. <strong>النموذج الأولي (Prototype / MVP):</strong> صور حقيقية أو لقطات شاشة توضح عمل المنتج.<br>
-                   5. <strong>حجم السوق (Taille du marché - TAM/SAM/SOM):</strong> الفئات المستهدفة وحجم الطلب.<br>
-                   6. <strong>نموذج العمل التجاري (Business Model):</strong> كيف سيحقق المشروع الأرباح (اشتراكات، بيع مباشر، عمولات...).<br>
-                   7. <strong>الميزة التنافسية (Concurrence & Avantage):</strong> مقارنة مع المنافسين وإبراز التفوق التقني.<br>
-                   8. <strong>استراتيجية التسويق والنمو (Go-to-Market):</strong> خطة الوصول للزبائن الأوائل.<br>
-                   9. <strong>التوقعات المالية (Prévisions financières):</strong> تقدير التكاليف والإيرادات لـ 3 سنوات.<br>
-                   10. <strong>فريق العمل والاحتياجات (Équipe & Besoins):</strong> كفاءات المؤسسين والتمويل أو المرافقة المطلوبة.`,
+1. <strong>عنوان المشروع والشعار (Titre & Tagline):</strong> اسم المشروع ووصفه في جملة واحدة.<br>
+2. <strong>المشكلة (Problème):</strong> تحديد المشكلة الحقيقية التي يعاني منها الزبائن مدعومة بأرقام.<br>
+3. <strong>الحل المقترح والقيمة المضافة (Solution & Valeur):</strong> كيف يحل منتجك أو خدمتك هذه المشكلة بفعالية.<br>
+4. <strong>النموذج الأولي (Prototype / MVP):</strong> صور حقيقية أو لقطات شاشة توضح عمل المنتج.<br>
+5. <strong>حجم السوق (Taille du marché - TAM/SAM/SOM):</strong> الفئات المستهدفة وحجم الطلب.<br>
+6. <strong>نموذج العمل التجاري (Business Model):</strong> كيف سيحقق المشروع الأرباح (اشتراكات، بيع مباشر، عمولات...).<br>
+7. <strong>الميزة التنافسية (Concurrence & Avantage):</strong> مقارنة مع المنافسين وإبراز التفوق التقني.<br>
+8. <strong>استراتيجية التسويق والنمو (Go-to-Market):</strong> خطة الوصول للزبائن الأوائل.<br>
+9. <strong>التوقعات المالية (Prévisions financières):</strong> تقدير التكاليف والإيرادات لـ 3 سنوات.<br>
+10. <strong>فريق العمل والاحتياجات (Équipe & Besoins):</strong> كفاءات المؤسسين والتمويل أو المرافقة المطلوبة.`,
               fr: `Pour convaincre le jury ou le comité de labellisation, structurez votre Pitch Deck en <strong>10 à 12 diapositives</strong> percutantes :<br><br>
-                   1. <strong>Titre & Accroche :</strong> Nom du projet et proposition de valeur en une phrase.<br>
-                   2. <strong>Problème :</strong> Le besoin réel du marché appuyé par des chiffres.<br>
-                   3. <strong>Solution & Valeur ajoutée :</strong> Comment votre innovation résout le problème.<br>
-                   4. <strong>Prototype / MVP :</strong> Visuels ou démonstration du produit fonctionnel.<br>
-                   5. <strong>Marché cible (TAM/SAM/SOM) :</strong> Segmentation et potentiel de croissance.<br>
-                   6. <strong>Modèle économique (Business Model) :</strong> Sources de revenus et tarification.<br>
-                   7. <strong>Avantage concurrentiel :</strong> Positionnement face aux concurrents.<br>
-                   8. <strong>Stratégie commerciale :</strong> Plan d'acquisition des premiers clients.<br>
-                   9. <strong>Prévisions financières :</strong> Projections sur 3 ans.<br>
-                   10. <strong>Équipe & Besoins :</strong> Compétences des fondateurs et ressources recherchées.`,
+1. <strong>Titre & Accroche :</strong> Nom du projet et proposition de valeur en une phrase.<br>
+2. <strong>Problème :</strong> Le besoin réel du marché appuyé par des chiffres.<br>
+3. <strong>Solution & Valeur ajoutée :</strong> Comment votre innovation résout le problème.<br>
+4. <strong>Prototype / MVP :</strong> Visuels ou démonstration du produit fonctionnel.<br>
+5. <strong>Marché cible (TAM/SAM/SOM) :</strong> Segmentation et potentiel de croissance.<br>
+6. <strong>Modèle économique (Business Model) :</strong> Sources de revenus et tarification.<br>
+7. <strong>Avantage concurrentiel :</strong> Positionnement face aux concurrents.<br>
+8. <strong>Stratégie commerciale :</strong> Plan d'acquisition des premiers clients.<br>
+9. <strong>Prévisions financières :</strong> Projections sur 3 ans.<br>
+10. <strong>Équipe & Besoins :</strong> Compétences des fondateurs et ressources recherchées.`,
               en: `To convince the evaluation jury or Label committee, structure your Pitch Deck into <strong>10 to 12 concise slides</strong>:<br><br>
-                   1. <strong>Title & Tagline:</strong> Project name and one-sentence value proposition.<br>
-                   2. <strong>Problem:</strong> The real market pain point backed by data.<br>
-                   3. <strong>Solution & Value Proposition:</strong> How your innovation effectively solves the problem.<br>
-                   4. <strong>Prototype / MVP:</strong> Real photos or screenshots of your working prototype.<br>
-                   5. <strong>Market Size (TAM/SAM/SOM):</strong> Target segments and growth potential.<br>
-                   6. <strong>Business Model:</strong> How the project generates revenue.<br>
-                   7. <strong>Competitive Advantage:</strong> Comparison with competitors and unique tech edge.<br>
-                   8. <strong>Go-to-Market Strategy:</strong> Plan to acquire early adopters.<br>
-                   9. <strong>Financial Projections:</strong> 3-year revenue and cost estimates.<br>
-                   10. <strong>Team & Ask:</strong> Founders' expertise and funding/mentoring needs.`
+1. <strong>Title & Tagline:</strong> Project name and one-sentence value proposition.<br>
+2. <strong>Problem:</strong> The real market pain point backed by data.<br>
+3. <strong>Solution & Value Proposition:</strong> How your innovation effectively solves the problem.<br>
+4. <strong>Prototype / MVP:</strong> Real photos or screenshots of your working prototype.<br>
+5. <strong>Market Size (TAM/SAM/SOM):</strong> Target segments and growth potential.<br>
+6. <strong>Business Model:</strong> How the project generates revenue.<br>
+7. <strong>Competitive Advantage:</strong> Comparison with competitors and unique tech edge.<br>
+8. <strong>Go-to-Market Strategy:</strong> Plan to acquire early adopters.<br>
+9. <strong>Financial Projections:</strong> 3-year revenue and cost estimates.<br>
+10. <strong>Team & Ask:</strong> Founders' expertise and funding/mentoring needs.`
             }
           },
           {
@@ -616,21 +748,21 @@
             },
             answer: {
               ar: `• <strong>إبراز القيمة الابتكارية بوضوح:</strong> تجنب المشاريع التجارية الكلاسيكية ما لم تتضمن تقنية جديدة أو ميزة تنافسية فريدة.<br>
-                   • <strong>إرفاق فيديو توضيحي للنموذج الأولي:</strong> تصوير فيديو قصير (1-2 دقيقة) يبرهن على عمل النموذج الأولي فعلياً.<br>
-                   • <strong>مراجعة العرض التقديمي لدى الحاضنة:</strong> الاستفادة من خدمة تصحيح <strong>BMC & Pitch</strong> في حاضنة USTHB قبل الإيداع الرسمي على البوابة الوطنية.`,
+- <strong>إرفاق فيديو توضيحي للنموذج الأولي:</strong> تصوير فيديو قصير (1-2 دقيقة) يبرهن على عمل النموذج الأولي فعلياً.<br>
+- <strong>مراجعة العرض التقديمي لدى الحاضنة:</strong> الاستفادة من خدمة تصحيح <strong>BMC & Pitch</strong> في حاضنة USTHB قبل الإيداع الرسمي على البوابة الوطنية.`,
               fr: `• <strong>Mettre en avant l'innovation :</strong> Éviter les projets purement commerciaux classiques sans valeur ajoutée technologique.<br>
-                   • <strong>Joindre une vidéo démonstrative :</strong> Fournir une courte vidéo (1 à 2 min) montrant le prototype fonctionnel.<br>
-                   • <strong>Faire relire le dossier à l'incubateur :</strong> Profiter du service de correction <strong>BMC & Pitch</strong> à l'incubateur USTHB avant le dépôt officiel.`,
+- <strong>Joindre une vidéo démonstrative :</strong> Fournir une courte vidéo (1 à 2 min) montrant le prototype fonctionnel.<br>
+- <strong>Faire relire le dossier à l'incubateur :</strong> Profiter du service de correction <strong>BMC & Pitch</strong> à l'incubateur USTHB avant le dépôt officiel.`,
               en: `• <strong>Highlight Core Innovation:</strong> Avoid purely traditional commercial models without clear technological differentiation.<br>
-                   • <strong>Include a Demo Video:</strong> Attach a short video (1–2 mins) showing the working prototype in action.<br>
-                   • <strong>Review with the Incubator:</strong> Use the <strong>BMC & Pitch</strong> review service at USTHB Incubator before official submission.`
+- <strong>Include a Demo Video:</strong> Attach a short video (1–2 mins) showing the working prototype in action.<br>
+- <strong>Review with the Incubator:</strong> Use the <strong>BMC & Pitch</strong> review service at USTHB Incubator before official submission.`
             }
           }
         ]
       },
       {
         id: "cat-incubateur",
-		img: "images/logo-incubateur.png",
+        img: "images/logo-incubateur.png",
         icon: "rocket",
         headerColor: "from-blue-900/90 to-blue-800/80",
         shortLabel: { ar: "الحاضنة TECHINNOV", fr: "Incubateur TECHINNOV", en: "TECHINNOV Incubator" },
@@ -675,7 +807,7 @@
       },
       {
         id: "cat-cati",
-		img: "images/logo-cati.png",
+        img: "images/logo-cati.png",
         icon: "shield-check",
         headerColor: "from-cyan-900/90 to-cyan-800/80",
         shortLabel: { ar: "مركز CATI", fr: "Centre CATI", en: "CATI Center" },
@@ -720,7 +852,7 @@
       },
       {
         id: "cat-cde",
-		img: "images/logo-cde.png",
+        img: "images/logo-cde.png",
         icon: "briefcase",
         headerColor: "from-orange-900/90 to-amber-800/80",
         shortLabel: { ar: "مركز CDE", fr: "Centre CDE", en: "CDE Center" },
@@ -765,7 +897,7 @@
       },
       {
         id: "cat-guichet",
-		img: "images/logo-guichet.png",
+        img: "images/logo-guichet.png",
         icon: "door-open",
         headerColor: "from-emerald-900/90 to-emerald-800/80",
         shortLabel: { ar: "الشباك الموحد", fr: "Guichet Unique", en: "One-Stop Shop" },
@@ -810,7 +942,7 @@
       },
       {
         id: "cat-nesda",
-		img: "images/logo-nesda.png",
+        img: "images/logo-nesda.png",
         icon: "landmark",
         headerColor: "from-purple-900/90 to-purple-800/80",
         shortLabel: { ar: "وكالة NESDA", fr: "Agence NESDA", en: "NESDA Agency" },
@@ -855,7 +987,6 @@
       }
     ];
 
-    // 4. دوال التبديل بين اللغات والعرض
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem("usthb_lang", lang);
@@ -865,7 +996,6 @@
       document.documentElement.dir = isAr ? "rtl" : "ltr";
       document.title = uiTranslations[lang].pageTitle;
 
-      // تحديث أزرار اللغات
       document.querySelectorAll(".lang-btn").forEach(btn => {
         btn.classList.remove("bg-white", "text-brand-primary");
         btn.classList.add("text-white");
@@ -876,7 +1006,6 @@
         activeBtn.classList.remove("text-white");
       }
 
-      // ضبط اتجاه أيقونة البحث والعودة
       const searchIconWrap = document.getElementById("searchIconWrap");
       const searchInput = document.getElementById("search-input");
       const clearBtn = document.getElementById("clear-search-btn");
@@ -886,15 +1015,14 @@
         searchIconWrap.className = "absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400";
         clearBtn.className = `absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer ${searchQuery ? '' : 'hidden'}`;
         searchInput.className = "w-full pr-11 pl-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent focus:bg-white transition-all text-slate-800 placeholder-slate-400";
-        backIcon.setAttribute("data-lucide", "arrow-right");
+        if (backIcon) backIcon.setAttribute("data-lucide", "arrow-right");
       } else {
         searchIconWrap.className = "absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400";
         clearBtn.className = `absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer ${searchQuery ? '' : 'hidden'}`;
         searchInput.className = "w-full pl-11 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent focus:bg-white transition-all text-slate-800 placeholder-slate-400";
-        backIcon.setAttribute("data-lucide", "arrow-left");
+        if (backIcon) backIcon.setAttribute("data-lucide", "arrow-left");
       }
 
-      // ترجمة عناصر الواجهة الثابتة
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
         if (uiTranslations[lang][key]) el.textContent = uiTranslations[lang][key];
@@ -903,6 +1031,11 @@
       document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
         const key = el.getAttribute("data-i18n-placeholder");
         if (uiTranslations[lang][key]) el.placeholder = uiTranslations[lang][key];
+      });
+
+      // تحديث روابط القائمة المنسدلة باللغة الجديدة فوراً
+      document.querySelectorAll("a[data-nav-page]").forEach(link => {
+        link.href = `${link.getAttribute("data-nav-page")}?lang=${lang}`;
       });
 
       renderTicker();
@@ -930,7 +1063,7 @@
           href="${card.url}" 
           target="_blank" 
           rel="noopener noreferrer"
-          class="group min-w-[135px] sm:min-w-0 bg-white/5 border border-white/10 rounded-xl p-2.5 sm:p-3 text-center hover:bg-white/10 ${card.borderColor} hover:scale-[1.02] transition-all flex flex-col items-center justify-between cursor-pointer shadow-xs"
+          class="group w-full bg-white/5 border border-white/10 rounded-xl p-2.5 sm:p-3 text-center hover:bg-white/10 ${card.borderColor} hover:scale-[1.02] transition-all flex flex-col items-center justify-between cursor-pointer shadow-xs"
         >
           <div class="w-10 h-10 sm:w-11 sm:h-11 mb-1.5 rounded-xl bg-white p-1 shadow-sm flex items-center justify-center overflow-hidden group-hover:ring-2 ${card.ringColor} transition-all shrink-0">
             <img src="${card.img}" alt="${card.title[currentLang]}" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
@@ -946,18 +1079,18 @@
       `).join("");
     }
 
-<!------------------logo devant le filtre categories----------->
-
-    function renderQuickLinks() {
+function renderQuickLinks() {
       const container = document.getElementById('category-quicklinks');
+      if (!container) return;
+
       container.innerHTML = ecosystemCategories.map(cat => `
-        <button onclick="scrollToCategory('${cat.id}')" class="whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-primary border border-slate-200 transition shrink-0 flex items-center gap-1.5 cursor-pointer">
+        <button onclick="scrollToCategory('${cat.id}')" class="w-full px-2 py-2.5 rounded-xl text-xs lg:text-[11px] font-semibold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-primary border border-slate-200 transition flex items-center justify-center gap-1.5 text-center leading-tight cursor-pointer">
           <img src="${cat.img}" alt="" class="w-4 h-4 object-contain shrink-0" />
           <span>${cat.shortLabel[currentLang]}</span>
         </button>
       `).join('');
     }
-	
+    
     function scrollToCategory(catId) {
       collapsedCategoryIds.delete(catId);
       renderAccordion();
@@ -989,12 +1122,9 @@
           <div id="cat-group-${category.id}" class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-300">
             <div class="p-4 sm:p-5 bg-gradient-to-r ${category.headerColor} text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div class="flex items-center gap-3.5">
-             
-			 <!------------------logo-categories------------------------->
-			   <div class="w-12 h-12 rounded-2xl bg-white p-1.5 shadow-sm flex items-center justify-center overflow-hidden shrink-0 border border-white/20">
+                <div class="w-12 h-12 rounded-2xl bg-white p-1.5 shadow-sm flex items-center justify-center overflow-hidden shrink-0 border border-white/20">
                   <img src="${category.img}" alt="Logo" class="w-full h-full object-contain" />
                 </div>
-				
                 <div>
                   <h3 class="font-bold text-sm sm:text-base text-white">${category.title[currentLang]}</h3>
                   <p class="text-[11px] text-blue-100/80 mt-0.5">${category.subtitle[currentLang]}</p>
@@ -1100,11 +1230,10 @@
       else renderAccordion();
     });
 
-    // تهيئة اللغة المحفوظة عند تحميل الصفحة
     setLanguage(currentLang);
-  </script>
-  
-  <!-- عداد زيارات متحرك في أسفل الصفحة -->
+</script>
+
+<!-- عداد زيارات متحرك في أسفل الصفحة -->
 <div id="floating-visitor-widget" class="fixed bottom-4 left-4 z-50 flex items-center gap-2.5 bg-slate-900/95 backdrop-blur-md text-white px-4 py-2.5 rounded-2xl shadow-xl border border-slate-700/80 transition-all duration-500 translate-y-10 opacity-0">
   <span class="relative flex h-2.5 w-2.5">
     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -1119,12 +1248,10 @@
     const widget = document.getElementById("floating-visitor-widget");
     const countEl = document.getElementById("animated-visit-count");
     
-    // إظهار الصندوق بحركة انسيابية للأعلى عند فتح الصفحة
     setTimeout(() => {
       widget.classList.remove("translate-y-10", "opacity-0");
     }, 300);
 
-    // جلب وزيادة عدد الزيارات الحقيقي تلقائياً
     fetch("https://api.counterapi.dev/v1/usthb-techinnov-faq/visits/up")
       .then(res => res.json())
       .then(data => {
@@ -1134,13 +1261,11 @@
         animateCounter(countEl, 0, 1, 1500);
       });
 
-    // دالة حركة العدّ التصاعدي السلس
     function animateCounter(element, start, end, duration) {
       let startTimestamp = null;
       const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        // تأثير تباطؤ طبيعي في نهاية العد
         const easeOut = 1 - Math.pow(1 - progress, 3);
         element.textContent = Math.floor(easeOut * (end - start) + start).toLocaleString();
         if (progress < 1) {
@@ -1152,9 +1277,7 @@
   });
 </script>
 
-<!-- زر العودة إلى أعلى الصفحة (في الزاوية السفلية اليمنى) -->
-<!-- زر العودة إلى أعلى الصفحة (مرفوع فوق شارة Netlify) -->
-
+<!-- زر العودة إلى أعلى الصفحة -->
 <button id="scroll-to-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" title="العودة إلى الأعلى" class="fixed bottom-16 right-4 z-50 w-11 h-11 rounded-2xl bg-blue-950 hover:bg-blue-800 text-white shadow-xl border border-blue-700/60 flex items-center justify-center transition-all duration-300 translate-y-10 opacity-0 pointer-events-none cursor-pointer group">
   <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
     <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
@@ -1162,7 +1285,6 @@
 </button>
 
 <script>
-  // إظهار وإخفاء زر العودة للأعلى تلقائياً عند التمرير
   window.addEventListener("scroll", () => {
     const scrollBtn = document.getElementById("scroll-to-top-btn");
     if (window.scrollY > 300) {
@@ -1172,6 +1294,6 @@
     }
   });
 </script>
-  
+
 </body>
 </html>

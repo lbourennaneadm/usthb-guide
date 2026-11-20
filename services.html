@@ -1,4 +1,4 @@
-<!-- services-maj-13-11-2026 -->
+<!-- services-maj-20-11-2026 -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -23,6 +23,9 @@
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col">
 
+  <!-- شريط التنقل الموحد -->
+  <div id="shared-navbar"></div>
+
   <!-- الشريط العلوي -->
   <header class="bg-gradient-to-l from-cyan-900 via-cyan-800 to-slate-900 text-white shadow-md">
     <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col lg:flex-row items-center justify-between gap-4">
@@ -39,24 +42,24 @@
       <!-- أزرار اللغات وزر العودة -->
       <div class="flex flex-wrap items-center justify-center gap-3">
         <div class="inline-flex items-center bg-white/10 p-1 rounded-xl border border-white/15 backdrop-blur-xs">
-          <button onclick="setLanguage('ar')" id="btn-ar" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors bg-white text-cyan-900">
+          <button onclick="setLanguage('ar')" id="btn-ar" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors bg-white text-cyan-900 cursor-pointer">
             العربية
           </button>
-          <button onclick="setLanguage('fr')" id="btn-fr" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10">
+          <button onclick="setLanguage('fr')" id="btn-fr" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10 cursor-pointer">
             FR
           </button>
-          <button onclick="setLanguage('en')" id="btn-en" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10">
+          <button onclick="setLanguage('en')" id="btn-en" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10 cursor-pointer">
             EN
           </button>
         </div>
 
-        <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors border border-white/15 backdrop-blur-xs">
-  <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4 text-cyan-300"></i>
-  <span data-i18n="backHomeBtn">العودة إلى الصفحة الرئيسية</span>
-</a>
-<a href="guide.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-cyan-900 hover:bg-cyan-50 text-xs sm:text-sm font-bold transition-colors shadow-xs">
-          <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4"></i>
-          <span data-i18n="backBtn">العودة إلى دليل الحاضنة (FAQ)</span>
+        <a href="index.html" data-nav-page="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors border border-white/15 backdrop-blur-xs">
+          <i class="back-arrow-icon w-4 h-4 text-cyan-300" data-lucide="arrow-right"></i>
+          <span data-i18n="backHomeBtn">العودة إلى الصفحة الرئيسية</span>
+        </a>
+        <a href="guide.html" data-nav-page="guide.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-cyan-900 hover:bg-cyan-50 text-xs sm:text-sm font-bold transition-colors shadow-xs">
+          <i class="back-arrow-icon w-4 h-4" data-lucide="arrow-right"></i>
+          <span data-i18n="backBtn">العودة إلى دليل الحاضنة (1275)</span>
         </a>
       </div>
     </div>
@@ -110,20 +113,132 @@
   <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800">
     <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
       <p data-i18n="footerCopy">© 2026 حاضنة أعمال جامعة هواري بومدين للعلوم والتكنولوجيا (TechInnov - USTHB)</p>
-      <a href="index.html" data-i18n="footerLink" class="text-cyan-400 hover:underline">الرجوع إلى الصفحة الرئيسية</a>
+      <a href="index.html" data-nav-page="index.html" data-i18n="footerLink" class="text-cyan-400 hover:underline">الرجوع إلى الصفحة الرئيسية</a>
     </div>
   </footer>
 
+  <!-- كود شريط التنقل الموحد مع حفظ اللغة عند الانتقال -->
   <script>
-    let currentLang = localStorage.getItem("usthb_lang") || "ar";
+    function initSharedNavbar() {
+      const navContainer = document.getElementById("shared-navbar");
+      if (!navContainer) return;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const savedLang = urlParams.get("lang") || localStorage.getItem("usthb_lang") || "ar";
+      localStorage.setItem("usthb_lang", savedLang);
+
+      const currentPage = window.location.pathname.split("/").pop() || "services.html";
+
+      const navTexts = {
+        ar: {
+          navTitle: "روابط الرقمية لحاضنة USTHB-TECHINNOV",
+          menuLabel: "القائمة",
+          navHome: "الرئيسية (FAQ)",
+          navServices: "المرافق والهيئات",
+          navGuide: "دليل الحاضنة 1275"
+        },
+        fr: {
+          navTitle: "Liens numériques de l'incubateur USTHB-TECHINNOV",
+          menuLabel: "Menu",
+          navHome: "Accueil (FAQ)",
+          navServices: "Services & Dispositifs",
+          navGuide: "Guide Incubateur 1275"
+        },
+        en: {
+          navTitle: "Digital Links of USTHB-TECHINNOV Incubator",
+          menuLabel: "Menu",
+          navHome: "Home (FAQ)",
+          navServices: "Services & Entities",
+          navGuide: "Incubator Guide 1275"
+        }
+      };
+
+      const t = navTexts[savedLang] || navTexts.ar;
+
+      const getLinkClass = (pageName) => {
+        const isActive = currentPage === pageName;
+        return isActive
+          ? "block px-3.5 py-2.5 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/30 font-bold"
+          : "block px-3.5 py-2.5 rounded-xl hover:bg-white/10 transition-colors";
+      };
+
+      const buildUrl = (page) => `${page}?lang=${localStorage.getItem("usthb_lang") || savedLang}`;
+
+      navContainer.innerHTML = `
+        <nav class="relative bg-slate-900 border-b border-white/15 text-white z-50 shadow-lg">
+          <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <button id="mobile-menu-btn" aria-label="Menu" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors cursor-pointer focus:outline-none">
+              <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span data-i18n="menuLabel">${t.menuLabel}</span>
+            </button>
+
+            <a href="https://www.digitalagencey.com/techinnov" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 font-bold text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition-colors">
+              <i data-lucide="globe" class="w-4 h-4 shrink-0"></i>
+              <span data-i18n="navTitle">${t.navTitle}</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-80 shrink-0"></i>
+            </a>
+          </div>
+
+          <div id="mobile-menu-dropdown" class="hidden absolute top-full inset-x-0 md:inset-x-auto md:start-4 md:w-72 md:mt-2 md:rounded-2xl bg-slate-900 border border-slate-700 px-3 py-3 space-y-1.5 text-xs font-semibold shadow-2xl z-50">
+            <a href="${buildUrl('index.html')}" data-nav-page="index.html" data-i18n="navHome" class="${getLinkClass('index.html')}">${t.navHome}</a>
+            <a href="${buildUrl('services.html')}" data-nav-page="services.html" data-i18n="navServices" class="${getLinkClass('services.html')}">${t.navServices}</a>
+            <a href="${buildUrl('guide.html')}" data-nav-page="guide.html" data-i18n="navGuide" class="${getLinkClass('guide.html')}">${t.navGuide}</a>
+          </div>
+        </nav>
+      `;
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+
+      const btn = document.getElementById("mobile-menu-btn");
+      const menu = document.getElementById("mobile-menu-dropdown");
+      const iconOpen = document.getElementById("menu-icon-open");
+      const iconClose = document.getElementById("menu-icon-close");
+
+      const toggleMenu = () => {
+        menu.classList.toggle("hidden");
+        iconOpen.classList.toggle("hidden");
+        iconClose.classList.toggle("hidden");
+      };
+
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!menu.contains(e.target) && !btn.contains(e.target) && !menu.classList.contains("hidden")) {
+          toggleMenu();
+        }
+      });
+    }
+
+    initSharedNavbar();
+  </script>
+
+  <script>
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    let currentLang = urlLang || localStorage.getItem("usthb_lang") || "ar";
 
     // 1. قاموس الواجهة الثابتة
     const uiTranslations = {
       ar: {
         pageTitle: "المصالح المرافقة وممثلو الكليات (1275) - جامعة USTHB",
+        navTitle: "روابط الرقمية لحاضنة USTHB-TECHINNOV",
+        menuLabel: "القائمة",
+        navHome: "الرئيسية (FAQ)",
+        navServices: "المرافق والهيئات",
+        navGuide: "دليل الحاضنة 1275",
         headerTitle: "المصالح المرافقة وممثلو الكليات (1275)",
         headerSubtitle: "جامعة هواري بومدين للعلوم والتكنولوجيا (USTHB)",
-        backBtn: "العودة إلى دليل الحاضنة (FAQ)",
+        backHomeBtn: "العودة إلى الصفحة الرئيسية",
+        backBtn: "العودة إلى دليل الحاضنة (1275)",
         searchPlaceholder: "ابحث عن مصلحة (CATI, CDE, NESDA...) أو اسم كلية...",
         servicesSectionTitle: "الهيئات والمصالح المرافقة داخل الجامعة",
         facultiesSectionTitle: "ممثلو لجنة القرار 1275 عبر الكليات (9 كليات)",
@@ -134,9 +249,15 @@
       },
       fr: {
         pageTitle: "Services d'accompagnement & Représentants des Facultés (1275) - USTHB",
+        navTitle: "Liens numériques de l'incubateur USTHB-TECHINNOV",
+        menuLabel: "Menu",
+        navHome: "Accueil (FAQ)",
+        navServices: "Services & Dispositifs",
+        navGuide: "Guide Incubateur 1275",
         headerTitle: "Services d'accompagnement & Facultés (1275)",
         headerSubtitle: "Université des Sciences et de la Technologie Houari Boumediene (USTHB)",
-        backBtn: "Retour au guide FAQ",
+        backHomeBtn: "Retour à l'accueil (FAQ)",
+        backBtn: "Retour au guide Incubateur 1275",
         searchPlaceholder: "Rechercher un service (CATI, CDE, NESDA...) ou une faculté...",
         servicesSectionTitle: "Structures et services d'accompagnement au sein de l'université",
         facultiesSectionTitle: "Représentants de la commission 1275 par faculté (9 Facultés)",
@@ -147,9 +268,15 @@
       },
       en: {
         pageTitle: "Support Services & Faculty Representatives (Decree 1275) - USTHB",
+        navTitle: "Digital Links of USTHB-TECHINNOV Incubator",
+        menuLabel: "Menu",
+        navHome: "Home (FAQ)",
+        navServices: "Services & Entities",
+        navGuide: "Incubator Guide 1275",
         headerTitle: "Support Services & Faculties (1275)",
         headerSubtitle: "University of Sciences and Technology Houari Boumediene (USTHB)",
-        backBtn: "Back to FAQ Guide",
+        backHomeBtn: "Back to Home (FAQ)",
+        backBtn: "Back to Incubator Guide 1275",
         searchPlaceholder: "Search for a service (CATI, CDE, NESDA...) or faculty...",
         servicesSectionTitle: "Support Bodies & Services within the University",
         facultiesSectionTitle: "Decree 1275 Committee Representatives (9 Faculties)",
@@ -164,7 +291,7 @@
     const supportServices = [
       {
         id: "guichet-unique",
-		img: "images/logo-guichet.png",
+        img: "images/logo-guichet.png",
         acronym: "Guichet Unique",
         icon: "door-open",
         title: {
@@ -207,7 +334,7 @@
       },
       {
         id: "cati",
-		img: "images/logo-cati.png",
+        img: "images/logo-cati.png",
         acronym: "CATI",
         icon: "shield-check",
         title: {
@@ -243,14 +370,14 @@
           en: "USTHB (In coordination with the incubator and laboratories)"
         },
         contact: {
-           ar: "متاح خلال أوقات الاستقبال الرسمية",
+          ar: "متاح خلال أوقات الاستقبال الرسمية",
           fr: "Disponible durant les horaires officiels de réception",
           en: "Available during official reception hours"
         }
       },
       {
         id: "cde",
-		img: "images/logo-cde.png",
+        img: "images/logo-cde.png",
         acronym: "CDE",
         icon: "briefcase",
         title: {
@@ -293,7 +420,7 @@
       },
       {
         id: "nesda",
-		img: "images/logo-nesda.png",
+        img: "images/logo-nesda.png",
         acronym: "NESDA",
         icon: "landmark",
         title: {
@@ -355,8 +482,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-fgc@usthb.dz"
-		email: ""
+        email: ""
       },
       {
         code: "FGMGP",
@@ -375,8 +501,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-fgmgp@usthb.dz"
-		email: ""
+        email: ""
       },
       {
         code: "FEI",
@@ -395,8 +520,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-fge@usthb.dz"
-		email: ""
+        email: ""
       },
       {
         code: "FINFO",
@@ -415,8 +539,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-finfo@usthb.dz"
-		email: ""
+        email: ""
       },
       {
         code: "FMATH",
@@ -435,8 +558,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-fmath@usthb.dz"
-		email: ""
+        email: ""
       },
       {
         code: "FPHY",
@@ -455,8 +577,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-fphy@usthb.dz"
-		email: ""
+        email: ""
       },
       {
         code: "FCHIM",
@@ -475,8 +596,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-fchim@usthb.dz"
-		email: ""
+        email: ""
       },
       {
         code: "FSB",
@@ -495,8 +615,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-fsb@usthb.dz"
-		email: ""
+        email: ""
       },
       {
         code: "FSTGAT",
@@ -515,8 +634,7 @@
           fr: "Secrétariat de la Faculté / Service de la Graduation",
           en: "Faculty Secretariat / Undergraduate Office"
         },
-        //email: "rep-fstgat@usthb.dz"
-		email: ""
+        email: ""
       }
     ];
 
@@ -544,21 +662,21 @@
         activeBtn.classList.remove("text-white");
       }
 
-      // ضبط اتجاه أيقونة البحث والعودة حسب اللغة
+      // ضبط اتجاه أيقونة البحث وأسهم العودة حسب اللغة
       const searchIcon = document.getElementById("searchIcon");
-      const backIcon = document.getElementById("backIcon");
+      const backArrows = document.querySelectorAll(".back-arrow-icon");
       if (isAr) {
         searchIcon.classList.remove("left-4");
         searchIcon.classList.add("right-4");
         searchInput.classList.remove("pl-12", "pr-4");
         searchInput.classList.add("pr-12", "pl-4");
-        backIcon.setAttribute("data-lucide", "arrow-right");
+        backArrows.forEach(icon => icon.setAttribute("data-lucide", "arrow-right"));
       } else {
         searchIcon.classList.remove("right-4");
         searchIcon.classList.add("left-4");
         searchInput.classList.remove("pr-12", "pl-4");
         searchInput.classList.add("pl-12", "pr-4");
-        backIcon.setAttribute("data-lucide", "arrow-left");
+        backArrows.forEach(icon => icon.setAttribute("data-lucide", "arrow-left"));
       }
 
       // ترجمة عناصر الواجهة الثابتة
@@ -574,6 +692,11 @@
         if (uiTranslations[lang][key]) {
           el.placeholder = uiTranslations[lang][key];
         }
+      });
+
+      // تحديث جميع روابط التنقل لتحمل اللغة الجديدة
+      document.querySelectorAll("a[data-nav-page]").forEach(link => {
+        link.href = `${link.getAttribute("data-nav-page")}?lang=${lang}`;
       });
 
       renderContent(searchInput.value);
@@ -594,13 +717,9 @@
           <div>
             <div class="flex items-start justify-between gap-3 mb-3">
               <div class="flex items-center gap-3">
-               
-			   <!--------logo-services------------------------>
-			   
-			   <div class="w-10 h-10 rounded-xl bg-slate-50 p-1 flex items-center justify-center shrink-0 border border-slate-100 shadow-xs">
-               <img src="${s.img}" alt="Logo" class="w-full h-full object-contain" />
-               </div>
-			   
+                <div class="w-10 h-10 rounded-xl bg-slate-50 p-1 flex items-center justify-center shrink-0 border border-slate-100 shadow-xs">
+                  <img src="${s.img}" alt="Logo" class="w-full h-full object-contain" />
+                </div>
                 <div>
                   <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700">${s.acronym}</span>
                   <h3 class="text-base font-extrabold text-slate-900 leading-snug">${s.title[currentLang]}</h3>
@@ -657,10 +776,11 @@
               <i data-lucide="building-2" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
               <span>${f.office[currentLang]}</span>
             </div>
+            ${f.email ? `
             <div class="flex items-center gap-2 text-cyan-700 text-[11px]">
               <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i>
               <a href="mailto:${f.email}" class="hover:underline">${f.email}</a>
-            </div>
+            </div>` : ""}
           </div>
         </div>
       `).join("");
@@ -671,26 +791,26 @@
     searchInput.addEventListener("input", (e) => renderContent(e.target.value));
     setLanguage(currentLang);
   </script>
-  
-<!-- زر العودة إلى أعلى الصفحة (مرفوع فوق شارة Netlify) -->
-<button id="scroll-to-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" title="العودة إلى الأعلى" class="fixed bottom-16 right-4 z-50 w-11 h-11 rounded-2xl bg-blue-950 hover:bg-blue-800 text-white shadow-xl border border-blue-700/60 flex items-center justify-center transition-all duration-300 translate-y-10 opacity-0 pointer-events-none cursor-pointer group">
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-  </svg>
-</button>
 
-<script>
-  window.addEventListener("scroll", () => {
-    const scrollBtn = document.getElementById("scroll-to-top-btn");
-    if (scrollBtn) {
-      if (window.scrollY > 300) {
-        scrollBtn.classList.remove("translate-y-10", "opacity-0", "pointer-events-none");
-      } else {
-        scrollBtn.classList.add("translate-y-10", "opacity-0", "pointer-events-none");
+  <!-- زر العودة إلى أعلى الصفحة -->
+  <button id="scroll-to-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" title="العودة إلى الأعلى" class="fixed bottom-16 right-4 z-50 w-11 h-11 rounded-2xl bg-blue-950 hover:bg-blue-800 text-white shadow-xl border border-blue-700/60 flex items-center justify-center transition-all duration-300 translate-y-10 opacity-0 pointer-events-none cursor-pointer group">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      const scrollBtn = document.getElementById("scroll-to-top-btn");
+      if (scrollBtn) {
+        if (window.scrollY > 300) {
+          scrollBtn.classList.remove("translate-y-10", "opacity-0", "pointer-events-none");
+        } else {
+          scrollBtn.classList.add("translate-y-10", "opacity-0", "pointer-events-none");
+        }
       }
-    }
-  });
-</script>
+    });
+  </script>
 
 </body>
 </html>

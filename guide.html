@@ -1,4 +1,4 @@
-<!-- guide-incubateur-maj-13-11-2026 -->
+<!-- guide-incubateur-maj-20-11-2026 -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -16,6 +16,9 @@
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col">
 
+  <!-- شريط التنقل الموحد -->
+  <div id="shared-navbar"></div>
+
   <!-- الشريط العلوي -->
   <header class="bg-gradient-to-l from-cyan-900 via-cyan-800 to-slate-900 text-white shadow-md">
     <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col lg:flex-row items-center justify-between gap-4">
@@ -32,16 +35,16 @@
       <!-- أزرار اللغات وزر المصالح -->
       <div class="flex flex-wrap items-center justify-center gap-2.5">
         <div class="inline-flex items-center bg-white/10 p-1 rounded-xl border border-white/15 backdrop-blur-xs">
-          <button onclick="setLanguage('ar')" id="btn-ar" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors bg-white text-cyan-900">العربية</button>
-          <button onclick="setLanguage('fr')" id="btn-fr" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10">FR</button>
-          <button onclick="setLanguage('en')" id="btn-en" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10">EN</button>
+          <button onclick="setLanguage('ar')" id="btn-ar" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors bg-white text-cyan-900 cursor-pointer">العربية</button>
+          <button onclick="setLanguage('fr')" id="btn-fr" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10 cursor-pointer">FR</button>
+          <button onclick="setLanguage('en')" id="btn-en" class="lang-btn px-3 py-1 rounded-lg text-xs font-bold transition-colors text-white hover:bg-white/10 cursor-pointer">EN</button>
         </div>
 
-<a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors border border-white/15 backdrop-blur-xs">
-  <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4 text-cyan-300"></i>
-  <span data-i18n="backHomeBtn">العودة إلى الصفحة الرئيسية</span>
-</a>
-<a href="services.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-colors shadow-xs">
+        <a href="index.html" data-nav-page="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors border border-white/15 backdrop-blur-xs">
+          <i id="backIcon" data-lucide="arrow-right" class="w-4 h-4 text-cyan-300"></i>
+          <span data-i18n="backHomeBtn">العودة إلى الصفحة الرئيسية</span>
+        </a>
+        <a href="services.html" data-nav-page="services.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-colors shadow-xs">
           <i data-lucide="network" class="w-4 h-4"></i>
           <span data-i18n="servicesBtn">المصالح المرافقة والكليات (9)</span>
         </a>
@@ -59,7 +62,7 @@
         <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="ابحث عن خدمة، استمارة (BMC, Label, Prototypage...) أو سؤال..." class="w-full pr-12 pl-4 py-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs focus:outline-none focus:ring-2 focus:ring-cyan-600 text-sm" />
       </div>
     </div>
-
+	
     <!-- أزرار تصفية الفئات -->
     <div id="categoryTabs" class="flex flex-wrap items-center justify-center gap-2 mb-8"></div>
 
@@ -94,7 +97,7 @@
           <label data-i18n="labelQuestion" class="block text-xs font-bold text-slate-700 mb-1">نص السؤال أو الاستفسار</label>
           <textarea name="question" rows="3" required data-i18n-placeholder="phQuestion" placeholder="اكتب استفسارك بوضوح هنا..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-cyan-600"></textarea>
         </div>
-        <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
+        <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs cursor-pointer">
           <i data-lucide="send" class="w-3.5 h-3.5"></i>
           <span data-i18n="submitBtn">إرسال الاستفسار</span>
         </button>
@@ -117,7 +120,7 @@
           <span>•</span>
           <a href="https://www.digitalagencey.com/techinnov" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">TechInnov Portal</a>
           <span>•</span>
-          <a href="services.html" data-i18n="servicesBtn" class="text-emerald-400 hover:underline">المصالح المرافقة والكليات (9)</a>
+          <a href="services.html" data-nav-page="services.html" data-i18n="servicesBtn" class="text-emerald-400 hover:underline">المصالح المرافقة والكليات (9)</a>
         </div>
       </div>
 
@@ -126,7 +129,7 @@
         <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://usthb-guide.netlify.app/" alt="QR Code" class="w-16 h-16 rounded-lg bg-white p-1" />
         <div class="space-y-1.5">
           <p data-i18n="qrLabel" class="font-bold text-white text-[11px]">شارك الدليل عبر QR Code</p>
-          <button onclick="downloadQR()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-[11px] font-bold transition-colors">
+          <button onclick="downloadQR()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-[11px] font-bold transition-colors cursor-pointer">
             <i data-lucide="download" class="w-3.5 h-3.5"></i>
             <span data-i18n="qrDownload">تحميل PNG</span>
           </button>
@@ -134,15 +137,128 @@
       </div>
     </div>
   </footer>
-<script>
-    let currentLang = localStorage.getItem("usthb_lang") || "ar";
+
+  <!-- كود شريط التنقل الموحد مع حفظ اللغة عند الانتقال -->
+  <script>
+    function initSharedNavbar() {
+      const navContainer = document.getElementById("shared-navbar");
+      if (!navContainer) return;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const savedLang = urlParams.get("lang") || localStorage.getItem("usthb_lang") || "ar";
+      localStorage.setItem("usthb_lang", savedLang);
+
+      const currentPage = window.location.pathname.split("/").pop() || "guide.html";
+
+      const navTexts = {
+        ar: {
+          navTitle: "روابط الرقمية لحاضنة USTHB-TECHINNOV",
+          menuLabel: "القائمة",
+          navHome: "الرئيسية (FAQ)",
+          navServices: "المرافق والهيئات",
+          navGuide: "دليل الحاضنة 1275"
+        },
+        fr: {
+          navTitle: "Liens numériques de l'incubateur USTHB-TECHINNOV",
+          menuLabel: "Menu",
+          navHome: "Accueil (FAQ)",
+          navServices: "Services & Dispositifs",
+          navGuide: "Guide Incubateur 1275"
+        },
+        en: {
+          navTitle: "Digital Links of USTHB-TECHINNOV Incubator",
+          menuLabel: "Menu",
+          navHome: "Home (FAQ)",
+          navServices: "Services & Entities",
+          navGuide: "Incubator Guide 1275"
+        }
+      };
+
+      const t = navTexts[savedLang] || navTexts.ar;
+
+      const getLinkClass = (pageName) => {
+        const isActive = currentPage === pageName;
+        return isActive
+          ? "block px-3.5 py-2.5 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/30 font-bold"
+          : "block px-3.5 py-2.5 rounded-xl hover:bg-white/10 transition-colors";
+      };
+
+      const buildUrl = (page) => `${page}?lang=${localStorage.getItem("usthb_lang") || savedLang}`;
+
+      navContainer.innerHTML = `
+        <nav class="relative bg-slate-900 border-b border-white/15 text-white z-50 shadow-lg">
+          <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <button id="mobile-menu-btn" aria-label="Menu" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors cursor-pointer focus:outline-none">
+              <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span data-i18n="menuLabel">${t.menuLabel}</span>
+            </button>
+
+            <a href="https://www.digitalagencey.com/techinnov" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 font-bold text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition-colors">
+              <i data-lucide="globe" class="w-4 h-4 shrink-0"></i>
+              <span data-i18n="navTitle">${t.navTitle}</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-80 shrink-0"></i>
+            </a>
+          </div>
+
+          <div id="mobile-menu-dropdown" class="hidden absolute top-full inset-x-0 md:inset-x-auto md:start-4 md:w-72 md:mt-2 md:rounded-2xl bg-slate-900 border border-slate-700 px-3 py-3 space-y-1.5 text-xs font-semibold shadow-2xl z-50">
+            <a href="${buildUrl('index.html')}" data-nav-page="index.html" data-i18n="navHome" class="${getLinkClass('index.html')}">${t.navHome}</a>
+            <a href="${buildUrl('services.html')}" data-nav-page="services.html" data-i18n="navServices" class="${getLinkClass('services.html')}">${t.navServices}</a>
+            <a href="${buildUrl('guide.html')}" data-nav-page="guide.html" data-i18n="navGuide" class="${getLinkClass('guide.html')}">${t.navGuide}</a>
+          </div>
+        </nav>
+      `;
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+
+      const btn = document.getElementById("mobile-menu-btn");
+      const menu = document.getElementById("mobile-menu-dropdown");
+      const iconOpen = document.getElementById("menu-icon-open");
+      const iconClose = document.getElementById("menu-icon-close");
+
+      const toggleMenu = () => {
+        menu.classList.toggle("hidden");
+        iconOpen.classList.toggle("hidden");
+        iconClose.classList.toggle("hidden");
+      };
+
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!menu.contains(e.target) && !btn.contains(e.target) && !menu.classList.contains("hidden")) {
+          toggleMenu();
+        }
+      });
+    }
+
+    initSharedNavbar();
+  </script>
+
+  <script>
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    let currentLang = urlLang || localStorage.getItem("usthb_lang") || "ar";
     let activeCategory = "all";
 
     const uiTranslations = {
       ar: {
         pageTitle: "دليل حاضنة أعمال جامعة USTHB (قرار 1275/008)",
+        navTitle: "روابط الرقمية لحاضنة USTHB-TECHINNOV",
+        menuLabel: "القائمة",
+        navHome: "الرئيسية (FAQ)",
+        navServices: "المرافق والهيئات",
+        navGuide: "دليل الحاضنة 1275",
         headerTitle: "دليل حاضنة أعمال جامعة USTHB",
         headerSubtitle: "البوابة الرقمية للخدمات، الاستمارات والأسئلة الشائعة (قرار 1275 / 008)",
+        backHomeBtn: "العودة إلى الصفحة الرئيسية",
         servicesBtn: "المصالح المرافقة والكليات (9)",
         searchPlaceholder: "ابحث عن خدمة، استمارة (BMC, Label, Prototypage...) أو سؤال...",
         allCategories: "جميع الفئات",
@@ -163,8 +279,14 @@
       },
       fr: {
         pageTitle: "Guide de l'Incubateur USTHB (Arrêté 1275/008)",
+        navTitle: "Liens numériques de l'incubateur USTHB-TECHINNOV",
+        menuLabel: "Menu",
+        navHome: "Accueil (FAQ)",
+        navServices: "Services & Dispositifs",
+        navGuide: "Guide Incubateur 1275",
         headerTitle: "Guide de l'Incubateur USTHB",
         headerSubtitle: "Portail numérique des services, formulaires et FAQ (Arrêté 1275 / 008)",
+        backHomeBtn: "Retour à l'accueil (FAQ)",
         servicesBtn: "Services & Facultés (9)",
         searchPlaceholder: "Rechercher un service, formulaire (BMC, Label, Prototypage...) ou question...",
         allCategories: "Toutes les catégories",
@@ -185,8 +307,14 @@
       },
       en: {
         pageTitle: "USTHB Business Incubator Guide (Decree 1275/008)",
+        navTitle: "Digital Links of USTHB-TECHINNOV Incubator",
+        menuLabel: "Menu",
+        navHome: "Home (FAQ)",
+        navServices: "Services & Entities",
+        navGuide: "Incubator Guide 1275",
         headerTitle: "USTHB Business Incubator Guide",
         headerSubtitle: "Digital Portal for Services, Forms & FAQ (Decree 1275 / 008)",
+        backHomeBtn: "Back to Home (FAQ)",
         servicesBtn: "Support Services & Faculties (9)",
         searchPlaceholder: "Search for a service, form (BMC, Label, Prototypage...) or question...",
         allCategories: "All Categories",
@@ -228,8 +356,8 @@
               ar: `تبدأ رحلتك بالتسجيل الرسمي عبر البوابة الرقمية المخصصة للمشاريع المبتكرة (TechInnov - USTHB Incubateur) وإيداع بطاقة الفكرة الأولية:<br><br>
               <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
                 <strong>⚠️ ملاحظة هامة قبل التسجيل:</strong><br>
-                • يرجى كتابة <strong>الاسم واللقب باللغة العربية</strong> لجميع أعضاء المشروع مع الأساتذة المؤطرين (مثال: علام صارة، موسى إسلام...).<br>
-                • يرجى ذكر <strong>اسم المشروع</strong> (بأي لغة) وليس وصفه، لذا يُرجى اختيار اسم محدد لمشروعكم مسبقاً.
+- يرجى كتابة <strong>الاسم واللقب باللغة العربية</strong> لجميع أعضاء المشروع مع الأساتذة المؤطرين (مثال: علام صارة، موسى إسلام...).<br>
+- يرجى ذكر <strong>اسم المشروع</strong> (بأي لغة) وليس وصفه، لذا يُرجى اختيار اسم محدد لمشروعكم مسبقاً.
               </div>
               <a href="https://inscription-techinnov.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                 <span>منصة تسجيل المشاريع المبتكرة (Inscription TechInnov)</span>
@@ -238,8 +366,8 @@
               fr: `Votre parcours commence par l'inscription officielle sur la plateforme numérique dédiée aux projets innovants (TechInnov - USTHB Incubateur) :<br><br>
               <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
                 <strong>⚠️ Note importante avant l'inscription :</strong><br>
-                • Veuillez écrire les <strong>noms et prénoms en langue arabe</strong> de tous les membres du projet ainsi que des encadrants.<br>
-                • Veuillez indiquer le <strong>nom du projet</strong> (peu importe la langue) et non sa description.
+- Veuillez écrire les <strong>noms et prénoms en langue arabe</strong> de tous les membres du projet ainsi que des encadrants.<br>
+- Veuillez indiquer le <strong>nom du projet</strong> (peu importe la langue) et non sa description.
               </div>
               <a href="https://inscription-techinnov.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                 <span>Plateforme d'inscription (Inscription TechInnov)</span>
@@ -248,8 +376,8 @@
               en: `Your journey starts with official registration on the digital platform dedicated to innovative projects (TechInnov - USTHB Incubator):<br><br>
               <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
                 <strong>⚠️ Important Note before registering:</strong><br>
-                • Please write the <strong>full names in Arabic</strong> for all project members and academic supervisors.<br>
-                • Please provide the <strong>project name</strong> (in any language) rather than a description.
+- Please write the <strong>full names in Arabic</strong> for all project members and academic supervisors.<br>
+- Please provide the <strong>project name</strong> (in any language) rather than a description.
               </div>
               <a href="https://inscription-techinnov.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                 <span>Project Registration Platform (Inscription TechInnov)</span>
@@ -293,8 +421,8 @@
               ar: `يمكن للطلبة المسجلين والمرافقين لدى حاضنة أعمال جامعة USTHB تقديم طلب الحصول على شهادة الاحتضان الرسمية عبر ملء الاستمارة الرقمية التالية:<br><br>
               <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
                 <strong>⚠️ ملاحظة هامة لتفادي رفض الطلب:</strong><br>
-                • يرجى كتابة <strong>الاسم واللقب باللغة العربية</strong> لجميع أعضاء المشروع مع الأساتذة المؤطرين (مثال: علام صارة، موسى إسلام...).<br>
-                • يرجى ذكر <strong>اسم المشروع</strong> فقط (بأي لغة) وليس وصفه.
+- يرجى كتابة <strong>الاسم واللقب باللغة العربية</strong> لجميع أعضاء المشروع مع الأساتذة المؤطرين (مثال: علام صارة، موسى إسلام...).<br>
+- يرجى ذكر <strong>اسم المشروع</strong> فقط (بأي لغة) وليس وصفه.
               </div>
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSekGUEoX8mH0RzPc-rMcmHRAp-2TwQpeEW7iRu_233ulalCpw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                 <span>طلب شهادة الاحتضان (Attestation d'incubation)</span>
@@ -303,8 +431,8 @@
               fr: `Les étudiants inscrits et accompagnés par l'incubateur USTHB peuvent demander leur attestation d'incubation officielle via le formulaire suivant :<br><br>
               <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
                 <strong>⚠️ Note importante :</strong><br>
-                • Veuillez écrire les <strong>noms et prénoms en arabe</strong> de tous les membres et encadrants.<br>
-                • Veuillez mentionner uniquement le <strong>nom du projet</strong> et non sa description.
+- Veuillez écrire les <strong>noms et prénoms en arabe</strong> de tous les membres et encadrants.<br>
+- Veuillez mentionner uniquement le <strong>nom du projet</strong> et non sa description.
               </div>
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSekGUEoX8mH0RzPc-rMcmHRAp-2TwQpeEW7iRu_233ulalCpw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                 <span>Demande d'attestation d'incubation</span>
@@ -313,8 +441,8 @@
               en: `Students registered and mentored at the USTHB Incubator can apply for their official incubation certificate via the following form:<br><br>
               <div class="p-3 mb-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
                 <strong>⚠️ Important Note:</strong><br>
-                • Please write the <strong>full names in Arabic</strong> for all team members and supervisors.<br>
-                • Please provide only the <strong>project name</strong> rather than its description.
+- Please write the <strong>full names in Arabic</strong> for all team members and supervisors.<br>
+- Please provide only the <strong>project name</strong> rather than its description.
               </div>
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSekGUEoX8mH0RzPc-rMcmHRAp-2TwQpeEW7iRu_233ulalCpw/viewform" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-bold transition-colors shadow-xs">
                 <span>Request Incubation Certificate</span>
@@ -491,23 +619,23 @@
             },
             answer: {
               ar: `تتولى حاضنة الأعمال مرافقة الطلبة حاملي المشاريع المبتكرة من مرحلة الفكرة إلى غاية إنشاء المؤسسة، وتشمل أبرز مهامها:<br><br>
-              • <strong>التوطين الإداري والمكتبي:</strong> توفير فضاءات عمل مجهزة (Start-up's Hall) ومقر اجتماعي للمشروع.<br>
-              • <strong>التدريب والتكوين المتخصص:</strong> ورشات في إعداد نموذج العمل التجاري (BMC)، التسويق، وفن العرض (Pitching).<br>
-              • <strong>المرافقة التقنية والنمذجة الأولية:</strong> ربط الطلبة بالمخابر والأرضيات التقنية (Ibtikar) لتطوير النماذج الأولية.<br>
-              • <strong>حماية الملكية الفكرية:</strong> التنسيق مع مركز دعم التكنولوجيا والابتكار (CATI) لتسجيل براءات الاختراع.<br>
-              • <strong>الوساطة والتمويل:</strong> التحضير للحصول على علامة "مشروع مبتكر" أو "مؤسسة ناشئة" والتواصل مع هيئات التمويل (NESDA، ASF).`,
+- <strong>التوطين الإداري والمكتبي:</strong> توفير فضاءات عمل مجهزة (Start-up's Hall) ومقر اجتماعي للمشروع.<br>
+- <strong>التدريب والتكوين المتخصص:</strong> ورشات في إعداد نموذج العمل التجاري (BMC)، التسويق، وفن العرض (Pitching).<br>
+- <strong>المرافقة التقنية والنمذجة الأولية:</strong> ربط الطلبة بالمخابر والأرضيات التقنية (Ibtikar) لتطوير النماذج الأولية.<br>
+- <strong>حماية الملكية الفكرية:</strong> التنسيق مع مركز دعم التكنولوجيا والابتكار (CATI) لتسجيل براءات الاختراع.<br>
+- <strong>الوساطة والتمويل:</strong> التحضير للحصول على علامة "مشروع مبتكر" أو "مؤسسة ناشئة" والتواصل مع هيئات التمويل (NESDA، ASF).`,
               fr: `L'incubateur accompagne les étudiants porteurs de projets innovants de l'idée jusqu'à la création de l'entreprise :<br><br>
-              • <strong>Domiciliation et espaces :</strong> Mise à disposition d'espaces équipés (Start-up's Hall).<br>
-              • <strong>Formation spécialisée :</strong> Ateliers sur le Business Model Canvas (BMC), marketing et Pitching.<br>
-              • <strong>Accompagnement technique :</strong> Accès aux laboratoires et plateaux techniques (Ibtikar) pour le prototypage.<br>
-              • <strong>Propriété intellectuelle :</strong> Coordination avec le centre CATI pour le dépôt de brevets.<br>
-              • <strong>Labellisation et financement :</strong> Préparation aux labels « Projet Innovant » / « Startup » et mise en relation avec NESDA et ASF.`,
+- <strong>Domiciliation et espaces :</strong> Mise à disposition d'espaces équipés (Start-up's Hall).<br>
+- <strong>Formation spécialisée :</strong> Ateliers sur le Business Model Canvas (BMC), marketing et Pitching.<br>
+- <strong>Accompagnement technique :</strong> Accès aux laboratoires et plateaux techniques (Ibtikar) pour le prototypage.<br>
+- <strong>Propriété intellectuelle :</strong> Coordination avec le centre CATI pour le dépôt de brevets.<br>
+- <strong>Labellisation et financement :</strong> Préparation aux labels « Projet Innovant » / « Startup » et mise en relation avec NESDA et ASF.`,
               en: `The incubator mentors students with innovative projects from the idea stage to company launch:<br><br>
-              • <strong>Workspace & Hosting:</strong> Providing equipped co-working spaces (Start-up's Hall).<br>
-              • <strong>Specialized Training:</strong> Workshops on Business Model Canvas (BMC), marketing, and Pitching.<br>
-              • <strong>Technical Mentoring:</strong> Connecting students with labs and technical platforms (Ibtikar) for prototyping.<br>
-              • <strong>Intellectual Property:</strong> Coordinating with CATI to file patents and trademarks.<br>
-              • <strong>Labeling & Funding:</strong> Preparing applications for "Innovative Project" / "Startup" labels and connecting with NESDA and ASF.`
+- <strong>Workspace & Hosting:</strong> Providing equipped co-working spaces (Start-up's Hall).<br>
+- <strong>Specialized Training:</strong> Workshops on Business Model Canvas (BMC), marketing, and Pitching.<br>
+- <strong>Technical Mentoring:</strong> Connecting students with labs and technical platforms (Ibtikar) for prototyping.<br>
+- <strong>Intellectual Property:</strong> Coordinating with CATI to file patents and trademarks.<br>
+- <strong>Labeling & Funding:</strong> Preparing applications for "Innovative Project" / "Startup" labels and connecting with NESDA and ASF.`
             }
           },
           {
@@ -581,16 +709,19 @@
       }
 
       const searchIcon = document.getElementById("searchIcon");
+      const backIcon = document.getElementById("backIcon");
       if (isAr) {
         searchIcon.classList.remove("left-4");
         searchIcon.classList.add("right-4");
         searchInput.classList.remove("pl-12", "pr-4");
         searchInput.classList.add("pr-12", "pl-4");
+        if (backIcon) backIcon.setAttribute("data-lucide", "arrow-right");
       } else {
         searchIcon.classList.remove("right-4");
         searchIcon.classList.add("left-4");
         searchInput.classList.remove("pr-12", "pl-4");
         searchInput.classList.add("pl-12", "pr-4");
+        if (backIcon) backIcon.setAttribute("data-lucide", "arrow-left");
       }
 
       document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -603,17 +734,22 @@
         if (uiTranslations[lang][key]) el.placeholder = uiTranslations[lang][key];
       });
 
+// تحديث جميع روابط التنقل لتحمل اللغة الجديدة
+      document.querySelectorAll("a[data-nav-page]").forEach(link => {
+        link.href = `${link.getAttribute("data-nav-page")}?lang=${lang}`;
+      });
+
       renderTabs();
       renderFAQ(searchInput.value);
     }
 
     function renderTabs() {
       const tabsHTML = [
-        `<button onclick="selectCategory('all')" class="px-4 py-2 rounded-xl text-xs font-bold transition-colors ${activeCategory === 'all' ? 'bg-cyan-700 text-white shadow-xs' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'}">
+        `<button onclick="selectCategory('all')" class="px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer ${activeCategory === 'all' ? 'bg-cyan-700 text-white shadow-xs' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'}">
           ${uiTranslations[currentLang].allCategories}
         </button>`,
         ...faqCategories.map(cat => `
-          <button onclick="selectCategory('${cat.id}')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${activeCategory === cat.id ? 'bg-cyan-700 text-white shadow-xs' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'}">
+          <button onclick="selectCategory('${cat.id}')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer ${activeCategory === cat.id ? 'bg-cyan-700 text-white shadow-xs' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'}">
             <i data-lucide="${cat.icon}" class="w-3.5 h-3.5"></i>
             <span>${cat.title[currentLang]}</span>
           </button>
@@ -663,7 +799,7 @@
               <div class="space-y-2.5">
                 ${filteredQuestions.map(item => `
                   <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
-                    <button onclick="toggleAccordion(${item.id})" class="w-full px-5 py-4 text-start flex items-center justify-between gap-4 hover:bg-slate-50/80 transition-colors">
+                    <button onclick="toggleAccordion(${item.id})" class="w-full px-5 py-4 text-start flex items-center justify-between gap-4 hover:bg-slate-50/80 transition-colors cursor-pointer">
                       <span class="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed">${item.question[currentLang]}</span>
                       <i id="icon-${item.id}" data-lucide="chevron-down" class="w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200"></i>
                     </button>
@@ -714,25 +850,25 @@
     setLanguage(currentLang);
   </script>
   
-<!-- زر العودة إلى أعلى الصفحة (مرفوع فوق شارة Netlify) -->
-<button id="scroll-to-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" title="العودة إلى الأعلى" class="fixed bottom-16 right-4 z-50 w-11 h-11 rounded-2xl bg-blue-950 hover:bg-blue-800 text-white shadow-xl border border-blue-700/60 flex items-center justify-center transition-all duration-300 translate-y-10 opacity-0 pointer-events-none cursor-pointer group">
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-  </svg>
-</button>
+  <!-- زر العودة إلى أعلى الصفحة (مرفوع فوق شارة Netlify) -->
+  <button id="scroll-to-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" title="العودة إلى الأعلى" class="fixed bottom-16 right-4 z-50 w-11 h-11 rounded-2xl bg-blue-950 hover:bg-blue-800 text-white shadow-xl border border-blue-700/60 flex items-center justify-center transition-all duration-300 translate-y-10 opacity-0 pointer-events-none cursor-pointer group">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
 
-<script>
-  window.addEventListener("scroll", () => {
-    const scrollBtn = document.getElementById("scroll-to-top-btn");
-    if (scrollBtn) {
-      if (window.scrollY > 300) {
-        scrollBtn.classList.remove("translate-y-10", "opacity-0", "pointer-events-none");
-      } else {
-        scrollBtn.classList.add("translate-y-10", "opacity-0", "pointer-events-none");
+  <script>
+    window.addEventListener("scroll", () => {
+      const scrollBtn = document.getElementById("scroll-to-top-btn");
+      if (scrollBtn) {
+        if (window.scrollY > 300) {
+          scrollBtn.classList.remove("translate-y-10", "opacity-0", "pointer-events-none");
+        } else {
+          scrollBtn.classList.add("translate-y-10", "opacity-0", "pointer-events-none");
+        }
       }
-    }
-  });
-</script>
+    });
+  </script>
 
 </body>
 </html>
